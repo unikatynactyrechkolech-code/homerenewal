@@ -5,6 +5,8 @@ import { routing } from "@/i18n/routing";
 import "@/app/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LoadingScreen from "@/components/LoadingScreen";
+import PageTransition from "@/components/PageTransition";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,8 +43,11 @@ export default async function LocaleLayout({
       </head>
       <body className="font-sans antialiased">
         <NextIntlClientProvider messages={messages}>
+          <LoadingScreen />
           <Header />
-          <main>{children}</main>
+          <PageTransition>
+            <main>{children}</main>
+          </PageTransition>
           <Footer />
         </NextIntlClientProvider>
       </body>
