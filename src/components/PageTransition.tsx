@@ -17,13 +17,8 @@ export default function PageTransition({
 }) {
   const pathname = usePathname();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [displayChildren, setDisplayChildren] = useState(children);
   const previousPathname = useRef(pathname);
   const isFirstRender = useRef(true);
-  const childrenRef = useRef(children);
-
-  // Always keep latest children in ref
-  childrenRef.current = children;
 
   useEffect(() => {
     // Skip transition on very first render
@@ -37,37 +32,26 @@ export default function PageTransition({
     if (previousPathname.current === pathname) return;
     previousPathname.current = pathname;
 
-    setIsTransitioning(true);
+    // Schedule state update to avoid synchronous setState in effect
+    const rafId = requestAnimationFrame(() => {
+      setIsTransitioning(true);
+      window.scrollTo({ top: 0 });
+    });
 
-    // Scroll to top during transition
-    window.scrollTo({ top: 0 });
-
-    // After curtain covers screen, swap to new page content
-    const swapTimer = setTimeout(() => {
-      setDisplayChildren(childrenRef.current);
-    }, 450);
-
-    // Then slide the curtain away to reveal new page
+    // Slide the curtain away after it covers the screen
     const revealTimer = setTimeout(() => {
       setIsTransitioning(false);
     }, 850);
 
     return () => {
-      clearTimeout(swapTimer);
+      cancelAnimationFrame(rafId);
       clearTimeout(revealTimer);
     };
   }, [pathname]);
 
-  // When not transitioning, always show the latest children
-  useEffect(() => {
-    if (!isTransitioning) {
-      setDisplayChildren(children);
-    }
-  }, [children, isTransitioning]);
-
   return (
     <>
-      {displayChildren}
+      {children}
 
       <AnimatePresence>
         {isTransitioning && (
