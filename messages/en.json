@@ -1,0 +1,309 @@
+{
+  "metadata": {
+    "title": "Home Renewal | Renovations & Real Estate",
+    "description": "Premium property renovations, real estate services and concrete screeds. We transform your space into modern living."
+  },
+  "nav": {
+    "home": "Home",
+    "renovations": "Renovations",
+    "realEstate": "Real Estate",
+    "developers": "For Developers",
+    "references": "References",
+    "concreteScreeds": "Concrete Screeds",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "HOME RENEWAL",
+    "title": "Transforming spaces into places you want to live",
+    "description": "Comprehensive renovations, real estate services and premium surface finishes. From vision to realization.",
+    "cta": "Learn More",
+    "ctaSecondary": "Our References"
+  },
+  "services": {
+    "label": "OUR SERVICES",
+    "title": "What we do for you",
+    "description": "We offer comprehensive solutions from renovations through real estate services to unique concrete screeds.",
+    "renovation": {
+      "title": "Property Renovations",
+      "description": "Complete transformation of apartments, houses and commercial spaces. From design to realization.",
+      "cta": "More about renovations"
+    },
+    "realEstate": {
+      "title": "Real Estate",
+      "description": "Professional real estate services — sales, purchases and consulting. We find the right property for you.",
+      "cta": "More about real estate"
+    },
+    "developers": {
+      "title": "For Developers",
+      "description": "Cooperation with development projects from study to final approval. A reliable partner for your projects.",
+      "cta": "Developer services"
+    },
+    "concreteScreeds": {
+      "title": "Concrete Screeds",
+      "description": "Premium concrete screeds for modern interiors. Unique appearance and high durability.",
+      "cta": "More about screeds"
+    }
+  },
+  "about": {
+    "label": "ABOUT US",
+    "title": "We build as if we wanted to live there ourselves",
+    "description": "We are a team of professionals focused on quality renovations and real estate services. We keep our word, deadlines and budget. Every project is managed by an architect, project manager and site supervisor.",
+    "stat1": { "value": "15+", "label": "years of experience" },
+    "stat2": { "value": "500+", "label": "completed projects" },
+    "stat3": { "value": "98%", "label": "satisfied clients" },
+    "stat4": { "value": "3 years", "label": "warranty on work" }
+  },
+  "process": {
+    "label": "HOW WE WORK",
+    "title": "Our Process",
+    "step1": { "title": "Consultation", "description": "We listen to your ideas and together design the optimal solution." },
+    "step2": { "title": "Design & Planning", "description": "Our architect prepares a complete design including visualizations and budget." },
+    "step3": { "title": "Realization", "description": "Site supervisor oversees quality and deadline compliance." },
+    "step4": { "title": "Handover", "description": "We deliver the finished project in agreed quality and on time." }
+  },
+  "references": {
+    "label": "REFERENCES",
+    "title": "Our Projects",
+    "description": "Take a look at selected projects we have completed for our clients.",
+    "cta": "View all references"
+  },
+  "cta": {
+    "title": "Have a project in mind?",
+    "description": "We'll be happy to help you with renovations, property sales or concrete screeds. Contact us and we'll figure it out together.",
+    "button": "Contact us",
+    "phone": "+420 XXX XXX XXX",
+    "email": "info@homerenewal.cz"
+  },
+  "footer": {
+    "description": "Premium renovations, real estate services and concrete screeds.",
+    "services": "Services",
+    "company": "Company",
+    "aboutUs": "About us",
+    "career": "Career",
+    "blog": "Blog",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "cookies": "Cookies",
+    "rights": "All rights reserved.",
+    "followUs": "Follow us"
+  },
+  "renovations": {
+    "hero": {
+      "label": "RENOVATIONS",
+      "title": "Complete Property Renovations",
+      "description": "We transform your apartment, house or commercial space into a modern place for living and working. From the first design to key handover."
+    },
+    "types": {
+      "title": "Types of Renovations",
+      "apartments": {
+        "title": "Apartment Renovations",
+        "description": "We can complete a full apartment renovation in as little as 4 weeks. We deliver the highest quality, always on time."
+      },
+      "houses": {
+        "title": "House Renovations",
+        "description": "Professional renovation of family houses. We breathe new life into your home and restore its beauty."
+      },
+      "commercial": {
+        "title": "Commercial Spaces",
+        "description": "Renovation of offices, shops and other commercial spaces with emphasis on functionality and design."
+      },
+      "attic": {
+        "title": "Attic Conversions",
+        "description": "We transform unused attic space into full-fledged living space with maximum use of space."
+      }
+    },
+    "works": {
+      "title": "What work we perform",
+      "items": [
+        "Architectural interior design",
+        "Demolition and dismantling works",
+        "Masonry and plastering",
+        "Electrical installations",
+        "Plumbing and drainage",
+        "Heating works",
+        "Flooring works",
+        "Tiling and cladding",
+        "Painting and decorating",
+        "Door and frame installation",
+        "Finishing works and cleanup"
+      ]
+    },
+    "cta": {
+      "title": "Considering a renovation?",
+      "description": "We'll be happy to help with planning and realization. Contact us for a free consultation.",
+      "button": "Free consultation"
+    }
+  },
+  "realEstate": {
+    "hero": {
+      "label": "REAL ESTATE",
+      "title": "Professional Real Estate Services",
+      "description": "Sale, purchase and property management. We are your reliable partner in the real estate market."
+    },
+    "services": {
+      "sale": {
+        "title": "Property Sales",
+        "description": "We sell your property quickly and at the best price. Strategic marketing and targeted approach to buyers."
+      },
+      "purchase": {
+        "title": "Property Purchase",
+        "description": "We find the ideal property for you based on your requirements. Access to exclusive listings."
+      },
+      "valuation": {
+        "title": "Property Valuation",
+        "description": "Professional market price estimation. Free consultation and market analysis."
+      },
+      "management": {
+        "title": "Property Management",
+        "description": "Complete management and maintenance of your properties. Maximize your rental income."
+      }
+    },
+    "cta": {
+      "title": "Looking for a property or selling?",
+      "description": "Our team of experienced professionals is here for you.",
+      "button": "Contact us"
+    }
+  },
+  "developers": {
+    "hero": {
+      "label": "FOR DEVELOPERS",
+      "title": "Partner for Your Development Projects",
+      "description": "We participate in development projects from study to final approval. A reliable partner with proven results."
+    },
+    "services": {
+      "consulting": {
+        "title": "Construction Consulting",
+        "description": "Expert advice in the construction industry. Cost and process optimization."
+      },
+      "realization": {
+        "title": "Project Realization",
+        "description": "Comprehensive implementation of development projects including subcontractor coordination."
+      },
+      "marketing": {
+        "title": "Marketing & Sales",
+        "description": "Marketing strategies and sales support for development projects."
+      }
+    },
+    "cta": {
+      "title": "Have a development project?",
+      "description": "We'd love to meet with you and discuss cooperation opportunities.",
+      "button": "Schedule a meeting"
+    }
+  },
+  "referencesPage": {
+    "hero": {
+      "label": "REFERENCES",
+      "title": "Our Projects Speak for Themselves",
+      "description": "Take a look at selected projects we have successfully completed. Quality and client satisfaction are our calling card."
+    },
+    "categories": {
+      "all": "All",
+      "apartments": "Apartments",
+      "houses": "Houses",
+      "commercial": "Commercial",
+      "concrete": "Concrete Screeds"
+    },
+    "projects": {
+      "project1": {
+        "title": "Apartment Renovation Prague 1",
+        "category": "Apartments",
+        "area": "85 m²",
+        "duration": "6 weeks"
+      },
+      "project2": {
+        "title": "Family House Černošice",
+        "category": "Houses",
+        "area": "220 m²",
+        "duration": "4 months"
+      },
+      "project3": {
+        "title": "Loft Prague 7",
+        "category": "Apartments",
+        "area": "120 m²",
+        "duration": "8 weeks"
+      },
+      "project4": {
+        "title": "Concrete Screeds — Showroom",
+        "category": "Concrete Screeds",
+        "area": "200 m²",
+        "duration": "2 weeks"
+      },
+      "project5": {
+        "title": "Office Space Karlín",
+        "category": "Commercial",
+        "area": "350 m²",
+        "duration": "3 months"
+      },
+      "project6": {
+        "title": "Penthouse Vinohrady",
+        "category": "Apartments",
+        "area": "180 m²",
+        "duration": "10 weeks"
+      }
+    }
+  },
+  "concreteScreeds": {
+    "hero": {
+      "label": "CONCRETE SCREEDS",
+      "title": "Premium Concrete Screeds",
+      "description": "Unique surface treatment for modern interiors and exteriors. Seamless, durable and aesthetically timeless."
+    },
+    "benefits": {
+      "title": "Why Concrete Screeds?",
+      "seamless": {
+        "title": "Seamless Surface",
+        "description": "No joints, no transitions. Clean minimalist look for your space."
+      },
+      "durable": {
+        "title": "High Durability",
+        "description": "Extremely resistant to wear, water and chemicals. Lifespan of decades."
+      },
+      "design": {
+        "title": "Design Flexibility",
+        "description": "Wide range of colors and textures. Every realization is a unique work of art."
+      },
+      "maintenance": {
+        "title": "Easy Maintenance",
+        "description": "Minimal maintenance requirements. Regular cleaning products are sufficient."
+      }
+    },
+    "applications": {
+      "title": "Where screeds can be used",
+      "items": ["Floors", "Walls", "Bathrooms", "Kitchens", "Stairs", "Facades", "Furniture", "Commercial spaces"]
+    },
+    "cta": {
+      "title": "Interested in concrete screeds?",
+      "description": "We'll be happy to prepare a non-binding custom quote for you.",
+      "button": "Get a quote"
+    }
+  },
+  "contact": {
+    "label": "CONTACT",
+    "title": "Get in touch",
+    "description": "We'll be happy to answer any questions.",
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service",
+      "selectService": "Select a service",
+      "serviceOptions": {
+        "renovation": "Renovations",
+        "realEstate": "Real Estate",
+        "concrete": "Concrete Screeds",
+        "developer": "Development Project",
+        "other": "Other"
+      },
+      "message": "Message",
+      "submit": "Send message",
+      "success": "Message sent. We'll get back to you as soon as possible."
+    },
+    "info": {
+      "address": "Prague, Czech Republic",
+      "phone": "+420 XXX XXX XXX",
+      "email": "info@homerenewal.cz",
+      "hours": "Mon—Fri: 8:00 AM — 6:00 PM"
+    }
+  }
+}
