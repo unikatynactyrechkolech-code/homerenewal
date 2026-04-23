@@ -8,11 +8,10 @@ import { Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
+  { key: "sell", href: "/chci-prodat", hrefEn: "/sell" },
+  { key: "buy", href: "/chci-koupit", hrefEn: "/buy" },
   { key: "renovations", href: "/rekonstrukce", hrefEn: "/renovations" },
-  { key: "realEstate", href: "/reality", hrefEn: "/real-estate" },
-  { key: "developers", href: "/developeri", hrefEn: "/developers" },
-  { key: "references", href: "/reference", hrefEn: "/references" },
-  { key: "concreteScreeds", href: "/betonove-sterky", hrefEn: "/concrete-screeds" },
+  { key: "about", href: "/o-nas", hrefEn: "/about" },
   { key: "contact", href: "/kontakt", hrefEn: "/contact" },
 ];
 

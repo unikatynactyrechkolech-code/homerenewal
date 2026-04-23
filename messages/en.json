@@ -1,86 +1,84 @@
 {
   "metadata": {
-    "title": "Home Renewal | Renovations & Real Estate",
-    "description": "Premium property renovations, real estate services and concrete screeds. We transform your space into modern living."
+    "title": "Home Renewal | Buy, sell and renovate properties",
+    "description": "Buying, selling and renovation under one roof. Property buy-outs, complete renovations and brokerage."
   },
   "nav": {
     "home": "Home",
-    "renovations": "Renovations",
-    "realEstate": "Real Estate",
-    "developers": "For Developers",
-    "references": "References",
-    "concreteScreeds": "Concrete Screeds",
+    "sell": "I want to sell",
+    "buy": "I want to buy",
+    "renovations": "Full renovation",
+    "about": "About us",
     "contact": "Contact"
   },
   "hero": {
     "subtitle": "HOME RENEWAL",
-    "title": "Transforming spaces into places you want to live",
-    "description": "Comprehensive renovations, real estate services and premium surface finishes. From vision to realization.",
-    "cta": "Learn More",
-    "ctaSecondary": "Our References"
+    "title": "Buy, sell and renovate — all in one place",
+    "description": "We buy your property, fully renovate it or broker the sale. Everything under one roof — without any worries on your side.",
+    "cta": "Free consultation",
+    "ctaSecondary": "Current listings"
   },
-  "services": {
-    "label": "OUR SERVICES",
-    "title": "What we do for you",
-    "description": "We offer comprehensive solutions from renovations through real estate services to unique concrete screeds.",
-    "renovation": {
-      "title": "Property Renovations",
-      "description": "Complete transformation of apartments, houses and commercial spaces. From design to realization.",
+  "sections": {
+    "label": "WHAT WE DO",
+    "title": "Three paths, one certainty",
+    "description": "Whether you want to sell, buy or renovate — we handle everything from A to Z.",
+    "sell": {
+      "title": "I want to sell",
+      "description": "Property buy-out, complete renovation with a follow-up sale, or brokerage. Pick the option that suits you best.",
+      "cta": "See sale options"
+    },
+    "buy": {
+      "title": "I want to buy",
+      "description": "Current listings of vetted properties, before/after showcases and financing support. We guide you through the entire process.",
+      "cta": "Browse listings"
+    },
+    "renovate": {
+      "title": "Full renovation",
+      "description": "We handle the whole process from A to Z. Our own team, premium standards and unique concrete screeds.",
       "cta": "More about renovations"
-    },
-    "realEstate": {
-      "title": "Real Estate",
-      "description": "Professional real estate services — sales, purchases and consulting. We find the right property for you.",
-      "cta": "More about real estate"
-    },
-    "developers": {
-      "title": "For Developers",
-      "description": "Cooperation with development projects from study to final approval. A reliable partner for your projects.",
-      "cta": "Developer services"
-    },
-    "concreteScreeds": {
-      "title": "Concrete Screeds",
-      "description": "Premium concrete screeds for modern interiors. Unique appearance and high durability.",
-      "cta": "More about screeds"
     }
-  },
-  "about": {
-    "label": "ABOUT US",
-    "title": "We build as if we wanted to live there ourselves",
-    "description": "We are a team of professionals focused on quality renovations and real estate services. We keep our word, deadlines and budget. Every project is managed by an architect, project manager and site supervisor.",
-    "stat1": { "value": "15+", "label": "years of experience" },
-    "stat2": { "value": "500+", "label": "completed projects" },
-    "stat3": { "value": "98%", "label": "satisfied clients" },
-    "stat4": { "value": "3 years", "label": "warranty on work" }
   },
   "process": {
     "label": "HOW WE WORK",
-    "title": "Our Process",
-    "step1": { "title": "Consultation", "description": "We listen to your ideas and together design the optimal solution." },
-    "step2": { "title": "Design & Planning", "description": "Our architect prepares a complete design including visualizations and budget." },
-    "step3": { "title": "Realization", "description": "Site supervisor oversees quality and deadline compliance." },
-    "step4": { "title": "Handover", "description": "We deliver the finished project in agreed quality and on time." }
+    "title": "Our process",
+    "step1": { "title": "Consultation", "description": "We listen to your ideas and propose the best collaboration option." },
+    "step2": { "title": "Offer & design", "description": "Transparent pricing, schedule and visuals — all in one document." },
+    "step3": { "title": "Realization", "description": "Our own crew under the supervision of a project manager and site lead." },
+    "step4": { "title": "Handover", "description": "We deliver the finished property in agreed quality, time and budget." }
   },
-  "references": {
-    "label": "REFERENCES",
-    "title": "Our Projects",
-    "description": "Take a look at selected projects we have completed for our clients.",
-    "cta": "View all references"
+  "listings": {
+    "label": "CURRENT OFFER",
+    "title": "Current property listings",
+    "description": "Vetted apartments and houses from our workshop — ready to move in.",
+    "viewAll": "View all properties",
+    "viewDetail": "Property detail",
+    "items": {
+      "item1": { "title": "Renovated 3-room flat Prague 7", "location": "Prague 7 — Letná", "area": "78 m²", "price": "CZK 12,900,000", "status": "New" },
+      "item2": { "title": "Renovated loft Karlín", "location": "Prague 8 — Karlín", "area": "95 m²", "price": "CZK 16,500,000", "status": "For sale" },
+      "item3": { "title": "2-room flat Vinohrady", "location": "Prague 2 — Vinohrady", "area": "62 m²", "price": "CZK 9,800,000", "status": "Coming soon" }
+    }
   },
-  "cta": {
-    "title": "Have a project in mind?",
-    "description": "We'll be happy to help you with renovations, property sales or concrete screeds. Contact us and we'll figure it out together.",
-    "button": "Contact us",
-    "phone": "+420 XXX XXX XXX",
-    "email": "info@homerenewal.cz"
+  "newsletter": {
+    "label": "NEWSLETTER",
+    "title": "Don't miss our new properties",
+    "description": "We send tips on freshly finished apartments before they hit the public real-estate portals.",
+    "placeholder": "Your email address",
+    "button": "Subscribe",
+    "success": "Thank you, you are subscribed.",
+    "consent": "By submitting you agree with the processing of personal data."
+  },
+  "homeContact": {
+    "label": "CONTACT",
+    "title": "Get in touch",
+    "description": "Have a question or a specific plan? We typically reply within 24 hours."
   },
   "footer": {
-    "description": "Premium renovations, real estate services and concrete screeds.",
+    "description": "Buying, selling and renovating properties — all in one place.",
+    "navigation": "Navigation",
     "services": "Services",
     "company": "Company",
     "aboutUs": "About us",
-    "career": "Career",
-    "blog": "Blog",
+    "concreteScreeds": "Concrete screeds",
     "legal": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
@@ -88,185 +86,166 @@
     "rights": "All rights reserved.",
     "followUs": "Follow us"
   },
+  "sell": {
+    "hero": {
+      "label": "I WANT TO SELL",
+      "title": "Three ways to sell your property",
+      "description": "Pick the option that fits you best. With variants A and B we take care of absolutely everything — you don't have to lift a finger."
+    },
+    "intro": {
+      "title": "Your property, our concern",
+      "description": "We specialize in complex services — buying out apartments, fully renovating them and selling them on. If you prefer brokerage only, we do that too."
+    },
+    "variants": {
+      "title": "Compare collaboration options",
+      "description": "Pick a variant based on how much you want to handle yourself and how quickly you need the money.",
+      "recommended": "Recommended",
+      "featureColumn": "What you get",
+      "a": {
+        "name": "Variant A",
+        "subtitle": "Property buy-out",
+        "tagline": "Quick money, zero hassle",
+        "cta": "I'm interested in a buy-out"
+      },
+      "b": {
+        "name": "Variant B",
+        "subtitle": "Renovation + sale",
+        "tagline": "Maximum proceeds from sale",
+        "cta": "I want to upgrade my property"
+      },
+      "c": {
+        "name": "Variant C",
+        "subtitle": "Brokerage",
+        "tagline": "Classic real-estate service",
+        "cta": "I want brokerage"
+      },
+      "rows": {
+        "speed": { "label": "Speed", "a": "Within 14 days", "b": "2–4 months", "c": "1–6 months" },
+        "money": { "label": "Money in account", "a": "Right after signing", "b": "After sale", "c": "After sale" },
+        "price": { "label": "Sale proceeds", "a": "Fair buy-out price", "b": "Maximum market price", "c": "Market price" },
+        "work": { "label": "Your effort", "a": "None", "b": "None", "c": "Minimal" },
+        "renovation": { "label": "Renovation", "a": "We handle it", "b": "We handle it", "c": "—" },
+        "marketing": { "label": "Marketing & photos", "a": "—", "b": "Included", "c": "Included" },
+        "legal": { "label": "Legal services", "a": "Included", "b": "Included", "c": "Included" }
+      }
+    },
+    "process": {
+      "title": "How it works",
+      "step1": { "title": "Free meeting", "description": "We visit the property and discuss your goals." },
+      "step2": { "title": "Tailored proposal", "description": "We prepare a buy-out offer, renovation plan or sales strategy." },
+      "step3": { "title": "Contract", "description": "We sign a clear agreement with fair conditions." },
+      "step4": { "title": "Execution", "description": "We handle everything — from paperwork to land registry." }
+    },
+    "form": {
+      "title": "I want to sell",
+      "description": "Fill in the form and we'll get back with a proposal for a free meeting."
+    }
+  },
+  "buy": {
+    "hero": {
+      "label": "I WANT TO BUY",
+      "title": "Find your new home",
+      "description": "Current listings of fully renovated, vetted properties. No hidden flaws, no compromises."
+    },
+    "listings": {
+      "title": "Current offer",
+      "description": "Choose from apartments and houses we have personally renovated. You always know exactly what you're buying."
+    },
+    "beforeAfter": {
+      "label": "BEFORE & AFTER",
+      "title": "Showcase of our renovations",
+      "description": "See how we transform even the oldest flats into modern living spaces.",
+      "before": "Before",
+      "after": "After"
+    },
+    "process": {
+      "title": "How it works with us",
+      "description": "We guide you through the whole journey — from the first viewing to the keys handover.",
+      "step1": { "title": "Property choice", "description": "Together we'll pick the right one from our current offer. Personal viewing welcome." },
+      "step2": { "title": "Reservation", "description": "After signing the reservation contract, we pull the property off the market." },
+      "step3": { "title": "Financing", "description": "We help with mortgages or loans from our partners." },
+      "step4": { "title": "Keys handover", "description": "Once the purchase contract is signed and money transferred, you get the keys." }
+    },
+    "financing": {
+      "label": "FINANCING",
+      "title": "We help you with financing",
+      "description": "We work with vetted mortgage brokers and banks. We find the best terms for you with zero hassle.",
+      "points": [
+        "Free comparison of mortgage offers",
+        "Mortgage pre-approval within 48 hours",
+        "Help with all required documents",
+        "Free, no-obligation consultation"
+      ],
+      "cta": "Book consultation"
+    },
+    "cta": {
+      "title": "Like one of the properties?",
+      "description": "Book a non-binding viewing — and be quick. Our flats sell within days.",
+      "button": "Book a viewing"
+    }
+  },
   "renovations": {
     "hero": {
-      "label": "RENOVATIONS",
-      "title": "Complete Property Renovations",
-      "description": "We transform your apartment, house or commercial space into a modern place for living and working. From the first design to key handover."
+      "label": "FULL RENOVATION",
+      "title": "We handle the whole process from A to Z",
+      "description": "Our own crew, premium standards and fair pricing. We deliver the finished renovation on time and on budget."
+    },
+    "intro": {
+      "title": "One team, one accountability",
+      "description": "We don't outsource — we manage everything ourselves. From the architectural design through to handover. You have one contact manager who is responsible for the result."
     },
     "types": {
-      "title": "Types of Renovations",
-      "apartments": {
-        "title": "Apartment Renovations",
-        "description": "We can complete a full apartment renovation in as little as 4 weeks. We deliver the highest quality, always on time."
-      },
-      "houses": {
-        "title": "House Renovations",
-        "description": "Professional renovation of family houses. We breathe new life into your home and restore its beauty."
-      },
-      "commercial": {
-        "title": "Commercial Spaces",
-        "description": "Renovation of offices, shops and other commercial spaces with emphasis on functionality and design."
-      },
-      "attic": {
-        "title": "Attic Conversions",
-        "description": "We transform unused attic space into full-fledged living space with maximum use of space."
-      }
+      "title": "What we renovate",
+      "apartments": { "title": "Apartments", "description": "We can complete a full apartment renovation in as little as 6 weeks — at a standard we consider truly premium." },
+      "houses": { "title": "Family houses", "description": "Professional renovation of family houses — from layout to facade." },
+      "commercial": { "title": "Commercial spaces", "description": "Offices, shops, gastro venues. Fast, efficient, no compromises." },
+      "attic": { "title": "Attic conversions", "description": "We turn unused attic space into full-fledged living with high comfort." }
     },
-    "works": {
-      "title": "What work we perform",
+    "standards": {
+      "title": "Our standards & technical solutions",
+      "description": "We work with vetted suppliers and brands we recommend for our own homes.",
       "items": [
-        "Architectural interior design",
-        "Demolition and dismantling works",
-        "Masonry and plastering",
-        "Electrical installations",
-        "Plumbing and drainage",
-        "Heating works",
-        "Flooring works",
-        "Tiling and cladding",
-        "Painting and decorating",
-        "Door and frame installation",
-        "Finishing works and cleanup"
+        "Architectural interior design including 3D visualizations",
+        "Project documentation and building permits",
+        "Demolition, masonry and plastering",
+        "Complete electrical and low-voltage installations",
+        "Plumbing, drainage and heating",
+        "Floors, tiles and cladding — premium brands",
+        "Carpentry and built-in furniture",
+        "Painting, finishing and cleanup"
       ]
     },
+    "process": {
+      "title": "How a renovation works",
+      "step1": { "title": "Free meeting", "description": "We visit the space, learn your goals and possibilities." },
+      "step2": { "title": "Design & quote", "description": "An architect prepares the layout, visuals and a transparent budget." },
+      "step3": { "title": "Realization", "description": "Our own crew works under the site supervisor." },
+      "step4": { "title": "Handover", "description": "We hand over a clean, inspected space with warranty." }
+    },
+    "concreteScreeds": {
+      "label": "CONCRETE SCREEDS",
+      "title": "Specialists in concrete screeds",
+      "description": "As one of the few on the market, we offer premium decorative concrete screeds for floors, walls and furniture. Seamless surface, high durability and timeless look.",
+      "cta": "More about concrete screeds"
+    },
     "cta": {
-      "title": "Considering a renovation?",
-      "description": "We'll be happy to help with planning and realization. Contact us for a free consultation.",
+      "title": "Planning a renovation?",
+      "description": "Book a free consultation. We'll happily come over and advise.",
       "button": "Free consultation"
-    }
-  },
-  "realEstate": {
-    "hero": {
-      "label": "REAL ESTATE",
-      "title": "Professional Real Estate Services",
-      "description": "Sale, purchase and property management. We are your reliable partner in the real estate market."
-    },
-    "services": {
-      "sale": {
-        "title": "Property Sales",
-        "description": "We sell your property quickly and at the best price. Strategic marketing and targeted approach to buyers."
-      },
-      "purchase": {
-        "title": "Property Purchase",
-        "description": "We find the ideal property for you based on your requirements. Access to exclusive listings."
-      },
-      "valuation": {
-        "title": "Property Valuation",
-        "description": "Professional market price estimation. Free consultation and market analysis."
-      },
-      "management": {
-        "title": "Property Management",
-        "description": "Complete management and maintenance of your properties. Maximize your rental income."
-      }
-    },
-    "cta": {
-      "title": "Looking for a property or selling?",
-      "description": "Our team of experienced professionals is here for you.",
-      "button": "Contact us"
-    }
-  },
-  "developers": {
-    "hero": {
-      "label": "FOR DEVELOPERS",
-      "title": "Partner for Your Development Projects",
-      "description": "We participate in development projects from study to final approval. A reliable partner with proven results."
-    },
-    "services": {
-      "consulting": {
-        "title": "Construction Consulting",
-        "description": "Expert advice in the construction industry. Cost and process optimization."
-      },
-      "realization": {
-        "title": "Project Realization",
-        "description": "Comprehensive implementation of development projects including subcontractor coordination."
-      },
-      "marketing": {
-        "title": "Marketing & Sales",
-        "description": "Marketing strategies and sales support for development projects."
-      }
-    },
-    "cta": {
-      "title": "Have a development project?",
-      "description": "We'd love to meet with you and discuss cooperation opportunities.",
-      "button": "Schedule a meeting"
-    }
-  },
-  "referencesPage": {
-    "hero": {
-      "label": "REFERENCES",
-      "title": "Our Projects Speak for Themselves",
-      "description": "Take a look at selected projects we have successfully completed. Quality and client satisfaction are our calling card."
-    },
-    "categories": {
-      "all": "All",
-      "apartments": "Apartments",
-      "houses": "Houses",
-      "commercial": "Commercial",
-      "concrete": "Concrete Screeds"
-    },
-    "projects": {
-      "project1": {
-        "title": "Apartment Renovation Prague 1",
-        "category": "Apartments",
-        "area": "85 m²",
-        "duration": "6 weeks"
-      },
-      "project2": {
-        "title": "Family House Černošice",
-        "category": "Houses",
-        "area": "220 m²",
-        "duration": "4 months"
-      },
-      "project3": {
-        "title": "Loft Prague 7",
-        "category": "Apartments",
-        "area": "120 m²",
-        "duration": "8 weeks"
-      },
-      "project4": {
-        "title": "Concrete Screeds — Showroom",
-        "category": "Concrete Screeds",
-        "area": "200 m²",
-        "duration": "2 weeks"
-      },
-      "project5": {
-        "title": "Office Space Karlín",
-        "category": "Commercial",
-        "area": "350 m²",
-        "duration": "3 months"
-      },
-      "project6": {
-        "title": "Penthouse Vinohrady",
-        "category": "Apartments",
-        "area": "180 m²",
-        "duration": "10 weeks"
-      }
     }
   },
   "concreteScreeds": {
     "hero": {
       "label": "CONCRETE SCREEDS",
-      "title": "Premium Concrete Screeds",
+      "title": "Premium concrete screeds",
       "description": "Unique surface treatment for modern interiors and exteriors. Seamless, durable and aesthetically timeless."
     },
     "benefits": {
-      "title": "Why Concrete Screeds?",
-      "seamless": {
-        "title": "Seamless Surface",
-        "description": "No joints, no transitions. Clean minimalist look for your space."
-      },
-      "durable": {
-        "title": "High Durability",
-        "description": "Extremely resistant to wear, water and chemicals. Lifespan of decades."
-      },
-      "design": {
-        "title": "Design Flexibility",
-        "description": "Wide range of colors and textures. Every realization is a unique work of art."
-      },
-      "maintenance": {
-        "title": "Easy Maintenance",
-        "description": "Minimal maintenance requirements. Regular cleaning products are sufficient."
-      }
+      "title": "Why concrete screeds?",
+      "seamless": { "title": "Seamless surface", "description": "No joints, no transitions. Clean minimalist look for your space." },
+      "durable": { "title": "High durability", "description": "Extremely resistant to wear, water and chemicals. Lifespan of decades." },
+      "design": { "title": "Design flexibility", "description": "Wide range of colors and textures. Every realization is a unique work of art." },
+      "maintenance": { "title": "Easy maintenance", "description": "Minimal maintenance requirements. Regular cleaning products are sufficient." }
     },
     "applications": {
       "title": "Where screeds can be used",
@@ -274,8 +253,38 @@
     },
     "cta": {
       "title": "Interested in concrete screeds?",
-      "description": "We'll be happy to prepare a non-binding custom quote for you.",
+      "description": "We'll happily prepare a non-binding custom quote.",
       "button": "Get a quote"
+    }
+  },
+  "about": {
+    "hero": {
+      "label": "ABOUT US",
+      "title": "We build as if we wanted to live there ourselves",
+      "description": "Home Renewal is a team that combines renovations, real-estate services and unique concrete screeds under one roof."
+    },
+    "story": {
+      "title": "Our philosophy",
+      "p1": "We were founded to change how apartments are sold and renovated in the Czech Republic. We combine craftsmanship, design and transparent business.",
+      "p2": "Every project has one accountable manager from the first meeting to handover. No middlemen, no blaming subcontractors — because we are the team that builds and runs them."
+    },
+    "values": {
+      "title": "What we care about",
+      "quality": { "title": "Quality", "description": "We work with brands and materials we'd choose for our own home." },
+      "transparency": { "title": "Transparency", "description": "Fair prices, clear contracts, no hidden fees or surprises." },
+      "responsibility": { "title": "Accountability", "description": "We keep our word, deadlines and budget. That's a given for us." }
+    },
+    "stats": {
+      "stat1": { "value": "15+", "label": "years of experience" },
+      "stat2": { "value": "500+", "label": "completed projects" },
+      "stat3": { "value": "98%", "label": "satisfied clients" },
+      "stat4": { "value": "3 years", "label": "warranty on works" }
+    },
+    "partner": {
+      "label": "PART OF THE GROUP",
+      "title": "Part of Pazderka Management",
+      "description": "We are part of the Pazderka Management group — an experienced partner in property management and development. Together we deliver complex service even on large projects.",
+      "cta": "pazderkamanagement.cz"
     }
   },
   "contact": {
@@ -286,18 +295,21 @@
       "name": "Full name",
       "email": "Email",
       "phone": "Phone",
-      "service": "Service",
-      "selectService": "Select a service",
+      "service": "What are you interested in",
+      "selectService": "Choose option",
       "serviceOptions": {
-        "renovation": "Renovations",
-        "realEstate": "Real Estate",
-        "concrete": "Concrete Screeds",
-        "developer": "Development Project",
+        "sellA": "Sell — buy-out",
+        "sellB": "Sell — renovation + sale",
+        "sellC": "Sell — brokerage",
+        "buy": "Buy a property",
+        "renovation": "Full renovation",
+        "concrete": "Concrete screeds",
         "other": "Other"
       },
       "message": "Message",
       "submit": "Send message",
-      "success": "Message sent. We'll get back to you as soon as possible."
+      "success": "Message sent. We'll get back to you as soon as possible.",
+      "consent": "By submitting the form you agree with the processing of personal data."
     },
     "info": {
       "address": "Prague, Czech Republic",

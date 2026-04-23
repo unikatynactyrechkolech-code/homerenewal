@@ -5,16 +5,15 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 const serviceLinks = [
-  { key: "renovations", href: "/rekonstrukce", hrefEn: "/renovations" },
-  { key: "realEstate", href: "/reality", hrefEn: "/real-estate" },
-  { key: "developers", href: "/developeri", hrefEn: "/developers" },
-  { key: "concreteScreeds", href: "/betonove-sterky", hrefEn: "/concrete-screeds" },
+  { key: "sell", href: "/chci-prodat", hrefEn: "/sell", source: "nav" as const },
+  { key: "buy", href: "/chci-koupit", hrefEn: "/buy", source: "nav" as const },
+  { key: "renovations", href: "/rekonstrukce", hrefEn: "/renovations", source: "nav" as const },
+  { key: "concreteScreeds", href: "/betonove-sterky", hrefEn: "/concrete-screeds", source: "footer" as const },
 ];
 
 const companyLinks = [
-  { key: "references", href: "/reference", hrefEn: "/references", useNav: true },
-  { key: "aboutUs", href: "/#about", useNav: false },
-  { key: "contact", href: "/kontakt", hrefEn: "/contact", useNav: true },
+  { key: "about", href: "/o-nas", hrefEn: "/about", source: "nav" as const },
+  { key: "contact", href: "/kontakt", hrefEn: "/contact", source: "nav" as const },
 ];
 
 export default function Footer() {
@@ -76,7 +75,7 @@ export default function Footer() {
                     href={getHref(link)}
                     className="text-sm text-white/60 hover:text-accent transition-colors duration-300 flex items-center gap-1 group"
                   >
-                    {tNav(link.key)}
+                    {link.source === "nav" ? tNav(link.key) : t(link.key)}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
@@ -96,7 +95,7 @@ export default function Footer() {
                     href={getHref(link)}
                     className="text-sm text-white/60 hover:text-accent transition-colors duration-300 flex items-center gap-1 group"
                   >
-                    {link.useNav ? tNav(link.key) : t(link.key)}
+                    {link.source === "nav" ? tNav(link.key) : t(link.key)}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>

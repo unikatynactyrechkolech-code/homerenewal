@@ -5,29 +5,29 @@ export const routing = defineRouting({
   defaultLocale: "cs",
   pathnames: {
     "/": "/",
+    "/chci-prodat": {
+      cs: "/chci-prodat",
+      en: "/sell",
+    },
+    "/chci-koupit": {
+      cs: "/chci-koupit",
+      en: "/buy",
+    },
     "/rekonstrukce": {
       cs: "/rekonstrukce",
       en: "/renovations",
     },
-    "/reality": {
-      cs: "/reality",
-      en: "/real-estate",
-    },
-    "/developeri": {
-      cs: "/developeri",
-      en: "/developers",
-    },
-    "/reference": {
-      cs: "/reference",
-      en: "/references",
-    },
-    "/betonove-sterky": {
-      cs: "/betonove-sterky",
-      en: "/concrete-screeds",
+    "/o-nas": {
+      cs: "/o-nas",
+      en: "/about",
     },
     "/kontakt": {
       cs: "/kontakt",
       en: "/contact",
+    },
+    "/betonove-sterky": {
+      cs: "/betonove-sterky",
+      en: "/concrete-screeds",
     },
   },
 });
