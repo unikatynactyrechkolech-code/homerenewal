@@ -4,27 +4,12 @@ import { useTranslations } from "next-intl";
 import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
-import { Check, Minus, Star } from "lucide-react";
+import { Minus, Star } from "lucide-react";
 
 type Variant = "a" | "b" | "c";
-type RowKey =
-  | "speed"
-  | "money"
-  | "price"
-  | "work"
-  | "renovation"
-  | "marketing"
-  | "legal";
+type RowKey = "money" | "renovation" | "marketing" | "legal";
 
-const ROW_KEYS: RowKey[] = [
-  "speed",
-  "money",
-  "price",
-  "work",
-  "renovation",
-  "marketing",
-  "legal",
-];
+const ROW_KEYS: RowKey[] = ["money", "renovation", "marketing", "legal"];
 
 export default function ChciProdatPage() {
   const t = useTranslations("sell");
@@ -232,21 +217,6 @@ export default function ChciProdatPage() {
             <div className="bg-white rounded-2xl border border-border/50 p-8 sm:p-12 shadow-sm">
               <ContactForm defaultService="sellA" />
             </div>
-          </FadeIn>
-
-          {/* Tiny "what you get" reassurance */}
-          <FadeIn delay={0.25}>
-            <ul className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-muted">
-              {["sellA", "sellB", "sellC"].map((k) => (
-                <li
-                  key={k}
-                  className="flex items-center gap-2 justify-center sm:justify-start"
-                >
-                  <Check className="w-4 h-4 text-accent" />
-                  {t(`variants.${k.replace("sell", "").toLowerCase() as Variant}.subtitle`)}
-                </li>
-              ))}
-            </ul>
           </FadeIn>
         </div>
       </section>

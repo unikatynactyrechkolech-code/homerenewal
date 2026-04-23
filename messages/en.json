@@ -14,54 +14,53 @@
   "hero": {
     "subtitle": "HOME RENEWAL",
     "title": "Buy, sell and renovate — all in one place",
-    "description": "We buy your property, fully renovate it or broker the sale. Everything under one roof — without any worries on your side.",
-    "cta": "Free consultation",
+    "description": "We'll buy your property, renovate it or handle the sale. Everything under one roof.",
+    "cta": "Get in touch",
     "ctaSecondary": "Current listings"
   },
   "sections": {
-    "label": "WHAT WE DO",
-    "title": "Three paths, one certainty",
-    "description": "Whether you want to sell, buy or renovate — we handle everything from A to Z.",
+    "label": "OUR SERVICES",
+    "title": "What we do",
+    "description": "",
     "sell": {
       "title": "I want to sell",
-      "description": "Property buy-out, complete renovation with a follow-up sale, or brokerage. Pick the option that suits you best.",
-      "cta": "See sale options"
+      "description": "Property buy-out, renovation with a follow-up sale, or brokerage.",
+      "cta": "Learn more"
     },
     "buy": {
       "title": "I want to buy",
-      "description": "Current listings of vetted properties, before/after showcases and financing support. We guide you through the entire process.",
+      "description": "Current listings, showcases of our work and financing support.",
       "cta": "Browse listings"
     },
     "renovate": {
       "title": "Full renovation",
-      "description": "We handle the whole process from A to Z. Our own team, premium standards and unique concrete screeds.",
-      "cta": "More about renovations"
+      "description": "We handle the whole process from A to Z.",
+      "cta": "Learn more"
     }
   },
   "process": {
-    "label": "HOW WE WORK",
-    "title": "Our process",
-    "step1": { "title": "Consultation", "description": "We listen to your ideas and propose the best collaboration option." },
-    "step2": { "title": "Offer & design", "description": "Transparent pricing, schedule and visuals — all in one document." },
-    "step3": { "title": "Realization", "description": "Our own crew under the supervision of a project manager and site lead." },
-    "step4": { "title": "Handover", "description": "We deliver the finished property in agreed quality, time and budget." }
+    "label": "HOW IT WORKS",
+    "title": "How it works",
+    "step1": { "title": "Consultation", "description": "Get in touch and we'll discuss what we can do for you." },
+    "step2": { "title": "Offer", "description": "We prepare a price offer and a schedule." },
+    "step3": { "title": "Execution", "description": "We take care of the entire process." },
+    "step4": { "title": "Handover", "description": "We deliver on time and in quality." }
   },
   "listings": {
     "label": "CURRENT OFFER",
     "title": "Current property listings",
-    "description": "Vetted apartments and houses from our workshop — ready to move in.",
+    "description": "",
     "viewAll": "View all properties",
     "viewDetail": "Property detail",
-    "items": {
-      "item1": { "title": "Renovated 3-room flat Prague 7", "location": "Prague 7 — Letná", "area": "78 m²", "price": "CZK 12,900,000", "status": "New" },
-      "item2": { "title": "Renovated loft Karlín", "location": "Prague 8 — Karlín", "area": "95 m²", "price": "CZK 16,500,000", "status": "For sale" },
-      "item3": { "title": "2-room flat Vinohrady", "location": "Prague 2 — Vinohrady", "area": "62 m²", "price": "CZK 9,800,000", "status": "Coming soon" }
+    "empty": {
+      "title": "Listings coming soon",
+      "description": "We'll publish new properties shortly. Get in touch or subscribe to be the first to know."
     }
   },
   "newsletter": {
     "label": "NEWSLETTER",
-    "title": "Don't miss our new properties",
-    "description": "We send tips on freshly finished apartments before they hit the public real-estate portals.",
+    "title": "Subscribe to our newsletter",
+    "description": "We'll let you know about new properties before they hit the public real-estate portals.",
     "placeholder": "Your email address",
     "button": "Subscribe",
     "success": "Thank you, you are subscribed.",
@@ -70,7 +69,7 @@
   "homeContact": {
     "label": "CONTACT",
     "title": "Get in touch",
-    "description": "Have a question or a specific plan? We typically reply within 24 hours."
+    "description": "We'll get back to you within 24 hours."
   },
   "footer": {
     "description": "Buying, selling and renovating properties — all in one place.",
@@ -89,149 +88,146 @@
   "sell": {
     "hero": {
       "label": "I WANT TO SELL",
-      "title": "Three ways to sell your property",
-      "description": "Pick the option that fits you best. With variants A and B we take care of absolutely everything — you don't have to lift a finger."
+      "title": "I want to sell my property",
+      "description": "Pick the sale option that suits you. We focus mainly on variants A and B, where we take care of everything."
     },
     "intro": {
-      "title": "Your property, our concern",
-      "description": "We specialize in complex services — buying out apartments, fully renovating them and selling them on. If you prefer brokerage only, we do that too."
+      "title": "Three ways to sell",
+      "description": "Depending on how fast you need the money and how much you want to handle yourself."
     },
     "variants": {
-      "title": "Compare collaboration options",
-      "description": "Pick a variant based on how much you want to handle yourself and how quickly you need the money.",
+      "title": "Compare the options",
+      "description": "",
       "recommended": "Recommended",
       "featureColumn": "What you get",
       "a": {
         "name": "Variant A",
         "subtitle": "Property buy-out",
-        "tagline": "Quick money, zero hassle",
-        "cta": "I'm interested in a buy-out"
+        "tagline": "Sell the property directly to us.",
+        "cta": "I'm interested"
       },
       "b": {
         "name": "Variant B",
-        "subtitle": "Renovation + sale",
-        "tagline": "Maximum proceeds from sale",
-        "cta": "I want to upgrade my property"
+        "subtitle": "Renovation and sale",
+        "tagline": "We renovate first, then sell.",
+        "cta": "I'm interested"
       },
       "c": {
         "name": "Variant C",
         "subtitle": "Brokerage",
-        "tagline": "Classic real-estate service",
-        "cta": "I want brokerage"
+        "tagline": "Classic real-estate service.",
+        "cta": "I'm interested"
       },
       "rows": {
-        "speed": { "label": "Speed", "a": "Within 14 days", "b": "2–4 months", "c": "1–6 months" },
         "money": { "label": "Money in account", "a": "Right after signing", "b": "After sale", "c": "After sale" },
-        "price": { "label": "Sale proceeds", "a": "Fair buy-out price", "b": "Maximum market price", "c": "Market price" },
-        "work": { "label": "Your effort", "a": "None", "b": "None", "c": "Minimal" },
         "renovation": { "label": "Renovation", "a": "We handle it", "b": "We handle it", "c": "—" },
-        "marketing": { "label": "Marketing & photos", "a": "—", "b": "Included", "c": "Included" },
+        "marketing": { "label": "Listings & viewings", "a": "—", "b": "We handle it", "c": "We handle it" },
         "legal": { "label": "Legal services", "a": "Included", "b": "Included", "c": "Included" }
       }
     },
     "process": {
       "title": "How it works",
-      "step1": { "title": "Free meeting", "description": "We visit the property and discuss your goals." },
-      "step2": { "title": "Tailored proposal", "description": "We prepare a buy-out offer, renovation plan or sales strategy." },
-      "step3": { "title": "Contract", "description": "We sign a clear agreement with fair conditions." },
-      "step4": { "title": "Execution", "description": "We handle everything — from paperwork to land registry." }
+      "step1": { "title": "Get in touch", "description": "Write to us or fill in the form." },
+      "step2": { "title": "Offer", "description": "We'll prepare a non-binding offer within 24 hours." },
+      "step3": { "title": "Contract", "description": "You pick an option and we sign a contract." },
+      "step4": { "title": "Execution", "description": "We take care of everything else for you." }
     },
     "form": {
-      "title": "I want to sell",
-      "description": "Fill in the form and we'll get back with a proposal for a free meeting."
+      "title": "Get in touch",
+      "description": "Fill in the form and we'll get back to you."
     }
   },
   "buy": {
     "hero": {
       "label": "I WANT TO BUY",
-      "title": "Find your new home",
-      "description": "Current listings of fully renovated, vetted properties. No hidden flaws, no compromises."
+      "title": "I want to buy a property",
+      "description": "Current listings, showcases of our work and financing support."
     },
     "listings": {
-      "title": "Current offer",
-      "description": "Choose from apartments and houses we have personally renovated. You always know exactly what you're buying."
+      "title": "Current property listings",
+      "description": ""
     },
     "beforeAfter": {
       "label": "BEFORE & AFTER",
-      "title": "Showcase of our renovations",
-      "description": "See how we transform even the oldest flats into modern living spaces.",
+      "title": "Showcases of our work",
+      "description": "Photos before and after renovation.",
       "before": "Before",
       "after": "After"
     },
     "process": {
       "title": "How it works with us",
-      "description": "We guide you through the whole journey — from the first viewing to the keys handover.",
-      "step1": { "title": "Property choice", "description": "Together we'll pick the right one from our current offer. Personal viewing welcome." },
-      "step2": { "title": "Reservation", "description": "After signing the reservation contract, we pull the property off the market." },
-      "step3": { "title": "Financing", "description": "We help with mortgages or loans from our partners." },
-      "step4": { "title": "Keys handover", "description": "Once the purchase contract is signed and money transferred, you get the keys." }
+      "description": "",
+      "step1": { "title": "Property choice", "description": "Together we'll pick the right one from our offer." },
+      "step2": { "title": "Reservation", "description": "We sign a reservation contract." },
+      "step3": { "title": "Financing", "description": "We help with a mortgage or loan." },
+      "step4": { "title": "Keys handover", "description": "Once the contract is signed, you get the keys." }
     },
     "financing": {
       "label": "FINANCING",
-      "title": "We help you with financing",
-      "description": "We work with vetted mortgage brokers and banks. We find the best terms for you with zero hassle.",
+      "title": "We help with financing",
+      "description": "We work with mortgage brokers and banks to find suitable conditions for you.",
       "points": [
-        "Free comparison of mortgage offers",
-        "Mortgage pre-approval within 48 hours",
-        "Help with all required documents",
-        "Free, no-obligation consultation"
+        "Comparison of mortgage offers",
+        "Mortgage pre-approval",
+        "Help with documents",
+        "Free consultation"
       ],
-      "cta": "Book consultation"
+      "cta": "Book a consultation"
     },
     "cta": {
-      "title": "Like one of the properties?",
-      "description": "Book a non-binding viewing — and be quick. Our flats sell within days.",
-      "button": "Book a viewing"
+      "title": "Interested in a viewing?",
+      "description": "Get in touch and we'll arrange a time.",
+      "button": "Contact us"
     }
   },
   "renovations": {
     "hero": {
       "label": "FULL RENOVATION",
-      "title": "We handle the whole process from A to Z",
-      "description": "Our own crew, premium standards and fair pricing. We deliver the finished renovation on time and on budget."
+      "title": "Full renovation",
+      "description": "We handle the whole process from A to Z."
     },
     "intro": {
-      "title": "One team, one accountability",
-      "description": "We don't outsource — we manage everything ourselves. From the architectural design through to handover. You have one contact manager who is responsible for the result."
+      "title": "From design to keys handover",
+      "description": "We cover the architectural design, project documentation, craftsmanship and finishing work. You have one contact person for the entire project."
     },
     "types": {
       "title": "What we renovate",
-      "apartments": { "title": "Apartments", "description": "We can complete a full apartment renovation in as little as 6 weeks — at a standard we consider truly premium." },
-      "houses": { "title": "Family houses", "description": "Professional renovation of family houses — from layout to facade." },
-      "commercial": { "title": "Commercial spaces", "description": "Offices, shops, gastro venues. Fast, efficient, no compromises." },
-      "attic": { "title": "Attic conversions", "description": "We turn unused attic space into full-fledged living with high comfort." }
+      "apartments": { "title": "Apartments", "description": "Full apartment renovations." },
+      "houses": { "title": "Family houses", "description": "Renovation of family houses." },
+      "commercial": { "title": "Commercial spaces", "description": "Offices, shops and venues." },
+      "attic": { "title": "Attic conversions", "description": "Turning attic spaces into living areas." }
     },
     "standards": {
-      "title": "Our standards & technical solutions",
-      "description": "We work with vetted suppliers and brands we recommend for our own homes.",
+      "title": "Services and standards",
+      "description": "",
       "items": [
-        "Architectural interior design including 3D visualizations",
-        "Project documentation and building permits",
-        "Demolition, masonry and plastering",
-        "Complete electrical and low-voltage installations",
-        "Plumbing, drainage and heating",
-        "Floors, tiles and cladding — premium brands",
-        "Carpentry and built-in furniture",
-        "Painting, finishing and cleanup"
+        "Architectural interior design",
+        "Project documentation",
+        "Demolition and masonry",
+        "Electrical installations",
+        "Plumbing and heating",
+        "Floors, tiles and cladding",
+        "Carpentry",
+        "Painting and finishing"
       ]
     },
     "process": {
-      "title": "How a renovation works",
-      "step1": { "title": "Free meeting", "description": "We visit the space, learn your goals and possibilities." },
-      "step2": { "title": "Design & quote", "description": "An architect prepares the layout, visuals and a transparent budget." },
-      "step3": { "title": "Realization", "description": "Our own crew works under the site supervisor." },
-      "step4": { "title": "Handover", "description": "We hand over a clean, inspected space with warranty." }
+      "title": "How a renovation runs",
+      "step1": { "title": "Meeting", "description": "We visit the space." },
+      "step2": { "title": "Design and quote", "description": "We prepare the layout and budget." },
+      "step3": { "title": "Execution", "description": "We carry out the renovation." },
+      "step4": { "title": "Handover", "description": "We hand over with a warranty." }
     },
     "concreteScreeds": {
       "label": "CONCRETE SCREEDS",
-      "title": "Specialists in concrete screeds",
-      "description": "As one of the few on the market, we offer premium decorative concrete screeds for floors, walls and furniture. Seamless surface, high durability and timeless look.",
+      "title": "Concrete screeds",
+      "description": "We offer concrete screeds for floors, walls and furniture.",
       "cta": "More about concrete screeds"
     },
     "cta": {
       "title": "Planning a renovation?",
-      "description": "Book a free consultation. We'll happily come over and advise.",
-      "button": "Free consultation"
+      "description": "Get in touch with us.",
+      "button": "Contact us"
     }
   },
   "concreteScreeds": {
@@ -244,7 +240,7 @@
       "title": "Why concrete screeds?",
       "seamless": { "title": "Seamless surface", "description": "No joints, no transitions. Clean minimalist look for your space." },
       "durable": { "title": "High durability", "description": "Extremely resistant to wear, water and chemicals. Lifespan of decades." },
-      "design": { "title": "Design flexibility", "description": "Wide range of colors and textures. Every realization is a unique work of art." },
+      "design": { "title": "Design flexibility", "description": "Wide range of colors and textures. Every realization is unique." },
       "maintenance": { "title": "Easy maintenance", "description": "Minimal maintenance requirements. Regular cleaning products are sufficient." }
     },
     "applications": {
@@ -253,37 +249,25 @@
     },
     "cta": {
       "title": "Interested in concrete screeds?",
-      "description": "We'll happily prepare a non-binding custom quote.",
+      "description": "We'll happily prepare a non-binding quote.",
       "button": "Get a quote"
     }
   },
   "about": {
     "hero": {
       "label": "ABOUT US",
-      "title": "We build as if we wanted to live there ourselves",
-      "description": "Home Renewal is a team that combines renovations, real-estate services and unique concrete screeds under one roof."
+      "title": "About us",
+      "description": "Buying, selling and renovating properties under one roof."
     },
     "story": {
-      "title": "Our philosophy",
-      "p1": "We were founded to change how apartments are sold and renovated in the Czech Republic. We combine craftsmanship, design and transparent business.",
-      "p2": "Every project has one accountable manager from the first meeting to handover. No middlemen, no blaming subcontractors — because we are the team that builds and runs them."
-    },
-    "values": {
-      "title": "What we care about",
-      "quality": { "title": "Quality", "description": "We work with brands and materials we'd choose for our own home." },
-      "transparency": { "title": "Transparency", "description": "Fair prices, clear contracts, no hidden fees or surprises." },
-      "responsibility": { "title": "Accountability", "description": "We keep our word, deadlines and budget. That's a given for us." }
-    },
-    "stats": {
-      "stat1": { "value": "15+", "label": "years of experience" },
-      "stat2": { "value": "500+", "label": "completed projects" },
-      "stat3": { "value": "98%", "label": "satisfied clients" },
-      "stat4": { "value": "3 years", "label": "warranty on works" }
+      "title": "Who we are",
+      "p1": "Home Renewal focuses on buying, renovating and selling properties. We also offer brokerage and full custom renovations.",
+      "p2": "We specialize in apartments and family houses in Prague and the surrounding area."
     },
     "partner": {
-      "label": "PART OF THE GROUP",
+      "label": "GROUP",
       "title": "Part of Pazderka Management",
-      "description": "We are part of the Pazderka Management group — an experienced partner in property management and development. Together we deliver complex service even on large projects.",
+      "description": "We are part of the Pazderka Management group.",
       "cta": "pazderkamanagement.cz"
     }
   },

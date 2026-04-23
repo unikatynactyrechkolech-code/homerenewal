@@ -3,18 +3,10 @@
 import { useTranslations } from "next-intl";
 import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
-import { Award, Shield, Sparkles, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 export default function ONasPage() {
   const t = useTranslations("about");
-
-  const values = [
-    { icon: Sparkles, key: "quality" },
-    { icon: Shield, key: "transparency" },
-    { icon: Award, key: "responsibility" },
-  ] as const;
-
-  const stats = ["stat1", "stat2", "stat3", "stat4"] as const;
 
   return (
     <>
@@ -39,55 +31,6 @@ export default function ONasPage() {
               </div>
             </div>
           </FadeIn>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
-              <FadeIn key={s} delay={i * 0.1}>
-                <div className="text-center">
-                  <div className="text-4xl sm:text-5xl font-bold text-accent mb-3">
-                    {t(`stats.${s}.value`)}
-                  </div>
-                  <div className="text-xs uppercase tracking-widest text-muted">
-                    {t(`stats.${s}.label`)}
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-16 text-center">
-              {t("values.title")}
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((v, i) => (
-              <FadeIn key={v.key} delay={i * 0.1}>
-                <div className="group p-10 rounded-2xl border border-border/50 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 h-full text-center">
-                  <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                    <v.icon className="w-7 h-7 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-3">
-                    {t(`values.${v.key}.title`)}
-                  </h3>
-                  <p className="text-muted leading-relaxed">
-                    {t(`values.${v.key}.description`)}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
