@@ -6,6 +6,15 @@ import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
 import { ArrowRight, Minus, Shield, Palette, Sparkles } from "lucide-react";
 
+const galleryImages = [
+  "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80",
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80",
+  "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80",
+  "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900&q=80",
+  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=900&q=80",
+  "https://images.unsplash.com/photo-1615873968403-89e068629265?w=900&q=80",
+];
+
 export default function BetonoveSterkyPage() {
   const t = useTranslations("concreteScreeds");
   const locale = useLocale();
@@ -44,8 +53,24 @@ export default function BetonoveSterkyPage() {
         image="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80"
       />
 
-      {/* Benefits */}
+      {/* Intro */}
       <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="relative pl-8 border-l-2 border-accent">
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6 leading-tight">
+                {t("intro.title")}
+              </h2>
+              <p className="text-muted text-lg leading-relaxed max-w-3xl">
+                {t("intro.description")}
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-16 text-center">
@@ -56,7 +81,7 @@ export default function BetonoveSterkyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group text-center p-8 rounded-2xl border border-border/50 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 h-full">
+                <div className="group text-center p-8 rounded-2xl bg-white border border-border/50 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 h-full">
                   <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <benefit.icon className="w-6 h-6 text-accent" />
                   </div>
@@ -73,7 +98,41 @@ export default function BetonoveSterkyPage() {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Process */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
+                {t("process.label")}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                {t("process.title")}
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[1, 2, 3, 4].map((n, i) => (
+              <FadeIn key={n} delay={i * 0.1}>
+                <div className="relative bg-surface p-8 rounded-2xl border border-border/50 h-full">
+                  <span className="text-6xl font-black text-accent/20 leading-none block mb-4">
+                    0{n}
+                  </span>
+                  <h3 className="text-lg font-bold text-primary mb-3">
+                    {t(`process.step${n}.title`)}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed">
+                    {t(`process.step${n}.description`)}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Applications */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -81,29 +140,29 @@ export default function BetonoveSterkyPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="aspect-square rounded-2xl overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80"
-                    alt="Concrete screeds"
+                    src={galleryImages[0]}
+                    alt=""
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="aspect-square rounded-2xl overflow-hidden mt-8">
                   <img
-                    src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80"
-                    alt="Concrete screeds"
+                    src={galleryImages[1]}
+                    alt=""
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="aspect-square rounded-2xl overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"
-                    alt="Concrete screeds"
+                    src={galleryImages[2]}
+                    alt=""
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="aspect-square rounded-2xl overflow-hidden mt-8">
                   <img
-                    src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80"
-                    alt="Concrete screeds"
+                    src={galleryImages[3]}
+                    alt=""
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -127,6 +186,39 @@ export default function BetonoveSterkyPage() {
                 </div>
               </div>
             </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-14">
+              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
+                {t("gallery.label")}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+                {t("gallery.title")}
+              </h2>
+              <p className="text-muted text-lg max-w-2xl mx-auto">
+                {t("gallery.description")}
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {galleryImages.map((src, i) => (
+              <FadeIn key={i} delay={i * 0.05}>
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden group">
+                  <img
+                    src={src}
+                    alt=""
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>

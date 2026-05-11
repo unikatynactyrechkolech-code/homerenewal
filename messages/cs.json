@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Home Renewal | Nákup, prodej a rekonstrukce nemovitostí",
-    "description": "Nákup, prodej a rekonstrukce na jednom místě. Odkup bytů, kompletní rekonstrukce a zprostředkování prodeje nemovitostí."
+    "description": "Nákup, prodej a rekonstrukce na jednom místě. Odkup bytů, kompletní rekonstrukce a zprostředkování prodeje nemovitostí v Praze a okolí."
   },
   "nav": {
     "home": "Úvod",
@@ -14,47 +14,47 @@
   "hero": {
     "subtitle": "HOME RENEWAL",
     "title": "Nákup, prodej a rekonstrukce na jednom místě",
-    "description": "Odkoupíme vaši nemovitost, zrekonstruujeme ji nebo zajistíme prodej. Vše pod jednou střechou.",
+    "description": "Odkoupíme vaši nemovitost, zrekonstruujeme ji nebo zajistíme prodej. Vše pod jednou střechou — bez starostí, bez prostředníků.",
     "cta": "Kontaktujte nás",
     "ctaSecondary": "Aktuální nabídka"
   },
   "sections": {
     "label": "NAŠE SLUŽBY",
     "title": "Co pro vás děláme",
-    "description": "",
+    "description": "Tři hlavní oblasti, ve kterých vám umíme pomoct.",
     "sell": {
       "title": "Chci prodat",
-      "description": "Odkup nemovitosti, rekonstrukce s následným prodejem nebo zprostředkování.",
-      "cta": "Více informací"
+      "description": "Odkup nemovitosti, rekonstrukce s následným prodejem nebo zprostředkování. Tři varianty podle vašich potřeb.",
+      "cta": "Více o prodeji"
     },
     "buy": {
       "title": "Chci koupit",
-      "description": "Aktuální nabídka nemovitostí, ukázky realizací a pomoc s financováním.",
+      "description": "Aktuální nabídka nemovitostí, ukázky našich realizací a pomoc s financováním.",
       "cta": "Prohlédnout nabídku"
     },
     "renovate": {
       "title": "Kompletní rekonstrukce",
-      "description": "Postaráme se o celý proces od A do Z.",
-      "cta": "Více informací"
+      "description": "Postaráme se o celý proces od A do Z — od návrhu po předání klíčů.",
+      "cta": "Více o rekonstrukcích"
     }
   },
   "process": {
     "label": "JAK TO FUNGUJE",
-    "title": "Jak to funguje",
-    "step1": { "title": "Konzultace", "description": "Ozvete se nám a probereme, co pro vás můžeme udělat." },
-    "step2": { "title": "Nabídka", "description": "Připravíme cenovou nabídku a harmonogram." },
-    "step3": { "title": "Realizace", "description": "Postaráme se o celý průběh práce." },
-    "step4": { "title": "Předání", "description": "Předáme hotové — v termínu a kvalitě." }
+    "title": "Jak to u nás funguje",
+    "step1": { "title": "Schůzka", "description": "Sejdeme se na nezávazné konzultaci a probereme, co potřebujete." },
+    "step2": { "title": "Nabídka", "description": "Připravíme cenovou nabídku a harmonogram do několika dní." },
+    "step3": { "title": "Realizace", "description": "Postaráme se o celý průběh — administrativu, řemeslo, dodavatele." },
+    "step4": { "title": "Předání", "description": "Předáme hotové ve smluveném termínu, kvalitě a rozpočtu." }
   },
   "listings": {
     "label": "AKTUÁLNÍ NABÍDKA",
     "title": "Aktuální nabídka nemovitostí",
-    "description": "",
+    "description": "Vybrané byty a domy z naší nabídky.",
     "viewAll": "Zobrazit všechny nemovitosti",
     "viewDetail": "Detail nemovitosti",
     "empty": {
       "title": "Připravujeme aktuální nabídku",
-      "description": "Nové nemovitosti brzy zveřejníme. Ozvěte se nám nebo se přihlaste k odběru, abyste byli první."
+      "description": "Nové nemovitosti brzy zveřejníme. Ozvěte se nám nebo se přihlaste k odběru novinek, abyste byli první."
     }
   },
   "newsletter": {
@@ -69,7 +69,7 @@
   "homeContact": {
     "label": "KONTAKT",
     "title": "Kontaktujte nás",
-    "description": "Ozveme se vám do 24 hodin."
+    "description": "Máte dotaz nebo konkrétní záměr? Ozveme se vám zpravidla do 24 hodin."
   },
   "footer": {
     "description": "Nákup, prodej a rekonstrukce nemovitostí na jednom místě.",
@@ -89,11 +89,11 @@
     "hero": {
       "label": "CHCI PRODAT",
       "title": "Chci prodat nemovitost",
-      "description": "Vyberte si variantu prodeje, která vám vyhovuje. Hlavní důraz klademe na varianty A a B, kde se postaráme o vše."
+      "description": "Vyberte si variantu, která vám vyhovuje. Hlavní důraz klademe na varianty A a B, kde se postaráme úplně o vše."
     },
     "intro": {
       "title": "Tři varianty prodeje",
-      "description": "Podle toho, jak rychle potřebujete peníze a kolik chcete sami řešit."
+      "description": "Podle toho, jak rychle potřebujete peníze a kolik chcete sami řešit. U variant A a B nemusíte řešit nic — žádnou inzerci, prohlídky ani administrativu."
     },
     "variants": {
       "title": "Porovnání variant",
@@ -104,130 +104,222 @@
         "name": "Varianta A",
         "subtitle": "Odkup nemovitosti",
         "tagline": "Prodejte nemovitost přímo nám.",
-        "cta": "Mám zájem"
+        "bullets": [
+          "Vykoupíme nemovitost na vlastní účet",
+          "Datum předání si určíte vy",
+          "Nemusíte řešit inzerci ani prohlídky",
+          "Peníze obdržíte ihned po podpisu smlouvy"
+        ],
+        "cta": "Mám zájem o odkup"
       },
       "b": {
         "name": "Varianta B",
         "subtitle": "Rekonstrukce a prodej",
-        "tagline": "Nejprve zrekonstruujeme, pak prodáme.",
-        "cta": "Mám zájem"
+        "tagline": "Nejprve nemovitost zrekonstruujeme, pak prodáme.",
+        "bullets": [
+          "Rekonstrukci hradíme z našich nákladů",
+          "Po rekonstrukci dosáhnete vyšší prodejní ceny",
+          "Postaráme se o inzerci, prohlídky i administrativu",
+          "Peníze obdržíte při prodeji novému majiteli"
+        ],
+        "cta": "Mám zájem o rekonstrukci a prodej"
       },
       "c": {
         "name": "Varianta C",
         "subtitle": "Zprostředkování prodeje",
         "tagline": "Klasické realitní zastoupení.",
-        "cta": "Mám zájem"
+        "bullets": [
+          "Profesionální fotografie a home staging",
+          "Inzerce na realitních serverech",
+          "Vedení prohlídek za vás",
+          "Kompletní právní servis a katastr"
+        ],
+        "cta": "Mám zájem o zprostředkování"
       },
       "rows": {
         "money": { "label": "Peníze na účtu", "a": "Ihned po podpisu", "b": "Po prodeji", "c": "Po prodeji" },
-        "renovation": { "label": "Rekonstrukce", "a": "Řešíme my", "b": "Řešíme my", "c": "—" },
+        "renovation": { "label": "Rekonstrukce", "a": "Řešíme my, na naše náklady", "b": "Řešíme my, na naše náklady", "c": "—" },
         "marketing": { "label": "Inzerce a prohlídky", "a": "—", "b": "Řešíme my", "c": "Řešíme my" },
-        "legal": { "label": "Právní servis", "a": "V ceně", "b": "V ceně", "c": "V ceně" }
+        "legal": { "label": "Právní servis a katastr", "a": "V ceně", "b": "V ceně", "c": "V ceně" }
       }
     },
     "process": {
       "title": "Jak to funguje",
-      "step1": { "title": "Ozvěte se", "description": "Napíšete nám nebo vyplníte formulář." },
-      "step2": { "title": "Nabídka", "description": "Připravíme vám nezávaznou nabídku do 24 hodin." },
-      "step3": { "title": "Smlouva", "description": "Vyberete si variantu a podepíšeme smlouvu." },
-      "step4": { "title": "Vyřízení", "description": "Postaráme se o vše ostatní za vás." }
+      "step1": { "title": "Ozvěte se nám", "description": "Vyplňte formulář nebo zavolejte. Probereme základní parametry nemovitosti." },
+      "step2": { "title": "Nezávazná nabídka", "description": "Po prohlídce nemovitosti vám připravíme nezávaznou cenovou nabídku." },
+      "step3": { "title": "Výběr varianty", "description": "Vyberete si variantu, která vám sedí, a podepíšeme smlouvu." },
+      "step4": { "title": "Vyřízení", "description": "Postaráme se o vše ostatní — administrativu, katastr i předání." }
+    },
+    "crossPromo": {
+      "label": "HLEDÁTE ZÁROVEŇ NOVÝ DOMOV?",
+      "title": "Prodej i koupě v jednom kroku",
+      "description": "Vyhněte se překrývajícím se hypotékám a dvojímu stěhování. Vyberte si novou nemovitost z naší nabídky a vyřešte tak prodej i koupi naráz.",
+      "bullets": [
+        "Datum stěhování dle vašeho výběru",
+        "Administrativu prodeje i koupě vyřídíme za vás",
+        "Bez překryvu hypoték"
+      ],
+      "cta": "Prohlédnout nabídku nemovitostí"
+    },
+    "faq": {
+      "label": "ČASTÉ DOTAZY",
+      "title": "Často se nás ptáte",
+      "items": [
+        {
+          "question": "Je nabídka závazná a musím za ni něco platit?",
+          "answer": "Cenová nabídka je zdarma a zcela nezávazná. Po prohlídce nemovitosti vám připravíme konkrétní návrh — teprve poté se rozhodujete, zda jej přijmete a kterou variantu zvolíte."
+        },
+        {
+          "question": "Jak se počítá výkupní cena?",
+          "answer": "Vycházíme ze srovnání s podobnými nemovitostmi v lokalitě, technického stavu, dispozice a aktuální situace na trhu. Cenu vám transparentně vysvětlíme."
+        },
+        {
+          "question": "Jaké typy nemovitostí vykupujete?",
+          "answer": "Zaměřujeme se na byty a rodinné domy v Praze a Středočeském kraji. Po dohodě řešíme i další typy nemovitostí."
+        },
+        {
+          "question": "Vykupujete také družstevní byty?",
+          "answer": "Ano, družstevní byty vykupujeme stejně jako byty v osobním vlastnictví. Vše vyřešíme za vás."
+        },
+        {
+          "question": "Mohu si později změnit variantu prodeje?",
+          "answer": "Ano, dokud není podepsána smlouva, varianta není závazná. Po podpisu už platí dohodnuté podmínky."
+        },
+        {
+          "question": "Jak dlouho trvá prodej u varianty B (rekonstrukce + prodej)?",
+          "answer": "Záleží na rozsahu rekonstrukce a typu nemovitosti. Časový rámec a způsob výplaty si dohodneme předem ve smlouvě."
+        },
+        {
+          "question": "Kdy nemovitost předám?",
+          "answer": "Datum předání si určujete vy. Můžeme předat ihned, nebo s časovým odstupem podle vašich potřeb."
+        }
+      ]
     },
     "form": {
-      "title": "Kontaktujte nás",
-      "description": "Vyplňte formulář a my se vám ozveme."
+      "title": "Mám zájem prodat nemovitost",
+      "description": "Vyplňte formulář a my se vám ozveme s nezávaznou nabídkou."
     }
   },
   "buy": {
     "hero": {
       "label": "CHCI KOUPIT",
-      "title": "Chci koupit nemovitost",
-      "description": "Aktuální nabídka nemovitostí, ukázky našich realizací a pomoc s financováním."
+      "title": "Najděte si nový domov",
+      "description": "Aktuální nabídka nemovitostí, ukázky našich realizací a kompletní servis včetně financování."
     },
     "listings": {
       "title": "Aktuální nabídka nemovitostí",
-      "description": ""
+      "description": "Vybrané byty a domy, které máme aktuálně v nabídce."
     },
     "beforeAfter": {
-      "label": "UKÁZKY REALIZACÍ",
-      "title": "Ukázky realizací",
-      "description": "Fotografie před a po rekonstrukci.",
+      "label": "REALIZACE",
+      "title": "Foto před a po",
+      "description": "Pohled na to, jak nemovitost vypadala před zásahem a jak vypadá po naší rekonstrukci či home stagingu.",
       "before": "Před",
-      "after": "Po"
+      "after": "Po",
+      "intro": "Příprava nemovitosti k prodeji rozhoduje. Profesionální fotografie, home staging a kvalitní prezentace dokáží zájem o nemovitost výrazně zvýšit a zkrátit dobu prodeje.",
+      "services": [
+        "Profesionální home staging před focením",
+        "Kvalitní fotografie, které vtáhnou do prostoru",
+        "Videoprohlídky a 3D prezentace",
+        "Cílená prezentace pro správnou cílovou skupinu"
+      ]
     },
     "process": {
       "title": "Jak to u nás funguje",
-      "description": "",
-      "step1": { "title": "Výběr nemovitosti", "description": "Z aktuální nabídky si spolu vybereme tu pravou." },
-      "step2": { "title": "Rezervace", "description": "Podepíšeme rezervační smlouvu." },
-      "step3": { "title": "Financování", "description": "Pomůžeme s hypotékou nebo úvěrem." },
-      "step4": { "title": "Předání klíčů", "description": "Po podpisu kupní smlouvy si převezmete klíče." }
+      "description": "Provedeme vás celým procesem — od první prohlídky po předání klíčů.",
+      "step1": { "title": "Výběr nemovitosti", "description": "Z naší nabídky spolu vybereme tu pravou. Domluvíme osobní prohlídku." },
+      "step2": { "title": "Rezervace", "description": "Po podpisu rezervační smlouvy nemovitost stáhneme z prodeje." },
+      "step3": { "title": "Financování", "description": "Pomůžeme s hypotékou nebo úvěrem od ověřených partnerů." },
+      "step4": { "title": "Předání klíčů", "description": "Po podpisu kupní smlouvy a převodu peněz si převezmete klíče." }
     },
     "financing": {
       "label": "FINANCOVÁNÍ",
       "title": "Pomůžeme s financováním",
-      "description": "Spolupracujeme s hypotečními makléři a bankami. Najdeme pro vás vhodné podmínky.",
+      "description": "Spolupracujeme s ověřenými hypotečními makléři a bankami. Najdeme pro vás vhodné podmínky a provedeme vás celým procesem.",
       "points": [
-        "Porovnání nabídek hypoték",
-        "Předschválení hypotéky",
-        "Pomoc s dokumenty",
-        "Konzultace zdarma"
+        "Porovnání nabídek hypoték od více bank",
+        "Pomoc s předschválením hypotéky",
+        "Asistence s vyřízením všech dokumentů",
+        "Konzultace zdarma a bez závazku"
       ],
       "cta": "Domluvit konzultaci"
     },
+    "whyUs": {
+      "label": "PROČ MY",
+      "title": "V čem vynikáme",
+      "items": [
+        {
+          "title": "Komplexní servis pod jednou střechou",
+          "description": "Prodej, rekonstrukce, financování i právní servis řešíme my — vy máte jeden kontakt."
+        },
+        {
+          "title": "Vlastní rekonstrukce",
+          "description": "Většinu nemovitostí v nabídce sami rekonstruujeme. Víme přesně, v jakém stavu jsou."
+        },
+        {
+          "title": "Přístup k neveřejným nabídkám",
+          "description": "Některé nemovitosti se na realitní servery vůbec nedostanou. Pro vás je máme jako první."
+        },
+        {
+          "title": "Férové jednání bez prostředníků",
+          "description": "Žádné skryté poplatky, žádní zbyteční prostředníci. Jednáte přímo s námi."
+        }
+      ]
+    },
     "cta": {
-      "title": "Máte zájem o prohlídku?",
-      "description": "Ozvěte se nám a domluvíme termín.",
-      "button": "Kontaktujte nás"
+      "title": "Líbí se vám některá z nemovitostí?",
+      "description": "Domluvte si nezávaznou prohlídku — naše byty mizí během dní.",
+      "button": "Domluvit prohlídku"
     }
   },
   "renovations": {
     "hero": {
       "label": "KOMPLETNÍ REKONSTRUKCE",
-      "title": "Kompletní rekonstrukce",
-      "description": "Postaráme se o celý proces od A do Z."
+      "title": "Postaráme se o celý proces od A do Z",
+      "description": "Architektonický návrh, projektová dokumentace, řemeslo i dokončovací práce. Jeden kontakt, jeden zodpovědný tým, jasný výsledek."
     },
     "intro": {
       "title": "Od návrhu po předání klíčů",
-      "description": "Zajistíme architektonický návrh, projektovou dokumentaci, řemeslné práce i dokončovací úpravy. Vy máte jednoho kontaktního člověka pro celý projekt."
+      "description": "Nezprostředkováváme — vše řídíme sami. Architektonický návrh, povolení, řemeslné práce i finální úklid. Vy máte jednoho kontaktního manažera, který odpovídá za výsledek, termín i rozpočet."
     },
     "types": {
       "title": "Co rekonstruujeme",
-      "apartments": { "title": "Byty", "description": "Kompletní rekonstrukce bytů." },
-      "houses": { "title": "Rodinné domy", "description": "Rekonstrukce rodinných domů." },
-      "commercial": { "title": "Komerční prostory", "description": "Kanceláře, obchody a provozovny." },
-      "attic": { "title": "Půdní vestavby", "description": "Přeměna půdních prostor v bydlení." }
+      "apartments": { "title": "Byty", "description": "Kompletní rekonstrukce bytů — od kosmetických změn po dispoziční řešení." },
+      "houses": { "title": "Rodinné domy", "description": "Rekonstrukce rodinných domů od interiéru po fasádu." },
+      "commercial": { "title": "Komerční prostory", "description": "Kanceláře, obchody, gastro provozy a showroomy." },
+      "attic": { "title": "Půdní vestavby", "description": "Přeměna nevyužité půdy v plnohodnotné bydlení." }
     },
     "standards": {
       "title": "Služby a standardy",
-      "description": "",
+      "description": "Pracujeme s ověřenými dodavateli a značkami, které sami doporučujeme pro vlastní bydlení.",
       "items": [
-        "Architektonický návrh interiéru",
-        "Projektová dokumentace",
-        "Bourací a zednické práce",
-        "Elektroinstalace",
-        "Vodoinstalace a topení",
-        "Podlahy, obklady, dlažby",
-        "Truhlářské práce",
-        "Malby a dokončovací práce"
+        "Architektonický návrh interiéru včetně 3D vizualizací",
+        "Projektová dokumentace a stavební povolení",
+        "Bourací, zednické a omítkářské práce",
+        "Kompletní elektroinstalace a slaboproudy",
+        "Vodoinstalace, odpady a topení",
+        "Podlahy, obklady a dlažby",
+        "Truhlářské práce a vestavný nábytek",
+        "Malby, dokončovací práce a úklid"
       ]
     },
     "process": {
       "title": "Průběh realizace",
-      "step1": { "title": "Schůzka", "description": "Prohlédneme si prostor." },
-      "step2": { "title": "Návrh a nabídka", "description": "Připravíme dispozice a rozpočet." },
-      "step3": { "title": "Realizace", "description": "Provedeme rekonstrukci." },
-      "step4": { "title": "Předání", "description": "Předáme hotové se zárukou." }
+      "step1": { "title": "Schůzka", "description": "Prohlédneme si prostor a probereme vaše představy." },
+      "step2": { "title": "Návrh a nabídka", "description": "Architekt připraví dispozice, vizualizace a transparentní rozpočet." },
+      "step3": { "title": "Realizace", "description": "Vlastní tým řemeslníků pracuje pod dohledem stavbyvedoucího." },
+      "step4": { "title": "Předání", "description": "Hotový prostor předáme uklizený, zkontrolovaný a se zárukou." }
     },
     "concreteScreeds": {
       "label": "BETONOVÉ STĚRKY",
-      "title": "Betonové stěrky",
-      "description": "Nabízíme betonové stěrky pro podlahy, stěny i nábytek.",
+      "title": "Specializace na betonové stěrky",
+      "description": "Jako jeden z mála na trhu nabízíme prémiové pohledové betonové stěrky pro podlahy, stěny i nábytek. Bezešvý povrch, vysoká odolnost a nadčasový vzhled.",
       "cta": "Více o betonových stěrkách"
     },
     "cta": {
       "title": "Plánujete rekonstrukci?",
-      "description": "Ozvěte se nám.",
-      "button": "Kontaktujte nás"
+      "description": "Domluvte si nezávaznou konzultaci. Rádi se na nemovitost přijdeme podívat a poradíme s dalším postupem.",
+      "button": "Nezávazná konzultace"
     }
   },
   "concreteScreeds": {
@@ -236,16 +328,33 @@
       "title": "Prémiové betonové stěrky",
       "description": "Unikátní povrchová úprava pro moderní interiéry i exteriéry. Bezešvý, odolný a esteticky nadčasový povrch."
     },
+    "intro": {
+      "title": "Co jsou betonové stěrky",
+      "description": "Pohledové betonové stěrky jsou tenkovrstvý povrchový materiál, který lze aplikovat na podlahy, stěny, nábytek i fasády. Vytvářejí bezespáré, čisté a moderní povrchy s industriálním nádechem."
+    },
     "benefits": {
       "title": "Proč betonové stěrky?",
-      "seamless": { "title": "Bezešvý povrch", "description": "Žádné spáry, žádné přechody. Čistý minimalistický vzhled pro váš prostor." },
-      "durable": { "title": "Vysoká odolnost", "description": "Extrémně odolné proti opotřebení, vodě a chemikáliím. Životnost desítky let." },
-      "design": { "title": "Designová flexibilita", "description": "Široká škála barev a textur. Každá realizace je originální umělecké dílo." },
+      "seamless": { "title": "Bezešvý povrch", "description": "Žádné spáry ani přechody. Čistý minimalistický vzhled pro váš prostor." },
+      "durable": { "title": "Vysoká odolnost", "description": "Odolné proti opotřebení, vodě a chemikáliím. Vhodné i do koupelen a kuchyní." },
+      "design": { "title": "Designová flexibilita", "description": "Široká škála barev, struktur a finálních úprav. Každá realizace je originál." },
       "maintenance": { "title": "Snadná údržba", "description": "Minimální nároky na údržbu. Stačí běžné čisticí prostředky." }
     },
     "applications": {
       "title": "Kde lze stěrky použít",
       "items": ["Podlahy", "Stěny", "Koupelny", "Kuchyně", "Schody", "Fasády", "Nábytek", "Komerční prostory"]
+    },
+    "process": {
+      "label": "POSTUP",
+      "title": "Jak realizace probíhá",
+      "step1": { "title": "Konzultace", "description": "Probereme prostor, vybereme barvu a strukturu." },
+      "step2": { "title": "Příprava podkladu", "description": "Zajistíme správně připravený podklad — základ kvalitního výsledku." },
+      "step3": { "title": "Aplikace stěrky", "description": "Ruční aplikace ve více vrstvách s pečlivým řemeslným zpracováním." },
+      "step4": { "title": "Finální úprava", "description": "Závěrečná impregnace a ochrana pro dlouhou životnost." }
+    },
+    "gallery": {
+      "label": "REALIZACE",
+      "title": "Ukázky realizací",
+      "description": "Vybrané projekty, na kterých jsme pracovali."
     },
     "cta": {
       "title": "Zaujaly vás betonové stěrky?",
@@ -256,25 +365,47 @@
   "about": {
     "hero": {
       "label": "O NÁS",
-      "title": "O nás",
-      "description": "Nákup, prodej a rekonstrukce nemovitostí pod jednou střechou."
+      "title": "Kdo jsme",
+      "description": "Home Renewal je tým, který spojuje rekonstrukce, realitní služby a betonové stěrky pod jednou střechou."
     },
     "story": {
-      "title": "Kdo jsme",
-      "p1": "Home Renewal se věnuje odkupu, rekonstrukci a prodeji nemovitostí. Nabízíme také zprostředkování prodeje a kompletní rekonstrukce na míru.",
-      "p2": "Specializujeme se na byty a rodinné domy v Praze a okolí."
+      "title": "Náš příběh",
+      "p1": "Home Renewal se věnuje odkupu, rekonstrukci a prodeji nemovitostí. Specializujeme se na byty a rodinné domy v Praze a okolí.",
+      "p2": "Nabízíme tři způsoby spolupráce — odkup nemovitosti, kompletní rekonstrukci s následným prodejem, nebo klasické zprostředkování. Doplňkově realizujeme kompletní rekonstrukce na míru a prémiové betonové stěrky."
+    },
+    "what": {
+      "label": "CO DĚLÁME",
+      "title": "Naše služby",
+      "items": [
+        {
+          "title": "Výkup nemovitostí",
+          "description": "Vykupujeme byty a rodinné domy z vlastního kapitálu — bez prostředníků a bez čekání na kupce."
+        },
+        {
+          "title": "Rekonstrukce a prodej",
+          "description": "Nemovitost zrekonstruujeme na své náklady, zvedneme tím její hodnotu a postaráme se o prodej."
+        },
+        {
+          "title": "Zprostředkování prodeje",
+          "description": "Klasické realitní zastoupení — fotostaging, inzerce, prohlídky a kompletní právní servis."
+        },
+        {
+          "title": "Kompletní rekonstrukce",
+          "description": "Rekonstrukce bytů, domů i komerčních prostor od návrhu po předání klíčů."
+        }
+      ]
     },
     "partner": {
-      "label": "SKUPINA",
-      "title": "Součást Pazderka Management",
-      "description": "Jsme součástí skupiny Pazderka Management.",
-      "cta": "pazderkamanagement.cz"
+      "label": "SOUČÁST SKUPINY",
+      "title": "Pazderka Management",
+      "description": "Jsme součástí skupiny Pazderka Management, která se zaměřuje na development a prodej rezidenčních projektů, investice do nemovitostí, výkup nemovitostí a technickou správu budov. Díky tomu pro vás dokážeme zajistit komplexní servis i u rozsáhlých projektů.",
+      "cta": "Navštívit pazderkamanagement.cz"
     }
   },
   "contact": {
     "label": "KONTAKT",
     "title": "Spojte se s námi",
-    "description": "Rádi vám odpovíme na jakékoliv dotazy.",
+    "description": "Rádi vám odpovíme na jakékoliv dotazy. Ozveme se zpravidla do 24 hodin.",
     "form": {
       "name": "Jméno a příjmení",
       "email": "E-mail",

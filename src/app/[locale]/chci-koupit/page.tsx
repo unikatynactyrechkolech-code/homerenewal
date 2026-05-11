@@ -5,7 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
 import PropertyListings from "@/components/PropertyListings";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Hammer, Eye, Handshake } from "lucide-react";
 
 const beforeAfter = [
   {
@@ -28,10 +28,17 @@ const beforeAfter = [
   },
 ];
 
+type WhyUsItem = { title: string; description: string };
+
 export default function ChciKoupitPage() {
   const t = useTranslations("buy");
   const locale = useLocale();
+
   const points: string[] = t.raw("financing.points");
+  const stagingServices: string[] = t.raw("beforeAfter.services");
+  const whyUsItems: WhyUsItem[] = t.raw("whyUs.items");
+
+  const whyUsIcons = [Handshake, Hammer, Eye, Sparkles];
 
   return (
     <>
@@ -57,7 +64,7 @@ export default function ChciKoupitPage() {
         </div>
       </section>
 
-      {/* Before / After */}
+      {/* Before / After + foto-staging text */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
@@ -74,7 +81,7 @@ export default function ChciKoupitPage() {
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
             {beforeAfter.map((pair, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="grid grid-cols-2 gap-3">
@@ -102,6 +109,27 @@ export default function ChciKoupitPage() {
               </FadeIn>
             ))}
           </div>
+
+          {/* Foto-staging text */}
+          <FadeIn delay={0.2}>
+            <div className="bg-white rounded-2xl border border-border/50 p-8 sm:p-12">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <p className="text-muted text-lg leading-relaxed">
+                  {t("beforeAfter.intro")}
+                </p>
+                <ul className="space-y-3">
+                  {stagingServices.map((s, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                      <span className="text-sm text-primary leading-relaxed">
+                        {s}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -139,8 +167,47 @@ export default function ChciKoupitPage() {
         </div>
       </section>
 
-      {/* Financing */}
+      {/* Why us */}
       <section className="py-24 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
+                {t("whyUs.label")}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                {t("whyUs.title")}
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {whyUsItems.map((item, i) => {
+              const Icon = whyUsIcons[i] ?? Sparkles;
+              return (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="group p-8 bg-white rounded-2xl border border-border/50 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 h-full flex gap-5">
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                      <Icon className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-primary mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Financing */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn>

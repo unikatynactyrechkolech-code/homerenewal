@@ -3,10 +3,15 @@
 import { useTranslations } from "next-intl";
 import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Tag, Hammer, Search, Layers } from "lucide-react";
+
+type WhatItem = { title: string; description: string };
 
 export default function ONasPage() {
   const t = useTranslations("about");
+
+  const whatItems: WhatItem[] = t.raw("what.items");
+  const whatIcons = [Tag, Hammer, Search, Layers];
 
   return (
     <>
@@ -34,6 +39,45 @@ export default function ONasPage() {
         </div>
       </section>
 
+      {/* What we do */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
+                {t("what.label")}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                {t("what.title")}
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {whatItems.map((item, i) => {
+              const Icon = whatIcons[i] ?? Tag;
+              return (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="group p-8 bg-white rounded-2xl border border-border/50 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 h-full flex gap-5">
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                      <Icon className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-primary mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Pazderka Management partnership */}
       <section className="py-24 bg-primary relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -47,7 +91,7 @@ export default function ONasPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               {t("partner.title")}
             </h2>
-            <p className="text-white/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-white/70 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
               {t("partner.description")}
             </p>
             <a
