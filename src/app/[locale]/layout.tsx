@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import PageTransition from "@/components/PageTransition";
+import EditorProvider from "@/components/admin/EditorProvider";
+import AdminBar from "@/components/admin/AdminBar";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,7 +30,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="scroll-smooth">
+    <html lang={locale} className="scroll-smooth" data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -37,18 +39,21 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="font-sans antialiased">
         <NextIntlClientProvider messages={messages}>
-          <LoadingScreen />
-          <Header />
-          <PageTransition>
-            <main>{children}</main>
-          </PageTransition>
-          <Footer />
+          <EditorProvider>
+            <LoadingScreen />
+            <Header />
+            <PageTransition>
+              <main>{children}</main>
+            </PageTransition>
+            <Footer />
+            <AdminBar />
+          </EditorProvider>
         </NextIntlClientProvider>
       </body>
     </html>

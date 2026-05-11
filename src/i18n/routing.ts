@@ -29,5 +29,6 @@ export const routing = defineRouting({
       cs: "/betonove-sterky",
       en: "/concrete-screeds",
     },
+    "/admin": "/admin",
   },
 });

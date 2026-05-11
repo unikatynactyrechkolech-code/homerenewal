@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import { useRef } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -21,10 +22,25 @@ import ContactForm from "@/components/ContactForm";
 function HeroSection() {
   const t = useTranslations("hero");
   const locale = useLocale();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.2]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
-      <div className="absolute inset-0">
+    <section
+      ref={heroRef}
+      className="relative h-screen min-h-[700px] flex items-center overflow-hidden"
+    >
+      <motion.div
+        style={{ y: videoY, scale: videoScale }}
+        className="absolute inset-0 will-change-transform"
+      >
         <video
           autoPlay
           loop
@@ -39,9 +55,12 @@ function HeroSection() {
           />
         </video>
         <div className="hero-overlay absolute inset-0" />
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
+      <motion.div
+        style={{ y: textY, opacity: textOpacity }}
+        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full"
+      >
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -91,7 +110,7 @@ function HeroSection() {
             </Link>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -165,7 +184,7 @@ function SectionsSection() {
             <FadeIn key={section.titleKey} delay={i * 0.1}>
               <Link href={`/${locale}${section.href}`}>
                 <div
-                  className={`group relative p-10 bg-gradient-to-br ${section.color} rounded-2xl border border-border/50 hover:border-accent/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent/5 cursor-pointer h-full`}
+                  className={`hr-lift group relative p-10 bg-gradient-to-br ${section.color} rounded-2xl border border-border/50 hover:border-accent/30 cursor-pointer h-full`}
                 >
                   <section.icon className="w-10 h-10 text-accent mb-6 group-hover:scale-110 transition-transform duration-500" />
                   <h3 className="text-xl font-bold text-primary mb-4">
