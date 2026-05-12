@@ -34,3 +34,17 @@ INSERT INTO property_options (kind, value, label, color, sort_order) VALUES
   ('status', 'sold', 'Prodáno', '#6b7280', 3),
   ('status', 'hidden', 'Skryto', '#1a1a1a', 4)
 ON CONFLICT (kind, value) DO NOTHING;
+
+-- Seed dispozic
+INSERT INTO property_options (kind, value, label, sort_order) VALUES
+  ('rooms', '1_kk', '1+kk', 1),
+  ('rooms', '1_1', '1+1', 2),
+  ('rooms', '2_kk', '2+kk', 3),
+  ('rooms', '2_1', '2+1', 4),
+  ('rooms', '3_kk', '3+kk', 5),
+  ('rooms', '3_1', '3+1', 6),
+  ('rooms', '4_kk', '4+kk', 7),
+  ('rooms', '4_1', '4+1', 8),
+  ('rooms', '5_kk', '5+kk', 9),
+  ('rooms', '5_1', '5+1', 10)
+ON CONFLICT (kind, value) DO NOTHING;

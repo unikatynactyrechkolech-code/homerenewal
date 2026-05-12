@@ -11,6 +11,7 @@ import {
   Star,
 } from "lucide-react";
 import ImageUploader from "./ImageUploader";
+import SelectWithAdd from "./SelectWithAdd";
 
 type Property = {
   id: string;
@@ -35,20 +36,27 @@ type Option = {
   value: string;
   label: string;
   color: string | null;
+  sort_order: number;
 };
 
 export default function PropertyEditor({
   property,
   types,
   statuses,
+  rooms,
+  allOptions,
   onClose,
   onSaved,
+  onOptionsChanged,
 }: {
   property: Property;
   types: Option[];
   statuses: Option[];
+  rooms: Option[];
+  allOptions: Option[];
   onClose: () => void;
   onSaved: () => void;
+  onOptionsChanged: () => void | Promise<void>;
 }) {
   const [p, setP] = useState<Property>(property);
   const [saving, setSaving] = useState(false);
@@ -234,49 +242,45 @@ export default function PropertyEditor({
                 />
               </Field>
               <Field label="Dispozice">
-                <input
-                  type="text"
-                  value={p.rooms ?? ""}
-                  onChange={(e) => update("rooms", e.target.value)}
-                  className={inputCls}
-                  placeholder="3+kk"
+                <SelectWithAdd
+                  kind="rooms"
+                  options={allOptions}
+                  value={p.rooms}
+                  onChange={(v) => update("rooms", v || null)}
+                  onOptionsChanged={onOptionsChanged}
+                  placeholder="— vyber dispozici —"
                 />
               </Field>
               <Field label="Typ nemovitosti">
-                <select
-                  value={p.type ?? ""}
-                  onChange={(e) => update("type", e.target.value)}
-                  className={inputCls + " bg-white"}
-                >
-                  {types.length === 0 && <option value="">— žádné typy nejsou definovány —</option>}
-                  {types.map((t) => (
-                    <option key={t.id} value={t.value}>
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
+                <SelectWithAdd
+                  kind="type"
+                  options={allOptions}
+                  value={p.type}
+                  onChange={(v) => update("type", v || null)}
+                  onOptionsChanged={onOptionsChanged}
+                  placeholder="— vyber typ —"
+                />
               </Field>
               <Field label="Stav">
-                <select
+                <SelectWithAdd
+                  kind="status"
+                  options={
+                    statuses.length === 0
+                      ? [
+                          { id: "_a", kind: "status", value: "active", label: "Aktivní", color: "#c8a97e", sort_order: 1 },
+                          { id: "_r", kind: "status", value: "reserved", label: "Rezervováno", color: "#f59e0b", sort_order: 2 },
+                          { id: "_s", kind: "status", value: "sold", label: "Prodáno", color: "#6b7280", sort_order: 3 },
+                          { id: "_h", kind: "status", value: "hidden", label: "Skryté", color: "#1a1a1a", sort_order: 4 },
+                        ]
+                      : allOptions
+                  }
                   value={p.status}
-                  onChange={(e) => update("status", e.target.value)}
-                  className={inputCls + " bg-white"}
-                >
-                  {statuses.length === 0 ? (
-                    <>
-                      <option value="active">Aktivní</option>
-                      <option value="reserved">Rezervováno</option>
-                      <option value="sold">Prodáno</option>
-                      <option value="hidden">Skryté</option>
-                    </>
-                  ) : (
-                    statuses.map((s) => (
-                      <option key={s.id} value={s.value}>
-                        {s.label}
-                      </option>
-                    ))
-                  )}
-                </select>
+                  onChange={(v) => update("status", v || "active")}
+                  onOptionsChanged={onOptionsChanged}
+                  placeholder="— vyber stav —"
+                  allowEmpty={false}
+                  withColor
+                />
               </Field>
               <Field label="Slug (URL)">
                 <input

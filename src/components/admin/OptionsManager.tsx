@@ -14,6 +14,7 @@ type Option = {
 
 const KINDS: { value: string; label: string; hint: string }[] = [
   { value: "type", label: "Typy nemovitostí", hint: "Byt, Dům, Komerční prostor…" },
+  { value: "rooms", label: "Dispozice", hint: "1+kk, 2+1, 3+kk, 4+1…" },
   { value: "status", label: "Stavy", hint: "K prodeji, Rezervováno, Prodáno…" },
 ];
 

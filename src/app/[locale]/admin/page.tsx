@@ -83,6 +83,11 @@ export default function AdminPage() {
     setOptions(o.data ?? []);
   }, []);
 
+  const refreshOptions = useCallback(async () => {
+    const o = await fetch("/api/options").then((r) => r.json());
+    setOptions(o.data ?? []);
+  }, []);
+
   useEffect(() => {
     refresh();
   }, [refresh]);
@@ -100,6 +105,7 @@ export default function AdminPage() {
     () => options.filter((o) => o.kind === "status"),
     [options],
   );
+  const rooms = useMemo(() => options.filter((o) => o.kind === "rooms"), [options]);
 
   /* DnD */
   const sensors = useSensors(
@@ -177,9 +183,10 @@ export default function AdminPage() {
               type="button"
               onClick={() => setShowOptions(true)}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-white border border-border text-primary hover:bg-gray-50 rounded-full transition"
+              title="Sprav typy nemovitostí, dispozice a stavy v dropdownech"
             >
               <Settings2 className="w-3.5 h-3.5" />
-              Kategorie & stavy
+              Číselníky
             </button>
             <button
               type="button"
@@ -255,11 +262,14 @@ export default function AdminPage() {
           property={editing}
           types={types}
           statuses={statuses}
+          rooms={rooms}
+          allOptions={options}
           onClose={() => setEditing(null)}
           onSaved={() => {
             setEditing(null);
             refresh();
           }}
+          onOptionsChanged={refreshOptions}
         />
       )}
 
