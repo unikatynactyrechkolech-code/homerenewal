@@ -17,6 +17,13 @@
   --color-border: #e5e5e5;
 }
 
+/* Scroll lock při otevřeném mobile menu — funguje i na iOS Safari */
+html.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 @layer base {
   * {
     margin: 0;

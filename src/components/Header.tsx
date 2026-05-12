@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,36 +15,6 @@ const navLinks = [
   { key: "contact", href: "/kontakt", hrefEn: "/contact" },
 ];
 
-/* ── Custom 2-line burger that morphs into X ── */
-function BurgerButton({
-  isOpen,
-  onClick,
-  color,
-}: {
-  isOpen: boolean;
-  onClick: () => void;
-  color: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="lg:hidden relative z-[60] w-8 h-8 flex flex-col items-center justify-center gap-[7px]"
-      aria-label="Menu"
-    >
-      <span
-        className={`block w-6 h-[2px] rounded-full transition-all duration-300 origin-center ${color} ${
-          isOpen ? "rotate-45 translate-y-[4.5px]" : ""
-        }`}
-      />
-      <span
-        className={`block w-6 h-[2px] rounded-full transition-all duration-300 origin-center ${color} ${
-          isOpen ? "-rotate-45 -translate-y-[4.5px]" : ""
-        }`}
-      />
-    </button>
-  );
-}
-
 export default function Header() {
   const t = useTranslations("nav");
   const locale = useLocale();
@@ -52,129 +22,179 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Detekuj adminsky top bar
+  const [adminBarHeight, setAdminBarHeight] = useState(0);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    function measure() {
+      // AdminBar přidává div.h-12 (48px) jako spacer
+      const spacer = document.querySelector<HTMLElement>('[aria-hidden="true"].h-12');
+      setAdminBarHeight(spacer ? spacer.offsetHeight : 0);
+      setScrolled(window.scrollY > 10);
+    }
+    measure();
+    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when menu is open
+  const close = useCallback(() => setIsOpen(false), []);
+
+  // Zavři při změně route
+  useEffect(() => { close(); }, [pathname, close]);
+
+  // Zamkni scroll body — přes CSS třídu, ne inline style (spolehlivější na iOS)
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (isOpen) {
+      document.documentElement.classList.add("menu-open");
+    } else {
+      document.documentElement.classList.remove("menu-open");
+    }
+    return () => document.documentElement.classList.remove("menu-open");
   }, [isOpen]);
 
-  const getHref = (link: (typeof navLinks)[0]) => {
-    return `/${locale}${locale === "cs" ? link.href : link.hrefEn}`;
-  };
+  const getHref = (link: (typeof navLinks)[0]) =>
+    `/${locale}${locale === "cs" ? link.href : link.hrefEn}`;
 
   const switchLocale = locale === "cs" ? "en" : "cs";
   const switchPath = pathname.replace(`/${locale}`, `/${switchLocale}`);
 
-  const barColor = isOpen
-    ? "bg-primary"
-    : scrolled
-      ? "bg-primary"
-      : "bg-white";
+  const onLight = scrolled || isOpen;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="relative z-[60]">
-            <span
-              className={`text-xl font-bold tracking-tight transition-colors duration-300 ${
-                isOpen || scrolled ? "text-primary" : "text-white"
-              }`}
-            >
-              HOME<span className="text-accent font-light">RENEWAL</span>
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.key}
-                href={getHref(link)}
-                className={`text-[13px] font-medium uppercase tracking-widest transition-colors duration-300 hover:text-accent ${
-                  scrolled
-                    ? "text-primary/70 hover:text-primary"
-                    : "text-white/80 hover:text-white"
+    <>
+      {/* ─── HEADER BAR ─── */}
+      <header
+        style={{ top: adminBarHeight }}
+        className={`fixed left-0 right-0 z-[200] transition-all duration-500 ${
+          onLight
+            ? "bg-white/97 backdrop-blur-md shadow-sm border-b border-black/8"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* Logo */}
+            <Link href={`/${locale}`} className="shrink-0" onClick={close}>
+              <span
+                className={`text-lg sm:text-xl font-bold tracking-tight transition-colors duration-300 ${
+                  onLight ? "text-primary" : "text-white"
                 }`}
               >
-                {t(link.key)}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right side */}
-          <div className="flex items-center gap-4">
-            {/* Language Switcher */}
-            <Link
-              href={switchPath}
-              className={`flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider transition-colors duration-300 relative z-[60] ${
-                isOpen || scrolled
-                  ? "text-primary/60 hover:text-primary"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              <Globe className="w-3.5 h-3.5" />
-              {switchLocale.toUpperCase()}
+                HOME<span className="text-accent font-light">RENEWAL</span>
+              </span>
             </Link>
 
-            {/* Mobile burger */}
-            <BurgerButton
-              isOpen={isOpen}
-              onClick={() => setIsOpen(!isOpen)}
-              color={barColor}
-            />
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.key}
+                  href={getHref(link)}
+                  className={`text-[13px] font-medium uppercase tracking-widest transition-colors duration-300 ${
+                    scrolled
+                      ? "text-primary/70 hover:text-primary"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {t(link.key)}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right controls */}
+            <div className="flex items-center gap-3">
+              <Link
+                href={switchPath}
+                className={`hidden sm:flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${
+                  onLight
+                    ? "text-primary/60 hover:text-primary"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                <Globe className="w-3.5 h-3.5" />
+                {switchLocale.toUpperCase()}
+              </Link>
+
+              {/* Burger — pouze mobil */}
+              <button
+                type="button"
+                onClick={() => setIsOpen((v) => !v)}
+                className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full gap-[6px] focus:outline-none"
+                aria-label={isOpen ? "Zavřít menu" : "Otevřít menu"}
+                aria-expanded={isOpen}
+              >
+                <span
+                  className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+                    onLight ? "bg-primary" : "bg-white"
+                  } ${isOpen ? "rotate-45 translate-y-[4px]" : ""}`}
+                />
+                <span
+                  className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+                    onLight ? "bg-primary" : "bg-white"
+                  } ${isOpen ? "-rotate-45 -translate-y-[4px]" : ""}`}
+                />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Menu */}
+      {/* ─── MOBILE MENU OVERLAY ─── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden fixed inset-0 bg-white z-[55] flex items-center justify-center"
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            // Umíst menu přesně pod header — top = adminBar + headerHeight
+            style={{ top: adminBarHeight + 64 }}
+            className="lg:hidden fixed left-0 right-0 bottom-0 z-[199] bg-white overflow-y-auto"
           >
-            <nav className="flex flex-col items-center gap-6 px-6">
+            <nav className="flex flex-col px-6 pt-6 pb-10 gap-1">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.key}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.3 }}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 * i, duration: 0.2 }}
                 >
                   <Link
                     href={getHref(link)}
-                    onClick={() => setIsOpen(false)}
-                    className="text-xl sm:text-2xl font-semibold text-primary hover:text-accent transition-colors uppercase tracking-wider"
+                    onClick={close}
+                    className="block py-4 text-2xl font-bold text-primary hover:text-accent transition-colors border-b border-black/5 last:border-0"
                   >
                     {t(link.key)}
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Jazykový přepínač v menu */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.25 }}
+                className="mt-6"
+              >
+                <Link
+                  href={switchPath}
+                  onClick={close}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-primary transition-colors"
+                >
+                  <Globe className="w-4 h-4" />
+                  {switchLocale === "cs" ? "Česky" : "English"}
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
+
