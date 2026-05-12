@@ -52,6 +52,7 @@ export default function PropertyEditor({
 }) {
   const [p, setP] = useState<Property>(property);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [preview, setPreview] = useState(false);
   const [newImg, setNewImg] = useState("");
 
@@ -82,15 +83,57 @@ export default function PropertyEditor({
   }
 
   async function save() {
+    setSaveError(null);
+
+    // Validace
+    const title = p.title.trim();
+    if (!title) {
+      setSaveError("Vyplň, prosím, název inzerátu.");
+      return;
+    }
+
+    // Sanitizace payloadu
+    const payload = {
+      ...(p.id ? { id: p.id } : {}),
+      title,
+      location: p.location?.trim() || null,
+      price_czk: p.price_czk == null || Number.isNaN(p.price_czk) ? null : Number(p.price_czk),
+      size_m2: p.size_m2 == null || Number.isNaN(p.size_m2) ? null : Number(p.size_m2),
+      rooms: p.rooms?.trim() || null,
+      type: p.type?.trim() || null,
+      status: p.status || "active",
+      description: p.description?.trim() || null,
+      cover_image: p.cover_image?.trim() || null,
+      gallery: (p.gallery ?? []).filter((u) => typeof u === "string" && u.trim().length > 0),
+      featured: !!p.featured,
+      sort_order: Number.isFinite(p.sort_order) ? Number(p.sort_order) : 0,
+      slug: p.slug?.trim() || null,
+    };
+
     setSaving(true);
-    const r = await fetch("/api/properties", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(p),
-    });
-    setSaving(false);
-    if (r.ok) onSaved();
-    else alert("Uložení selhalo");
+    try {
+      const r = await fetch("/api/properties", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (r.status === 401) {
+        setSaveError(
+          "Vypršela ti admin session. Klikni na ikonu zámku v patce a přihlaš se znovu.",
+        );
+        return;
+      }
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        setSaveError(j.error ?? `Uložení selhalo (HTTP ${r.status})`);
+        return;
+      }
+      onSaved();
+    } catch (e) {
+      setSaveError((e as Error).message ?? "Síťová chyba při ukládání.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -142,6 +185,12 @@ export default function PropertyEditor({
           <PreviewCard p={p} statuses={statuses} types={types} />
         ) : (
           <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+            {saveError && (
+              <div className="flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
+                <span className="font-semibold shrink-0">Chyba:</span>
+                <span>{saveError}</span>
+              </div>
+            )}
             {/* Hlavní info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <Field label="Název *">
@@ -213,11 +262,20 @@ export default function PropertyEditor({
                   onChange={(e) => update("status", e.target.value)}
                   className={inputCls + " bg-white"}
                 >
-                  {statuses.map((s) => (
-                    <option key={s.id} value={s.value}>
-                      {s.label}
-                    </option>
-                  ))}
+                  {statuses.length === 0 ? (
+                    <>
+                      <option value="active">Aktivní</option>
+                      <option value="reserved">Rezervováno</option>
+                      <option value="sold">Prodáno</option>
+                      <option value="hidden">Skryté</option>
+                    </>
+                  ) : (
+                    statuses.map((s) => (
+                      <option key={s.id} value={s.value}>
+                        {s.label}
+                      </option>
+                    ))
+                  )}
                 </select>
               </Field>
               <Field label="Slug (URL)">
