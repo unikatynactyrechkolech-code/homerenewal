@@ -50,32 +50,35 @@ export default function ImageUploader({
           signature: string;
         };
 
-        const uploaded: string[] = [];
+        // 2) Nahraj všechny soubory paralelně a sleduj progress.
+        let done = 0;
+        const uploaded: (string | null)[] = new Array(files.length).fill(null);
 
-        // 2) Postupně upload každý soubor (Cloudinary akceptuje paralelně, ale UX je jednodušší).
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const fd = new FormData();
-          fd.append("file", file);
-          fd.append("api_key", sign.apiKey);
-          fd.append("timestamp", String(sign.timestamp));
-          fd.append("signature", sign.signature);
-          fd.append("folder", sign.folder);
+        await Promise.all(
+          files.map(async (file, i) => {
+            const fd = new FormData();
+            fd.append("file", file);
+            fd.append("api_key", sign.apiKey);
+            fd.append("timestamp", String(sign.timestamp));
+            fd.append("signature", sign.signature);
+            fd.append("folder", sign.folder);
 
-          const res = await fetch(
-            `https://api.cloudinary.com/v1_1/${sign.cloudName}/image/upload`,
-            { method: "POST", body: fd },
-          );
-          if (!res.ok) {
-            const j = await res.json().catch(() => ({}));
-            throw new Error(j.error?.message ?? `Upload selhal (${res.status})`);
-          }
-          const data = (await res.json()) as UploadResult;
-          uploaded.push(data.secure_url);
-          setProgress({ done: i + 1, total: files.length });
-        }
+            const res = await fetch(
+              `https://api.cloudinary.com/v1_1/${sign.cloudName}/image/upload`,
+              { method: "POST", body: fd },
+            );
+            if (!res.ok) {
+              const j = await res.json().catch(() => ({}));
+              throw new Error(j.error?.message ?? `Upload selhal (${res.status})`);
+            }
+            const data = (await res.json()) as UploadResult;
+            uploaded[i] = data.secure_url;
+            done++;
+            setProgress({ done, total: files.length });
+          }),
+        );
 
-        onUploaded(uploaded);
+        onUploaded(uploaded.filter(Boolean) as string[]);
       } catch (e: unknown) {
         setError((e as Error).message ?? "Neznámá chyba");
       } finally {
