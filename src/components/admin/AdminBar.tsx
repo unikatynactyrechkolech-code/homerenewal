@@ -114,7 +114,7 @@ export default function AdminBar() {
                   <ExternalLink className="w-4 h-4 shrink-0 mt-0.5" />
                   <div>
                     Databáze není připojená. Po přihlášení budou texty editovatelné
-                    pouze lokálně do načtení stránky. Nastav <code>DATABASE_URL</code>{" "}
+                    pouze lokálně do načtení stránky. Nastav <code>SUPABASE_SERVICE_ROLE_KEY</code>{" "}
                     v <code>.env.local</code>.
                   </div>
                 </div>
