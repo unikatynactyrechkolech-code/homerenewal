@@ -20,6 +20,7 @@ type Property = {
   description: string | null;
   cover_image: string | null;
   featured: boolean;
+  slug: string | null;
 };
 
 type Option = {
@@ -108,6 +109,7 @@ export default function PropertyListings({ limit }: { limit?: number }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {visible.map((p, i) => {
         const s = statuses.find((x) => x.value === p.status);
+        const href = `/${locale}/nemovitosti/${p.slug ?? p.id}`;
         return (
           <motion.article
             key={p.id}
@@ -121,6 +123,7 @@ export default function PropertyListings({ limit }: { limit?: number }) {
             }}
             className="hr-lift group bg-white border border-border/50 rounded-2xl overflow-hidden"
           >
+            <Link href={href} className="block">
             <div className="hr-img-zoom relative aspect-[4/3] bg-gray-100">
               {p.cover_image ? (
                 <img
@@ -152,7 +155,7 @@ export default function PropertyListings({ limit }: { limit?: number }) {
                   <span>{p.location}</span>
                 </div>
               )}
-              <h3 className="text-lg font-bold text-primary mb-3 leading-snug line-clamp-2">
+              <h3 className="text-lg font-bold text-primary mb-3 leading-snug line-clamp-2 group-hover:text-accent transition-colors">
                 {p.title}
               </h3>
               <div className="flex items-center gap-4 text-xs text-muted mb-4">
@@ -169,12 +172,16 @@ export default function PropertyListings({ limit }: { limit?: number }) {
                   </span>
                 )}
               </div>
-              <div className="pt-4 border-t border-border/50">
+              <div className="pt-4 border-t border-border/50 flex items-center justify-between">
                 <span className="text-xl font-bold text-primary">
                   {formatCzk(p.price_czk)}
                 </span>
+                <span className="text-xs font-semibold text-accent opacity-0 group-hover:opacity-100 transition">
+                  Detail →
+                </span>
               </div>
             </div>
+            </Link>
           </motion.article>
         );
       })}

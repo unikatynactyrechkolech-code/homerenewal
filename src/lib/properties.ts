@@ -58,6 +58,27 @@ export async function getProperty(id: string): Promise<Property | null> {
   return { ...data, gallery: Array.isArray(data.gallery) ? data.gallery : [] } as Property;
 }
 
+/** Načte nemovitost podle slug (nebo UUID jako fallback). */
+export async function getPropertyBySlugOrId(slugOrId: string): Promise<Property | null> {
+  if (!isDbConfigured()) return null;
+  const sb = getAdminClient() ?? getPublicClient();
+  // Zkus slug nejdřív
+  const { data: bySlug } = await sb
+    .from("properties")
+    .select("*")
+    .eq("slug", slugOrId)
+    .maybeSingle();
+  if (bySlug) return { ...bySlug, gallery: Array.isArray(bySlug.gallery) ? bySlug.gallery : [] } as Property;
+  // Fallback na UUID
+  const { data: byId } = await sb
+    .from("properties")
+    .select("*")
+    .eq("id", slugOrId)
+    .maybeSingle();
+  if (!byId) return null;
+  return { ...byId, gallery: Array.isArray(byId.gallery) ? byId.gallery : [] } as Property;
+}
+
 export type PropertyInput = Omit<Property, "id"> & { id?: string };
 
 export async function upsertProperty(p: PropertyInput): Promise<Property> {
