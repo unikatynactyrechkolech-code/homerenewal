@@ -9,13 +9,19 @@ import HouseLogo from "./HouseLogo";
  * Draws the house logo, shows the brand name, then fades out smoothly.
  */
 export default function LoadingScreen() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [shouldRender, setShouldRender] = useState(true);
+  // Zobraz loading screen pouze jednou za session (první návštěva tabu)
+  const alreadySeen =
+    typeof window !== "undefined" && sessionStorage.getItem("hr_loaded") === "1";
+
+  const [isLoading, setIsLoading] = useState(!alreadySeen);
+  const [shouldRender, setShouldRender] = useState(!alreadySeen);
 
   useEffect(() => {
+    if (!isLoading) return;
     // Wait for the draw animation to complete, then start exit
     const timer = setTimeout(() => {
       setIsLoading(false);
+      sessionStorage.setItem("hr_loaded", "1");
     }, 2200);
 
     return () => clearTimeout(timer);

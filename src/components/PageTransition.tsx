@@ -28,9 +28,32 @@ export default function PageTransition({
       return;
     }
 
+    const prev = previousPathname.current;
+
     // Only animate on actual route changes
-    if (previousPathname.current === pathname) return;
+    if (prev === pathname) return;
     previousPathname.current = pathname;
+
+    // Přeskočit animaci při "rychlých" navigacích:
+    // detail nemovitosti ↔ listing, zpět z detailu, přechody v rámci stejné sekce
+    const isDetailNav =
+      prev.includes("/nemovitosti/") ||
+      pathname.includes("/nemovitosti/") ||
+      prev.includes("/kontakt") ||
+      pathname.includes("/kontakt");
+
+    // Stejná sekce (liší se jen trailing segment nebo lokalizace)
+    const prevSegments = prev.split("/").filter(Boolean);
+    const nextSegments = pathname.split("/").filter(Boolean);
+    const sameSection =
+      prevSegments.length >= 2 &&
+      nextSegments.length >= 2 &&
+      prevSegments[1] === nextSegments[1];
+
+    if (isDetailNav || sameSection) {
+      window.scrollTo({ top: 0 });
+      return;
+    }
 
     // Schedule state update to avoid synchronous setState in effect
     const rafId = requestAnimationFrame(() => {
