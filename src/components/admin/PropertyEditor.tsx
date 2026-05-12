@@ -61,6 +61,7 @@ export default function PropertyEditor({
   const [p, setP] = useState<Property>(property);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [saveOk, setSaveOk] = useState(false);
   const [preview, setPreview] = useState(false);
   const [newImg, setNewImg] = useState("");
 
@@ -91,6 +92,7 @@ export default function PropertyEditor({
   }
 
   async function save() {
+    console.log("[PropertyEditor] save() start", { id: p.id, title: p.title });
     setSaveError(null);
 
     // Validace
@@ -117,6 +119,7 @@ export default function PropertyEditor({
       sort_order: Number.isFinite(p.sort_order) ? Number(p.sort_order) : 0,
       slug: p.slug?.trim() || null,
     };
+    console.log("[PropertyEditor] payload:", payload);
 
     setSaving(true);
     try {
@@ -125,6 +128,7 @@ export default function PropertyEditor({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      console.log("[PropertyEditor] response status:", r.status);
       if (r.status === 401) {
         setSaveError(
           "Vypršela ti admin session. Klikni na ikonu zámku v patce a přihlaš se znovu.",
@@ -132,12 +136,18 @@ export default function PropertyEditor({
         return;
       }
       const j = await r.json().catch(() => ({}));
+      console.log("[PropertyEditor] response body:", j);
       if (!r.ok) {
         setSaveError(j.error ?? `Uložení selhalo (HTTP ${r.status})`);
         return;
       }
+      console.log("[PropertyEditor] save OK, calling onSaved()");
+      // Vizuální potvrzení — i kdyby onSaved žnějaký důvod nezavřel modal,
+      // uživatel uvidí že se uložilo.
+      setSaveOk(true);
       onSaved();
     } catch (e) {
+      console.error("[PropertyEditor] save error:", e);
       setSaveError((e as Error).message ?? "Síťová chyba při ukládání.");
     } finally {
       setSaving(false);
@@ -161,6 +171,19 @@ export default function PropertyEditor({
             </span>
           </div>
           <div className="flex items-center gap-2">
+            {saveError && (
+              <span
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-500/20 border border-red-400/40 text-red-200 max-w-[280px] truncate"
+                title={saveError}
+              >
+                ⚠ {saveError}
+              </span>
+            )}
+            {saveOk && !saveError && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">
+                ✓ Uloženo
+              </span>
+            )}
             <button
               type="button"
               onClick={() => setPreview(!preview)}
@@ -193,6 +216,11 @@ export default function PropertyEditor({
           <PreviewCard p={p} statuses={statuses} types={types} />
         ) : (
           <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+            {saveOk && (
+              <div className="flex items-center gap-2 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                <span className="font-semibold">✓ Uloženo do databáze.</span>
+              </div>
+            )}
             {saveError && (
               <div className="flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
                 <span className="font-semibold shrink-0">Chyba:</span>
