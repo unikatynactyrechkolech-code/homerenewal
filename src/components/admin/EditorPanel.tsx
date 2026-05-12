@@ -64,18 +64,21 @@ export default function EditorPanel({
     setColor(rgbToHex(target.color) ?? "#1a1a1a");
   }, [target]);
 
-  // Pozice panelu: snaž se panel umístit blízko cíle, ale udrž ho ve viewportu.
+  // Pozice panelu: position:fixed → souřadnice jsou viewport-relative,
+  // nepřidávat scroll offsety (BUG na podstránkách).
   const PANEL_W = 380;
   const PANEL_H = 520;
-  let left = target.rect.left + window.scrollX;
-  let top = target.rect.bottom + window.scrollY + 8;
+  let left = target.rect.left;
+  let top = target.rect.bottom + 8;
 
   if (left + PANEL_W > window.innerWidth - 16) {
     left = Math.max(16, window.innerWidth - PANEL_W - 16);
   }
-  if (top + PANEL_H > window.innerHeight + window.scrollY - 16) {
-    top = Math.max(16, target.rect.top + window.scrollY - PANEL_H - 8);
+  if (top + PANEL_H > window.innerHeight - 16) {
+    top = Math.max(16, target.rect.top - PANEL_H - 8);
   }
+  if (left < 16) left = 16;
+  if (top < 16) top = 16;
 
   function submit() {
     onSave({
@@ -258,9 +261,10 @@ export default function EditorPanel({
               type="button"
               onClick={submit}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#c8a97e] hover:bg-[#b89569] text-white rounded transition"
+              title="Aplikovat změnu (uloží se po kliknutí na Publikovat změny)"
             >
               <Save className="w-3.5 h-3.5" />
-              Uložit
+              Použít
             </button>
           </div>
         </div>

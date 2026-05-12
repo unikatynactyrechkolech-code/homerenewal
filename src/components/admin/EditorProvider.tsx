@@ -28,6 +28,10 @@ type EditorContextValue = {
   login: (password: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => Promise<void>;
   dbConfigured: boolean;
+  pendingCount: number;
+  publishing: boolean;
+  publish: () => Promise<{ ok: boolean; error?: string }>;
+  discard: () => void;
 };
 
 const Ctx = createContext<EditorContextValue | null>(null);
@@ -110,8 +114,14 @@ export default function EditorProvider({
     el: HTMLElement;
   } | null>(null);
 
+  // Draft — změny aplikované lokálně, ještě nepubliko­vané do DB.
+  const [pending, setPending] = useState<Record<string, Override>>({});
+  const [publishing, setPublishing] = useState(false);
+
   const overridesRef = useRef(overrides);
   overridesRef.current = overrides;
+  const pendingRef = useRef(pending);
+  pendingRef.current = pending;
 
   /* ── Načti session + overrides při startu ──────────────────────── */
   useEffect(() => {
@@ -129,7 +139,7 @@ export default function EditorProvider({
       .catch(() => {});
   }, []);
 
-  /* ── Aplikuj overrides na DOM po každé změně cesty / overrides ── */
+  /* ── Aplikuj overrides + pending na DOM po každé změně cesty ──────── */
   useEffect(() => {
     if (typeof window === "undefined") return;
     const t = window.setTimeout(() => {
@@ -138,12 +148,12 @@ export default function EditorProvider({
       els.forEach((el) => {
         if (!isLeafText(el)) return;
         const key = buildKey(el, pathname);
-        const o = overrides[key];
+        const o = pending[key] ?? overrides[key];
         if (o) applyOverride(el, o);
       });
     }, 60);
     return () => window.clearTimeout(t);
-  }, [pathname, overrides]);
+  }, [pathname, overrides, pending]);
 
   /* ── Right-click handler v editMode ────────────────────────────── */
   useEffect(() => {
@@ -165,7 +175,7 @@ export default function EditorProvider({
 
       e.preventDefault();
       const key = buildKey(chosen, pathname);
-      const existing = overridesRef.current[key];
+      const existing = pendingRef.current[key] ?? overridesRef.current[key];
       const cs = window.getComputedStyle(chosen);
 
       setTarget({
@@ -241,27 +251,76 @@ export default function EditorProvider({
     setEditMode(false);
   }, []);
 
+  /* ── Publish / discard ─────────────────────────────────────────── */
+  const publish = useCallback(async () => {
+    const entries = Object.entries(pending);
+    if (entries.length === 0) return { ok: true };
+    setPublishing(true);
+    try {
+      const r = await fetch("/api/content/batch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: entries.map(([key, v]) => ({ key, ...v })) }),
+      });
+      if (!r.ok) {
+        const j = await r.json().catch(() => ({}));
+        return { ok: false, error: j.error ?? "Publikace selhala." };
+      }
+      // přesuň pending → overrides
+      setOverrides((o) => ({ ...o, ...pending }));
+      setPending({});
+      return { ok: true };
+    } finally {
+      setPublishing(false);
+    }
+  }, [pending]);
+
+  const discard = useCallback(() => {
+    if (Object.keys(pending).length === 0) return;
+    if (!window.confirm("Zahodit všechny nepublikované změny?")) return;
+    setPending({});
+    window.location.reload();
+  }, [pending]);
+
   const value = useMemo(
-    () => ({ isAdmin, editMode, setEditMode, refresh, login, logout, dbConfigured }),
-    [isAdmin, editMode, refresh, login, logout, dbConfigured],
+    () => ({
+      isAdmin,
+      editMode,
+      setEditMode,
+      refresh,
+      login,
+      logout,
+      dbConfigured,
+      pendingCount: Object.keys(pending).length,
+      publishing,
+      publish,
+      discard,
+    }),
+    [isAdmin, editMode, refresh, login, logout, dbConfigured, pending, publishing, publish, discard],
   );
 
-  /* ── Save handler pro panel ────────────────────────────────────── */
-  async function handleSave(payload: Override & { key: string }) {
+  /* ── Save handler pro panel: aplikuj jen lokálně (draft) ──────── */
+  function handleSave(payload: Override & { key: string }) {
     if (!target) return;
-    // Optimistic update DOM
     applyOverride(target.el, payload);
-    setOverrides((o) => ({ ...o, [payload.key]: payload }));
-    await fetch("/api/content", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    setPending((p) => ({ ...p, [payload.key]: payload }));
     setTarget(null);
   }
 
   async function handleReset() {
     if (!target) return;
+    // Pokud je změna jen v draftu, stačí ji odebrat lokálně.
+    if (pending[target.key] && !overridesRef.current[target.key]) {
+      setPending((p) => {
+        const n = { ...p };
+        delete n[target.key];
+        return n;
+      });
+      setTarget(null);
+      window.location.reload();
+      return;
+    }
+    // Jinak smazat z DB.
     await fetch(`/api/content?key=${encodeURIComponent(target.key)}`, {
       method: "DELETE",
     });
@@ -270,7 +329,11 @@ export default function EditorProvider({
       delete n[target.key];
       return n;
     });
-    // Vyžádej refresh stránky pro načtení původního textu
+    setPending((p) => {
+      const n = { ...p };
+      delete n[target.key];
+      return n;
+    });
     window.location.reload();
   }
 

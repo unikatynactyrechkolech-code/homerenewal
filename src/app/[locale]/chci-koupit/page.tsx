@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
 import PropertyListings from "@/components/PropertyListings";
+import ScrollImage from "@/components/ScrollImage";
 import { ArrowRight, Check, Sparkles, Hammer, Eye, Handshake } from "lucide-react";
 
 const beforeAfter = [
@@ -83,30 +84,27 @@ export default function ChciKoupitPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
             {beforeAfter.map((pair, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="grid grid-cols-2 gap-3">
-                  <figure className="relative aspect-[3/4] rounded-2xl overflow-hidden">
-                    <img
-                      src={pair.before}
-                      alt="Before"
-                      className="w-full h-full object-cover grayscale-[40%]"
-                    />
-                    <figcaption className="absolute top-3 left-3 inline-block bg-white/90 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                      {t("beforeAfter.before")}
-                    </figcaption>
-                  </figure>
-                  <figure className="relative aspect-[3/4] rounded-2xl overflow-hidden">
-                    <img
-                      src={pair.after}
-                      alt="After"
-                      className="w-full h-full object-cover"
-                    />
-                    <figcaption className="absolute top-3 left-3 inline-block bg-accent text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                      {t("beforeAfter.after")}
-                    </figcaption>
-                  </figure>
-                </div>
-              </FadeIn>
+              <div key={i} className="grid grid-cols-2 gap-3">
+                <ScrollImage
+                  src={pair.before}
+                  alt="Before"
+                  className="aspect-[3/4]"
+                  parallax={50}
+                  scale={1.18}
+                  tilt={i % 2 === 0 ? -1.2 : 1.2}
+                  grayscale
+                  badge={{ label: t("beforeAfter.before"), tone: "light" }}
+                />
+                <ScrollImage
+                  src={pair.after}
+                  alt="After"
+                  className="aspect-[3/4]"
+                  parallax={70}
+                  scale={1.2}
+                  tilt={i % 2 === 0 ? 1.2 : -1.2}
+                  badge={{ label: t("beforeAfter.after"), tone: "accent" }}
+                />
+              </div>
             ))}
           </div>
 
@@ -211,13 +209,13 @@ export default function ChciKoupitPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn>
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1000&q=80"
-                  alt="Financing"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <ScrollImage
+                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1000&q=80"
+                alt="Financing"
+                className="aspect-[4/3]"
+                parallax={80}
+                scale={1.2}
+              />
             </FadeIn>
             <FadeIn delay={0.15}>
               <div>
