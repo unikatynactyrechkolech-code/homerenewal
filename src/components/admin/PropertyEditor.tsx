@@ -10,6 +10,7 @@ import {
   Trash2,
   Star,
 } from "lucide-react";
+import ImageUploader from "./ImageUploader";
 
 type Property = {
   id: string;
@@ -241,37 +242,56 @@ export default function PropertyEditor({
             </Field>
 
             {/* Cover */}
-            <Field label="Hlavní obrázek (URL)">
-              <input
-                type="url"
-                value={p.cover_image ?? ""}
-                onChange={(e) => update("cover_image", e.target.value || null)}
-                className={inputCls + " font-mono text-xs"}
-                placeholder="https://…"
-              />
-              {p.cover_image && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={p.cover_image}
-                  alt=""
-                  className="mt-2 w-full max-h-64 object-cover rounded-lg border border-border/50"
+            <div>
+              <label className="block text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+                Hlavní obrázek
+              </label>
+              {p.cover_image ? (
+                <div className="relative group rounded-lg overflow-hidden border border-border/50 mb-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.cover_image}
+                    alt=""
+                    className="w-full max-h-72 object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => update("cover_image", null)}
+                    className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-1 text-xs bg-black/70 hover:bg-black text-white rounded"
+                  >
+                    <Trash2 className="w-3 h-3" /> Odebrat
+                  </button>
+                </div>
+              ) : (
+                <ImageUploader
+                  multiple={false}
+                  onUploaded={(urls) => urls[0] && update("cover_image", urls[0])}
                 />
               )}
-            </Field>
+              <details className="mt-2">
+                <summary className="text-xs text-muted cursor-pointer hover:text-primary">
+                  Nebo vlož URL ručně
+                </summary>
+                <input
+                  type="url"
+                  value={p.cover_image ?? ""}
+                  onChange={(e) => update("cover_image", e.target.value || null)}
+                  className={inputCls + " font-mono text-xs mt-2"}
+                  placeholder="https://…"
+                />
+              </details>
+            </div>
 
             {/* Galerie */}
             <div>
               <label className="block text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-2">
                 Galerie ({p.gallery.length})
               </label>
-              <div className="bg-amber-50 border border-amber-200 text-amber-700 text-xs p-3 rounded-lg mb-3 flex items-start gap-2">
-                <ImageIcon className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                  Upload do Cloudinary připravím, jakmile pošleš{" "}
-                  <code>CLOUDINARY_CLOUD_NAME</code> a{" "}
-                  <code>CLOUDINARY_UPLOAD_PRESET</code>. Zatím přidávej URL ručně.
-                </span>
-              </div>
+
+              <ImageUploader
+                onUploaded={(urls) => update("gallery", [...p.gallery, ...urls])}
+                className="mb-3"
+              />
 
               {p.gallery.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
@@ -312,29 +332,34 @@ export default function PropertyEditor({
                 </div>
               )}
 
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  value={newImg}
-                  onChange={(e) => setNewImg(e.target.value)}
-                  className={inputCls + " flex-1 font-mono text-xs"}
-                  placeholder="https://… (URL obrázku)"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      addGalleryUrl();
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={addGalleryUrl}
-                  className="inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#1a1a1a] text-white rounded hover:bg-black"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Přidat
-                </button>
-              </div>
+              <details>
+                <summary className="text-xs text-muted cursor-pointer hover:text-primary">
+                  Nebo vlož URL ručně
+                </summary>
+                <div className="flex gap-2 mt-2">
+                  <input
+                    type="url"
+                    value={newImg}
+                    onChange={(e) => setNewImg(e.target.value)}
+                    className={inputCls + " flex-1 font-mono text-xs"}
+                    placeholder="https://… (URL obrázku)"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        addGalleryUrl();
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={addGalleryUrl}
+                    className="inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#1a1a1a] text-white rounded hover:bg-black"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Přidat
+                  </button>
+                </div>
+              </details>
             </div>
 
             {/* Flags */}
