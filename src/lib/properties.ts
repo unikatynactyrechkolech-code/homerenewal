@@ -1,4 +1,4 @@
-import { query, isDbConfigured } from "./db";
+import { getPublicClient, getAdminClient, isDbConfigured } from "./db";
 
 export type Property = {
   id: string;
@@ -21,98 +21,72 @@ export async function listProperties(opts?: {
   onlyVisible?: boolean;
 }): Promise<Property[]> {
   if (!isDbConfigured()) return [];
-  const where = opts?.onlyVisible
-    ? `WHERE status IN ('active','reserved','sold')`
-    : ``;
   try {
-    const rows = await query<Property>(
-      `SELECT id, title, location, price_czk, size_m2, rooms, type, status,
-              description, cover_image, COALESCE(gallery,'[]'::jsonb) AS gallery,
-              featured, sort_order, slug
-       FROM properties
-       ${where}
-       ORDER BY featured DESC, sort_order ASC, created_at DESC`,
-    );
-    return rows;
+    let q = getPublicClient()
+      .from("properties")
+      .select(
+        "id, title, location, price_czk, size_m2, rooms, type, status, description, cover_image, gallery, featured, sort_order, slug",
+      );
+    if (opts?.onlyVisible) {
+      q = q.in("status", ["active", "reserved", "sold"]);
+    }
+    q = q.order("featured", { ascending: false }).order("sort_order", { ascending: true });
+    const { data, error } = await q;
+    if (error) throw error;
+    return (data ?? []).map((r) => ({
+      ...r,
+      gallery: Array.isArray(r.gallery) ? r.gallery : [],
+    })) as Property[];
   } catch (e) {
-    console.warn("[properties] DB read failed:", (e as Error).message);
+    console.warn("[properties] read failed:", (e as Error).message);
     return [];
   }
 }
 
 export async function getProperty(id: string): Promise<Property | null> {
   if (!isDbConfigured()) return null;
-  const rows = await query<Property>(
-    `SELECT id, title, location, price_czk, size_m2, rooms, type, status,
-            description, cover_image, COALESCE(gallery,'[]'::jsonb) AS gallery,
-            featured, sort_order, slug
-     FROM properties WHERE id = $1`,
-    [id],
-  );
-  return rows[0] ?? null;
+  const { data } = await getPublicClient()
+    .from("properties")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (!data) return null;
+  return { ...data, gallery: Array.isArray(data.gallery) ? data.gallery : [] } as Property;
 }
 
 export type PropertyInput = Omit<Property, "id"> & { id?: string };
 
 export async function upsertProperty(p: PropertyInput): Promise<Property> {
-  if (p.id) {
-    const rows = await query<Property>(
-      `UPDATE properties SET
-         title = $2, location = $3, price_czk = $4, size_m2 = $5, rooms = $6,
-         type = $7, status = $8, description = $9, cover_image = $10,
-         gallery = $11::jsonb, featured = $12, sort_order = $13, slug = $14,
-         updated_at = NOW()
-       WHERE id = $1
-       RETURNING id, title, location, price_czk, size_m2, rooms, type, status,
-                 description, cover_image, COALESCE(gallery,'[]'::jsonb) AS gallery,
-                 featured, sort_order, slug`,
-      [
-        p.id,
-        p.title,
-        p.location,
-        p.price_czk,
-        p.size_m2,
-        p.rooms,
-        p.type,
-        p.status,
-        p.description,
-        p.cover_image,
-        JSON.stringify(p.gallery ?? []),
-        p.featured,
-        p.sort_order,
-        p.slug,
-      ],
-    );
-    return rows[0];
-  }
-
-  const rows = await query<Property>(
-    `INSERT INTO properties
-       (title, location, price_czk, size_m2, rooms, type, status, description,
-        cover_image, gallery, featured, sort_order, slug)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb,$11,$12,$13)
-     RETURNING id, title, location, price_czk, size_m2, rooms, type, status,
-               description, cover_image, COALESCE(gallery,'[]'::jsonb) AS gallery,
-               featured, sort_order, slug`,
-    [
-      p.title,
-      p.location,
-      p.price_czk,
-      p.size_m2,
-      p.rooms,
-      p.type,
-      p.status,
-      p.description,
-      p.cover_image,
-      JSON.stringify(p.gallery ?? []),
-      p.featured,
-      p.sort_order,
-      p.slug,
-    ],
-  );
-  return rows[0];
+  const admin = getAdminClient();
+  if (!admin) throw new Error("SUPABASE_SERVICE_ROLE_KEY není nastavený.");
+  const payload = {
+    ...(p.id ? { id: p.id } : {}),
+    title: p.title,
+    location: p.location,
+    price_czk: p.price_czk,
+    size_m2: p.size_m2,
+    rooms: p.rooms,
+    type: p.type,
+    status: p.status,
+    description: p.description,
+    cover_image: p.cover_image,
+    gallery: p.gallery ?? [],
+    featured: p.featured,
+    sort_order: p.sort_order,
+    slug: p.slug,
+    updated_at: new Date().toISOString(),
+  };
+  const { data, error } = await admin
+    .from("properties")
+    .upsert(payload, { onConflict: "id" })
+    .select()
+    .single();
+  if (error) throw error;
+  return { ...data, gallery: Array.isArray(data.gallery) ? data.gallery : [] } as Property;
 }
 
 export async function deleteProperty(id: string): Promise<void> {
-  await query(`DELETE FROM properties WHERE id = $1`, [id]);
+  const admin = getAdminClient();
+  if (!admin) return;
+  await admin.from("properties").delete().eq("id", id);
 }

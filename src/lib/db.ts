@@ -1,43 +1,30 @@
-import { Pool } from "pg";
+import { createClient } from "@supabase/supabase-js";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var __pgPool: Pool | undefined;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+/** Public client — anon key, subject to RLS. Používá se pro čtení. */
+export function getPublicClient() {
+  return createClient(url, anonKey);
 }
 
 /**
- * Lazy Postgres pool. Vrací null, pokud DATABASE_URL není nastavený —
- * aplikace v takovém případě běží v "demo" režimu bez DB (žádné editace,
- * žádné inzeráty z DB), ale nepadá.
+ * Admin client — service_role key, obchází RLS.
+ * Používá se pouze v server-side API routes za autentizací.
+ * Vrací null pokud SUPABASE_SERVICE_ROLE_KEY není nastavený.
  */
-export function getPool(): Pool | null {
-  if (!process.env.DATABASE_URL) return null;
-
-  if (!globalThis.__pgPool) {
-    globalThis.__pgPool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      // Supabase / většina hostovaných Postgres vyžaduje SSL.
-      ssl: process.env.DATABASE_URL.includes("localhost")
-        ? undefined
-        : { rejectUnauthorized: false },
-      max: 5,
-      idleTimeoutMillis: 30_000,
-    });
-  }
-
-  return globalThis.__pgPool;
-}
-
-export async function query<T = Record<string, unknown>>(
-  text: string,
-  params?: unknown[],
-): Promise<T[]> {
-  const pool = getPool();
-  if (!pool) return [];
-  const res = await pool.query(text, params as never);
-  return res.rows as T[];
+export function getAdminClient() {
+  if (!serviceKey) return null;
+  return createClient(url, serviceKey, {
+    auth: { persistSession: false },
+  });
 }
 
 export function isDbConfigured(): boolean {
-  return Boolean(process.env.DATABASE_URL);
+  return Boolean(url && anonKey);
+}
+
+export function isAdminDbConfigured(): boolean {
+  return Boolean(url && serviceKey);
 }
