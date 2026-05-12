@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useEditor } from "./EditorProvider";
 import {
-  Edit3,
   LogOut,
   Lock,
   X,
@@ -18,8 +17,6 @@ import { useLocale } from "next-intl";
 export default function AdminBar() {
   const {
     isAdmin,
-    editMode,
-    setEditMode,
     login,
     logout,
     dbConfigured,
@@ -44,7 +41,6 @@ export default function AdminBar() {
     if (r.ok) {
       setShowLogin(false);
       setPassword("");
-      setEditMode(true);
     } else {
       setError(r.error ?? "Chyba");
     }
@@ -76,37 +72,22 @@ export default function AdminBar() {
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
                   </span>
                   <span className="text-sm font-semibold tracking-wide">
-                    Admin mód
+                    Web editace
                   </span>
                 </span>
                 <span className="hidden md:inline text-xs text-white/40">
-                  {editMode
-                    ? "Pravým klikem na text otevřeš editor."
-                    : "Editace vypnutá."}
+                  Pravým klikem na text otevřeš editor.
                 </span>
               </div>
 
               {/* RIGHT — actions */}
               <div className="flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => setEditMode(!editMode)}
-                  className={`hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition border ${
-                    editMode
-                      ? "bg-[#c8a97e] text-white border-[#c8a97e]"
-                      : "bg-transparent text-white/80 border-white/20 hover:bg-white/10"
-                  }`}
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  {editMode ? "Editace ZAP" : "Editovat"}
-                </button>
-
                 <Link
                   href={`/${locale}/admin`}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-transparent border border-white/20 text-white/80 hover:bg-white/10 transition"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-transparent border border-white/20 text-white/80 hover:bg-white/10 transition"
                 >
                   <Database className="w-3.5 h-3.5" />
-                  Inzeráty
+                  <span className="hidden sm:inline">Správa inzerátů</span>
                 </Link>
 
                 {pendingCount > 0 && (

@@ -123,13 +123,16 @@ export default function EditorProvider({
   const pendingRef = useRef(pending);
   pendingRef.current = pending;
 
-  /* ── Načti session + overrides při startu ──────────────────────── */
+  /* ── Načti session + overrides při startu ────────────── */
   useEffect(() => {
     fetch("/api/admin/session")
       .then((r) => r.json())
       .then((d) => {
-        setIsAdmin(!!d.isAdmin);
+        const adm = !!d.isAdmin;
+        setIsAdmin(adm);
         setDbConfigured(!!d.dbConfigured);
+        // Editace VRŽDY zapnutá když jsi admin.
+        if (adm) setEditMode(true);
       })
       .catch(() => {});
 
@@ -240,6 +243,7 @@ export default function EditorProvider({
         return { ok: false, error: j.error ?? "Přihlášení selhalo." };
       }
       await refresh();
+      setEditMode(true);
       return { ok: true };
     },
     [refresh],

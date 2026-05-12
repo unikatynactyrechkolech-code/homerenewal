@@ -1,16 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import Link from "next/link";
 import { useEditor } from "@/components/admin/EditorProvider";
+import PropertyEditor from "@/components/admin/PropertyEditor";
+import OptionsManager from "@/components/admin/OptionsManager";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Plus,
   Pencil,
   Trash2,
-  X,
-  Save,
   Star,
-  StarOff,
-  RefreshCw,
+  GripVertical,
+  Eye,
+  Settings2,
+  ArrowLeft,
 } from "lucide-react";
 
 type Property = {
@@ -30,442 +52,380 @@ type Property = {
   slug: string | null;
 };
 
-const EMPTY: Property = {
-  id: "",
-  title: "",
-  location: "",
-  price_czk: null,
-  size_m2: null,
-  rooms: "",
-  type: "apartment",
-  status: "active",
-  description: "",
-  cover_image: "",
-  gallery: [],
-  featured: false,
-  sort_order: 0,
-  slug: null,
+type Option = {
+  id: string;
+  kind: string;
+  value: string;
+  label: string;
+  color: string | null;
+  sort_order: number;
 };
 
 export default function AdminPage() {
-  const { isAdmin, dbConfigured } = useEditor();
-  const [items, setItems] = useState<Property[] | null>(null);
-  const [editing, setEditing] = useState<Property | null>(null);
-  const [busy, setBusy] = useState(false);
+  const { isAdmin } = useEditor();
+  const sp = useSearchParams();
+  const router = useRouter();
+  const locale = useLocale();
 
-  async function load() {
-    const r = await fetch("/api/properties?all=1").then((r) => r.json());
-    setItems(r.data ?? []);
-  }
+  const [items, setItems] = useState<Property[] | null>(null);
+  const [options, setOptions] = useState<Option[]>([]);
+  const [editing, setEditing] = useState<Property | null>(null);
+  const [showOptions, setShowOptions] = useState(false);
+  const [reordering, setReordering] = useState(false);
+
+  /* Načti */
+  const refresh = useCallback(async () => {
+    const [p, o] = await Promise.all([
+      fetch("/api/properties?all=1").then((r) => r.json()),
+      fetch("/api/options").then((r) => r.json()),
+    ]);
+    setItems(p.data ?? []);
+    setOptions(o.data ?? []);
+  }, []);
 
   useEffect(() => {
-    if (isAdmin) load();
-  }, [isAdmin]);
+    refresh();
+  }, [refresh]);
 
-  async function save() {
-    if (!editing) return;
-    setBusy(true);
-    await fetch("/api/properties", {
+  /* ?new=1 → otevřít editor pro nový inzerát */
+  useEffect(() => {
+    if (sp.get("new") === "1" && !editing) {
+      setEditing(emptyProperty());
+      router.replace(`/${locale}/admin`);
+    }
+  }, [sp, editing, router, locale]);
+
+  const types = useMemo(() => options.filter((o) => o.kind === "type"), [options]);
+  const statuses = useMemo(
+    () => options.filter((o) => o.kind === "status"),
+    [options],
+  );
+
+  /* DnD */
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
+
+  async function handleDragEnd(e: DragEndEvent) {
+    const { active, over } = e;
+    if (!over || active.id === over.id || !items) return;
+    const oldIdx = items.findIndex((i) => i.id === active.id);
+    const newIdx = items.findIndex((i) => i.id === over.id);
+    if (oldIdx < 0 || newIdx < 0) return;
+    const next = arrayMove(items, oldIdx, newIdx);
+    setItems(next);
+    setReordering(true);
+    await fetch("/api/properties/reorder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...editing,
-        id: editing.id || undefined,
-        price_czk: editing.price_czk ? Number(editing.price_czk) : null,
-        size_m2: editing.size_m2 ? Number(editing.size_m2) : null,
-        sort_order: Number(editing.sort_order ?? 0),
-      }),
+      body: JSON.stringify({ ids: next.map((i) => i.id) }),
     });
-    setBusy(false);
-    setEditing(null);
-    await load();
-  }
-
-  async function remove(id: string) {
-    if (!confirm("Opravdu smazat tento inzerát?")) return;
-    await fetch(`/api/properties/${id}`, { method: "DELETE" });
-    await load();
+    setReordering(false);
   }
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen pt-32 pb-24 px-6 bg-surface">
-        <div className="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-border/50 p-10 text-center">
-          <h1 className="text-2xl font-bold text-primary mb-3">Administrace</h1>
-          <p className="text-muted text-sm">
-            Pro vstup do administrace se přihlas přes ikonu zámku v pravém
-            dolním rohu.
+      <div className="min-h-screen bg-surface flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 rounded-full bg-amber-100 mx-auto mb-6 flex items-center justify-center">
+            <Settings2 className="w-7 h-7 text-amber-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-primary mb-3">
+            Přístup pouze pro administrátory
+          </h1>
+          <p className="text-muted mb-6">
+            Klikni na ikonu zámku v pravém dolním rohu webu a přihlaš se.
           </p>
+          <Link
+            href={`/${locale}`}
+            className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Zpět na web
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 bg-surface">
-      <div className="max-w-7xl mx-auto">
-        <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div>
-            <span className="text-accent text-xs font-semibold uppercase tracking-[0.3em]">
-              Administrace
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary mt-2">
-              Inzeráty nemovitostí
-            </h1>
-            <p className="text-muted text-sm mt-2">
-              Inzeráty se zobrazují na hlavní stránce a v sekci „Chci koupit".
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={load}
-              className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider bg-white border border-border hover:border-accent text-primary rounded transition"
+    <div className="min-h-screen bg-surface">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+        {/* Header */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/${locale}`}
+              className="text-xs text-muted hover:text-primary inline-flex items-center gap-1.5"
             >
-              <RefreshCw className="w-4 h-4" />
-              Obnovit
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Zpět na web
+            </Link>
+            <span className="text-muted">/</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">
+              Správa inzerátů
+            </h1>
+            {reordering && (
+              <span className="text-xs text-amber-600 animate-pulse">
+                Ukládám pořadí…
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowOptions(true)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-white border border-border text-primary hover:bg-gray-50 rounded-full transition"
+            >
+              <Settings2 className="w-3.5 h-3.5" />
+              Kategorie & stavy
             </button>
             <button
-              onClick={() =>
-                setEditing({ ...EMPTY, sort_order: (items?.length ?? 0) + 1 })
-              }
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider bg-accent hover:bg-accent-dark text-white rounded transition"
+              type="button"
+              onClick={() => setEditing(emptyProperty())}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#1a1a1a] hover:bg-black text-white rounded-full transition"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5" />
               Nový inzerát
             </button>
           </div>
-        </header>
-
-        {!dbConfigured && (
-          <div className="mb-8 bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
-            <strong>Pozor:</strong> proměnná <code>DATABASE_URL</code> není
-            nastavená. Inzeráty se nedají uložit, dokud se DB nepřipojí.
-          </div>
-        )}
-
-        {/* Tabulka */}
-        <div className="bg-white rounded-2xl border border-border/50 overflow-hidden shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-border">
-              <thead className="bg-surface text-xs uppercase tracking-wider text-muted">
-                <tr>
-                  <th className="px-4 py-3 text-left">Pořadí</th>
-                  <th className="px-4 py-3 text-left">Foto</th>
-                  <th className="px-4 py-3 text-left">Název</th>
-                  <th className="px-4 py-3 text-left">Lokalita</th>
-                  <th className="px-4 py-3 text-right">Cena</th>
-                  <th className="px-4 py-3 text-left">Status</th>
-                  <th className="px-4 py-3 text-center">Top</th>
-                  <th className="px-4 py-3 text-right">Akce</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {items === null ? (
-                  <tr>
-                    <td
-                      colSpan={8}
-                      className="px-4 py-12 text-center text-sm text-muted"
-                    >
-                      Načítám…
-                    </td>
-                  </tr>
-                ) : items.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={8}
-                      className="px-4 py-12 text-center text-sm text-muted"
-                    >
-                      Zatím nejsou žádné inzeráty. Vytvoř první kliknutím na
-                      „Nový inzerát".
-                    </td>
-                  </tr>
-                ) : (
-                  items.map((p) => (
-                    <tr key={p.id} className="hover:bg-surface/50">
-                      <td className="px-4 py-3 text-sm text-muted">
-                        {p.sort_order}
-                      </td>
-                      <td className="px-4 py-3">
-                        {p.cover_image ? (
-                          <img
-                            src={p.cover_image}
-                            alt=""
-                            className="w-14 h-14 object-cover rounded"
-                          />
-                        ) : (
-                          <div className="w-14 h-14 bg-gray-100 rounded" />
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-sm font-medium text-primary max-w-xs">
-                        {p.title}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted">
-                        {p.location ?? "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-primary text-right">
-                        {p.price_czk
-                          ? new Intl.NumberFormat("cs-CZ").format(
-                              p.price_czk,
-                            ) + " Kč"
-                          : "—"}
-                      </td>
-                      <td className="px-4 py-3 text-xs">
-                        <span className="inline-block px-2 py-1 rounded-full bg-gray-100 text-primary">
-                          {p.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        {p.featured ? (
-                          <Star className="w-4 h-4 text-accent inline" />
-                        ) : (
-                          <StarOff className="w-4 h-4 text-gray-300 inline" />
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="inline-flex gap-1">
-                          <button
-                            onClick={() => setEditing(p)}
-                            className="p-2 rounded hover:bg-accent/10 text-primary"
-                            title="Upravit"
-                          >
-                            <Pencil className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => remove(p.id)}
-                            className="p-2 rounded hover:bg-red-50 text-red-600"
-                            title="Smazat"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
         </div>
+
+        {items === null ? (
+          <div className="space-y-3">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="h-28 bg-white rounded-2xl animate-pulse border border-border/50"
+              />
+            ))}
+          </div>
+        ) : items.length === 0 ? (
+          <div className="bg-white border border-border/50 rounded-2xl p-12 text-center">
+            <p className="text-muted mb-6">Zatím tu nejsou žádné inzeráty.</p>
+            <button
+              type="button"
+              onClick={() => setEditing(emptyProperty())}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider bg-accent hover:bg-accent-dark text-white rounded-full transition"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Vytvořit první inzerát
+            </button>
+          </div>
+        ) : (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+              <div className="space-y-3">
+                {items.map((p) => (
+                  <SortableRow
+                    key={p.id}
+                    p={p}
+                    statuses={statuses}
+                    types={types}
+                    onEdit={() => setEditing(p)}
+                    onDelete={async () => {
+                      if (!confirm(`Smazat "${p.title}"?`)) return;
+                      await fetch(`/api/properties/${p.id}`, { method: "DELETE" });
+                      refresh();
+                    }}
+                    onToggleFeatured={async () => {
+                      await fetch("/api/properties", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ...p, featured: !p.featured }),
+                      });
+                      refresh();
+                    }}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        )}
       </div>
 
       {/* Editor modal */}
       {editing && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-start justify-center p-6 overflow-y-auto"
-          onClick={() => !busy && setEditing(null)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden"
-          >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-              <h2 className="text-lg font-bold text-primary">
-                {editing.id ? "Upravit inzerát" : "Nový inzerát"}
-              </h2>
-              <button
-                onClick={() => setEditing(null)}
-                className="p-2 hover:bg-surface rounded"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field label="Název *" full>
-                <input
-                  className="hr-input"
-                  value={editing.title}
-                  onChange={(e) =>
-                    setEditing({ ...editing, title: e.target.value })
-                  }
-                />
-              </Field>
-              <Field label="Lokalita">
-                <input
-                  className="hr-input"
-                  value={editing.location ?? ""}
-                  onChange={(e) =>
-                    setEditing({ ...editing, location: e.target.value })
-                  }
-                />
-              </Field>
-              <Field label="Dispozice (např. 3+kk)">
-                <input
-                  className="hr-input"
-                  value={editing.rooms ?? ""}
-                  onChange={(e) =>
-                    setEditing({ ...editing, rooms: e.target.value })
-                  }
-                />
-              </Field>
-              <Field label="Plocha (m²)">
-                <input
-                  type="number"
-                  className="hr-input"
-                  value={editing.size_m2 ?? ""}
-                  onChange={(e) =>
-                    setEditing({
-                      ...editing,
-                      size_m2: e.target.value ? Number(e.target.value) : null,
-                    })
-                  }
-                />
-              </Field>
-              <Field label="Cena (Kč)">
-                <input
-                  type="number"
-                  className="hr-input"
-                  value={editing.price_czk ?? ""}
-                  onChange={(e) =>
-                    setEditing({
-                      ...editing,
-                      price_czk: e.target.value ? Number(e.target.value) : null,
-                    })
-                  }
-                />
-              </Field>
-              <Field label="Typ">
-                <select
-                  className="hr-input"
-                  value={editing.type ?? "apartment"}
-                  onChange={(e) =>
-                    setEditing({ ...editing, type: e.target.value })
-                  }
-                >
-                  <option value="apartment">Byt</option>
-                  <option value="house">Dům</option>
-                  <option value="commercial">Komerční prostor</option>
-                  <option value="land">Pozemek</option>
-                </select>
-              </Field>
-              <Field label="Status">
-                <select
-                  className="hr-input"
-                  value={editing.status}
-                  onChange={(e) =>
-                    setEditing({ ...editing, status: e.target.value })
-                  }
-                >
-                  <option value="active">Aktivní (k prodeji)</option>
-                  <option value="reserved">Rezervováno</option>
-                  <option value="sold">Prodáno</option>
-                  <option value="hidden">Skrytý</option>
-                </select>
-              </Field>
-              <Field label="Pořadí (menší = výše)">
-                <input
-                  type="number"
-                  className="hr-input"
-                  value={editing.sort_order}
-                  onChange={(e) =>
-                    setEditing({
-                      ...editing,
-                      sort_order: Number(e.target.value),
-                    })
-                  }
-                />
-              </Field>
-              <Field label="URL hlavní fotky" full>
-                <input
-                  className="hr-input"
-                  value={editing.cover_image ?? ""}
-                  onChange={(e) =>
-                    setEditing({ ...editing, cover_image: e.target.value })
-                  }
-                  placeholder="https://images.unsplash.com/..."
-                />
-                {editing.cover_image && (
-                  <img
-                    src={editing.cover_image}
-                    alt=""
-                    className="mt-2 w-full max-w-xs aspect-[4/3] object-cover rounded-lg border border-border"
-                  />
-                )}
-              </Field>
-              <Field label="Popis" full>
-                <textarea
-                  rows={4}
-                  className="hr-input"
-                  value={editing.description ?? ""}
-                  onChange={(e) =>
-                    setEditing({ ...editing, description: e.target.value })
-                  }
-                />
-              </Field>
-              <Field label="" full>
-                <label className="inline-flex items-center gap-2 text-sm text-primary">
-                  <input
-                    type="checkbox"
-                    checked={editing.featured}
-                    onChange={(e) =>
-                      setEditing({ ...editing, featured: e.target.checked })
-                    }
-                    className="w-4 h-4 accent-accent"
-                  />
-                  Doporučujeme (zobrazí badge)
-                </label>
-              </Field>
-            </div>
-
-            <div className="flex justify-end gap-2 px-6 py-4 border-t border-border bg-surface">
-              <button
-                onClick={() => setEditing(null)}
-                disabled={busy}
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-muted"
-              >
-                Zrušit
-              </button>
-              <button
-                onClick={save}
-                disabled={busy || !editing.title}
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider bg-accent hover:bg-accent-dark disabled:opacity-50 text-white rounded transition"
-              >
-                <Save className="w-4 h-4" />
-                {busy ? "Ukládám…" : "Uložit"}
-              </button>
-            </div>
-          </div>
-        </div>
+        <PropertyEditor
+          property={editing}
+          types={types}
+          statuses={statuses}
+          onClose={() => setEditing(null)}
+          onSaved={() => {
+            setEditing(null);
+            refresh();
+          }}
+        />
       )}
 
-      <style jsx global>{`
-        .hr-input {
-          width: 100%;
-          padding: 0.625rem 0.75rem;
-          border: 1px solid var(--color-border);
-          border-radius: 0.5rem;
-          font-size: 0.875rem;
-          color: var(--color-primary);
-          background: white;
-          transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        .hr-input:focus {
-          outline: none;
-          border-color: var(--color-accent);
-          box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
-        }
-      `}</style>
+      {/* Options manager */}
+      {showOptions && (
+        <OptionsManager
+          options={options}
+          onClose={() => setShowOptions(false)}
+          onChanged={refresh}
+        />
+      )}
     </div>
   );
 }
 
-function Field({
-  label,
-  children,
-  full,
+function emptyProperty(): Property {
+  return {
+    id: "",
+    title: "",
+    location: "",
+    price_czk: null,
+    size_m2: null,
+    rooms: "",
+    type: "apartment",
+    status: "active",
+    description: "",
+    cover_image: "",
+    gallery: [],
+    featured: false,
+    sort_order: 0,
+    slug: null,
+  };
+}
+
+function SortableRow({
+  p,
+  types,
+  statuses,
+  onEdit,
+  onDelete,
+  onToggleFeatured,
 }: {
-  label: string;
-  children: React.ReactNode;
-  full?: boolean;
+  p: Property;
+  types: Option[];
+  statuses: Option[];
+  onEdit: () => void;
+  onDelete: () => void;
+  onToggleFeatured: () => void;
 }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: p.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 10 : 1,
+  };
+
+  const status = statuses.find((s) => s.value === p.status);
+  const type = types.find((t) => t.value === p.type);
+
   return (
-    <div className={full ? "md:col-span-2" : ""}>
-      {label && (
-        <label className="block text-[11px] font-semibold text-muted uppercase tracking-wider mb-1.5">
-          {label}
-        </label>
-      )}
-      {children}
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="group bg-white border border-border/50 rounded-2xl flex items-stretch overflow-hidden hover:shadow-md transition"
+    >
+      {/* Drag handle */}
+      <button
+        type="button"
+        {...attributes}
+        {...listeners}
+        className="px-2 flex items-center text-gray-300 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+        title="Přetáhnout pro změnu pořadí"
+        aria-label="Přesunout"
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+
+      {/* Thumbnail */}
+      <div className="w-24 sm:w-32 shrink-0 bg-gray-100">
+        {p.cover_image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.cover_image} alt="" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">
+            bez fotky
+          </div>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex-1 p-4 min-w-0">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="font-semibold text-primary truncate">
+                {p.title || <span className="text-gray-400">(bez názvu)</span>}
+              </h3>
+              {p.featured && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#c8a97e]/15 text-[#c8a97e]">
+                  <Star className="w-3 h-3 fill-current" /> Doporučeno
+                </span>
+              )}
+              {status && (
+                <span
+                  className="inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full text-white"
+                  style={{ background: status.color ?? "#1a1a1a" }}
+                >
+                  {status.label}
+                </span>
+              )}
+              {type && (
+                <span className="inline-block text-[10px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                  {type.label}
+                </span>
+              )}
+            </div>
+            {p.location && (
+              <div className="text-xs text-muted mt-1 truncate">{p.location}</div>
+            )}
+            <div className="text-sm text-primary mt-2 font-semibold">
+              {p.price_czk
+                ? new Intl.NumberFormat("cs-CZ", {
+                    style: "currency",
+                    currency: "CZK",
+                    maximumFractionDigits: 0,
+                  }).format(p.price_czk)
+                : "—"}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-1 px-2 sm:px-3 border-l border-border/50">
+        <button
+          type="button"
+          onClick={onToggleFeatured}
+          className={`p-2 rounded-lg transition ${
+            p.featured
+              ? "text-[#c8a97e] hover:bg-[#c8a97e]/10"
+              : "text-gray-300 hover:text-gray-500 hover:bg-gray-100"
+          }`}
+          title={p.featured ? "Zrušit doporučené" : "Označit jako doporučené"}
+        >
+          <Star className={`w-4 h-4 ${p.featured ? "fill-current" : ""}`} />
+        </button>
+        <button
+          type="button"
+          onClick={onEdit}
+          className="p-2 rounded-lg text-gray-500 hover:text-primary hover:bg-gray-100 transition"
+          title="Upravit"
+        >
+          <Pencil className="w-4 h-4" />
+        </button>
+        <button
+          type="button"
+          onClick={onDelete}
+          className="p-2 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
+          title="Smazat"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 }
