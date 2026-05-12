@@ -158,9 +158,11 @@ export default function EditorProvider({
     return () => window.clearTimeout(t);
   }, [pathname, overrides, pending]);
 
-  /* ── Right-click handler v editMode ────────────────────────────── */
+  /* ── Right-click handler v editMode ───────────────────────── */
   useEffect(() => {
     if (!isAdmin || !editMode) return;
+    // Na /admin route nechceme edit mode — má vlastní UI
+    if (pathname && /\/admin(\/|$)/.test(pathname)) return;
 
     function onContextMenu(e: MouseEvent) {
       const path = (e.composedPath?.() ?? []) as Element[];

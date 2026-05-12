@@ -12,7 +12,8 @@ export type ContentBlock = {
 export async function loadAllContent(): Promise<Record<string, ContentBlock>> {
   if (!isDbConfigured()) return {};
   try {
-    const { data, error } = await getPublicClient()
+    const sb = getAdminClient() ?? getPublicClient();
+    const { data, error } = await sb
       .from("content_blocks")
       .select("key, text, font_family, font_size, font_weight, color");
     if (error) throw error;

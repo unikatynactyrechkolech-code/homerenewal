@@ -22,7 +22,10 @@ export async function listProperties(opts?: {
 }): Promise<Property[]> {
   if (!isDbConfigured()) return [];
   try {
-    let q = getPublicClient()
+    // Preferuj admin clienta (obchází RLS) — tohle je server-side
+    // a slouží pouze pro čtení verejně dostupných dat. Fallback na public.
+    const sb = getAdminClient() ?? getPublicClient();
+    let q = sb
       .from("properties")
       .select(
         "id, title, location, price_czk, size_m2, rooms, type, status, description, cover_image, gallery, featured, sort_order, slug",
@@ -45,7 +48,8 @@ export async function listProperties(opts?: {
 
 export async function getProperty(id: string): Promise<Property | null> {
   if (!isDbConfigured()) return null;
-  const { data } = await getPublicClient()
+  const sb = getAdminClient() ?? getPublicClient();
+  const { data } = await sb
     .from("properties")
     .select("*")
     .eq("id", id)

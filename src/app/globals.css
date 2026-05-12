@@ -129,6 +129,24 @@
 body.hr-edit-mode {
   cursor: cell;
 }
+/* Interaktivní prvky mají vždy normal cursor i v edit mode */
+body.hr-edit-mode button,
+body.hr-edit-mode a,
+body.hr-edit-mode input,
+body.hr-edit-mode select,
+body.hr-edit-mode textarea,
+body.hr-edit-mode summary,
+body.hr-edit-mode [role="button"] {
+  cursor: pointer;
+}
+body.hr-edit-mode input[type="text"],
+body.hr-edit-mode input[type="url"],
+body.hr-edit-mode input[type="number"],
+body.hr-edit-mode input[type="email"],
+body.hr-edit-mode input[type="password"],
+body.hr-edit-mode textarea {
+  cursor: text;
+}
 body.hr-edit-mode .hr-edit-hover {
   outline: 2px dashed var(--color-accent);
   outline-offset: 2px;

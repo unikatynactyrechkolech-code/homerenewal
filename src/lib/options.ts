@@ -10,7 +10,9 @@ export type PropertyOption = {
 };
 
 export async function listOptions(kind?: string): Promise<PropertyOption[]> {
-  const sb = getPublicClient();
+  // Preferuj admin clienta (obchází RLS) — tohle je server-side
+  // a slouží pouze pro čtení verejně dostupných dat. Fallback na public.
+  const sb = getAdminClient() ?? getPublicClient();
   let q = sb.from("property_options").select("*").order("sort_order");
   if (kind) q = q.eq("kind", kind);
   const { data, error } = await q;
