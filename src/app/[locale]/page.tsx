@@ -59,21 +59,13 @@ function HeroSection() {
 
       <motion.div
         style={{ y: textY, opacity: textOpacity }}
-        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full"
+        className="relative z-10 w-full px-6 lg:px-8 flex flex-col items-center text-center"
       >
-        <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-                      </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-8"
+            className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[1.05] mb-8 max-w-5xl"
           >
             {t("title")}
           </motion.h1>
@@ -82,7 +74,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="text-lg sm:text-xl text-white/70 max-w-xl mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-white/75 max-w-2xl mb-10 leading-relaxed"
           >
             {t("description")}
           </motion.p>
@@ -106,7 +98,6 @@ function HeroSection() {
               {t("ctaSecondary")}
             </Link>
           </motion.div>
-        </div>
       </motion.div>
 
       <motion.div
