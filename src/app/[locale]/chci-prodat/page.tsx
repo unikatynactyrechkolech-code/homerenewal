@@ -90,10 +90,7 @@ export default function ChciProdatPage() {
                         {t("variants.recommended")}
                       </span>
                     )}
-                    <span className="block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-3">
-                      {t(`variants.${v.key}.name`)}
-                    </span>
-                    <h3 className="text-2xl font-bold text-primary mb-2">
+                                        <h3 className="text-2xl font-bold text-primary mb-2">
                       {t(`variants.${v.key}.subtitle`)}
                     </h3>
                     <p className="text-muted text-sm mb-6">
@@ -225,10 +222,7 @@ export default function ChciProdatPage() {
             <div className="relative overflow-hidden rounded-3xl bg-primary">
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div className="p-10 lg:p-16 flex flex-col justify-center">
-                  <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                    {t("crossPromo.label")}
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+                                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
                     {t("crossPromo.title")}
                   </h2>
                   <p className="text-white/70 text-lg mb-8 leading-relaxed">
@@ -269,10 +263,7 @@ export default function ChciProdatPage() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="text-center mb-14">
-              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                {t("faq.label")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-primary">
                 {t("faq.title")}
               </h2>
             </div>

@@ -70,10 +70,7 @@ export default function ChciKoupitPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="text-center mb-14">
-              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                {t("beforeAfter.label")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
                 {t("beforeAfter.title")}
               </h2>
               <p className="text-muted text-lg max-w-2xl mx-auto">
@@ -170,10 +167,7 @@ export default function ChciKoupitPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="text-center mb-16">
-              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                {t("whyUs.label")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-primary">
                 {t("whyUs.title")}
               </h2>
             </div>
@@ -219,10 +213,7 @@ export default function ChciKoupitPage() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <div>
-                <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                  {t("financing.label")}
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6 leading-tight">
+                                <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6 leading-tight">
                   {t("financing.title")}
                 </h2>
                 <p className="text-muted text-lg leading-relaxed mb-8">

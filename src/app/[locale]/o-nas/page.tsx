@@ -44,10 +44,7 @@ export default function ONasPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="text-center mb-16">
-              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                {t("what.label")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-primary">
                 {t("what.title")}
               </h2>
             </div>
@@ -85,10 +82,7 @@ export default function ONasPage() {
 
         <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <FadeIn>
-            <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-              {t("partner.label")}
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               {t("partner.title")}
             </h2>
             <p className="text-white/70 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">

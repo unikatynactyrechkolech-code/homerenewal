@@ -67,10 +67,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-6">
-              {t("subtitle")}
-            </span>
-          </motion.div>
+                      </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -165,10 +162,7 @@ function SectionsSection() {
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-4 mb-6">
               <div className="h-[1px] w-12 bg-accent" />
-              <span className="text-accent text-xs font-semibold uppercase tracking-[0.3em]">
-                {t("label")}
-              </span>
-              <div className="h-[1px] w-12 bg-accent" />
+                            <div className="h-[1px] w-12 bg-accent" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
               {t("title")}
@@ -225,10 +219,7 @@ function ProcessSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <FadeIn>
           <div className="mb-20 text-center">
-            <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-              {t("label")}
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
               {t("title")}
             </h2>
             <div className="w-16 h-[2px] bg-accent mx-auto mt-6" />
@@ -272,10 +263,7 @@ function ListingsSection() {
         <FadeIn>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-16 gap-6">
             <div>
-              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                {t("label")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
                 {t("title")}
               </h2>
               <div className="w-16 h-[2px] bg-accent mt-4" />
@@ -312,10 +300,7 @@ function NewsletterSection() {
 
       <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
         <FadeIn>
-          <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-            {t("label")}
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             {t("title")}
           </h2>
           <p className="text-white/60 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
@@ -339,10 +324,7 @@ function HomeContactSection() {
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-12">
-            <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-              {t("label")}
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
               {t("title")}
             </h2>
             <p className="text-muted text-lg max-w-2xl mx-auto">

@@ -158,11 +158,7 @@ export default function RekonstrukcePage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary/40 lg:to-primary/10" />
                 </div>
                 <div className="p-10 lg:p-16 flex flex-col justify-center">
-                  <span className="inline-flex items-center gap-2 text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-                    <Layers className="w-4 h-4" />
-                    {t("concreteScreeds.label")}
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+                                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
                     {t("concreteScreeds.title")}
                   </h2>
                   <p className="text-white/70 text-lg mb-10 leading-relaxed">
