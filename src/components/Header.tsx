@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -79,13 +80,17 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <Link href={`/${locale}`} className="shrink-0" onClick={close}>
-              <span
-                className={`text-lg sm:text-xl font-bold tracking-tight transition-colors duration-300 ${
-                  onLight ? "text-primary" : "text-white"
+              {/* Tmavé logo na bílém headeru, bílé (invertované) na průhledném */}
+              <Image
+                src="/logo.png"
+                alt="Home Renewal"
+                width={160}
+                height={40}
+                priority
+                className={`h-8 sm:h-10 w-auto transition-all duration-300 ${
+                  onLight ? "brightness-0" : "brightness-0 invert"
                 }`}
-              >
-                HOME<span className="text-accent font-light">RENEWAL</span>
-              </span>
+              />
             </Link>
 
             {/* Desktop Nav */}
