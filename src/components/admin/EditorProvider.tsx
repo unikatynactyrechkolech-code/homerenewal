@@ -125,7 +125,7 @@ export default function EditorProvider({
 
   /* ── Načti session + overrides při startu ────────────── */
   useEffect(() => {
-    fetch("/api/admin/session")
+    fetch("/api/admin/session", { cache: "no-store" })
       .then((r) => r.json())
       .then((d) => {
         const adm = !!d.isAdmin;
@@ -136,7 +136,7 @@ export default function EditorProvider({
       })
       .catch(() => {});
 
-    fetch("/api/content")
+    fetch("/api/content", { cache: "no-store" })
       .then((r) => r.json())
       .then((d) => setOverrides(d.data ?? {}))
       .catch(() => {});
@@ -225,8 +225,8 @@ export default function EditorProvider({
   /* ── API ───────────────────────────────────────────────────────── */
   const refresh = useCallback(async () => {
     const [s, c] = await Promise.all([
-      fetch("/api/admin/session").then((r) => r.json()),
-      fetch("/api/content").then((r) => r.json()),
+      fetch("/api/admin/session", { cache: "no-store" }).then((r) => r.json()),
+      fetch("/api/content", { cache: "no-store" }).then((r) => r.json()),
     ]);
     setIsAdmin(!!s.isAdmin);
     setDbConfigured(!!s.dbConfigured);

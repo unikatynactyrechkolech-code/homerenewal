@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
@@ -9,6 +9,19 @@ import { FadeIn } from "@/components/FadeIn";
 import NewsletterForm from "@/components/NewsletterForm";
 import PropertyListings from "@/components/PropertyListings";
 import ContactForm from "@/components/ContactForm";
+
+/* Parallax pouze na desktopu — mobil nespouštět scroll efekty */
+function useIsDesktop() {
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setOk(mq.matches);
+    const h = (e: MediaQueryListEvent) => setOk(e.matches);
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, []);
+  return ok;
+}
 
 /* -- Marquee --------------------------------------------------------- */
 const MARQUEE_ITEMS = [
@@ -72,6 +85,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 function HeroSection() {
   const t = useTranslations("hero");
   const locale = useLocale();
+  const isDesktop = useIsDesktop();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -81,7 +95,7 @@ function HeroSection() {
 
   return (
     <section ref={heroRef} className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
-      <motion.div style={{ y: videoY, scale: videoScale }} className="absolute inset-0 will-change-transform">
+      <motion.div style={isDesktop ? { y: videoY, scale: videoScale } : {}} className="absolute inset-0 will-change-transform">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover" poster="/images/hero-poster.jpg">
           <source src="https://videos.pexels.com/video-files/7578544/7578544-uhd_2560_1440_30fps.mp4" type="video/mp4" />
         </video>
@@ -90,7 +104,7 @@ function HeroSection() {
 
 
 
-      <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-10 w-full px-6 lg:px-8 flex flex-col items-center text-center">
+      <motion.div style={isDesktop ? { y: textY, opacity: textOpacity } : {}} className="relative z-10 w-full px-6 lg:px-8 flex flex-col items-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -167,6 +181,7 @@ function StatsSection() {
 function SectionsSection() {
   const t = useTranslations("sections");
   const locale = useLocale();
+  const isDesktop = useIsDesktop();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const blobY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
@@ -177,7 +192,7 @@ function SectionsSection() {
   ];
   return (
     <section ref={ref} className="py-32 bg-white relative overflow-hidden">
-      <motion.div style={{ y: blobY }}
+      <motion.div style={isDesktop ? { y: blobY } : {}}
         className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent/4 blur-3xl -translate-x-1/2 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <FadeIn>
@@ -212,6 +227,7 @@ function SectionsSection() {
 /* == PROCESS ========================================================== */
 function ProcessSection() {
   const t = useTranslations("process");
+  const isDesktop = useIsDesktop();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const lineW = useTransform(scrollYProgress, [0.1, 0.7], ["0%", "100%"]);
@@ -224,7 +240,7 @@ function ProcessSection() {
   ];
   return (
     <section ref={ref} className="py-32 bg-surface relative overflow-hidden">
-      <motion.div style={{ y: blobY }}
+      <motion.div style={isDesktop ? { y: blobY } : {}}
         className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full bg-primary/3 blur-3xl translate-x-1/3 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <FadeIn>
@@ -235,7 +251,7 @@ function ProcessSection() {
         </FadeIn>
         <div className="relative hidden lg:flex justify-between px-[12.5%] mb-8">
           <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-border/60" />
-          <motion.div style={{ width: lineW }} className="absolute top-1/2 left-0 h-[1px] bg-accent origin-left" />
+          <motion.div style={isDesktop ? { width: lineW } : { width: "100%" }} className="absolute top-1/2 left-0 h-[1px] bg-accent origin-left" />
           {steps.map((s, i) => (
             <motion.div key={s.num}
               initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
@@ -269,12 +285,13 @@ function ProcessSection() {
 function ListingsSection() {
   const t = useTranslations("listings");
   const locale = useLocale();
+  const isDesktop = useIsDesktop();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const blobY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
   return (
     <section ref={ref} className="py-32 bg-white relative overflow-hidden">
-      <motion.div style={{ y: blobY }}
+      <motion.div style={isDesktop ? { y: blobY } : {}}
         className="absolute left-1/2 bottom-0 w-[700px] h-[400px] rounded-full bg-accent/4 blur-3xl -translate-x-1/2 translate-y-1/2 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <FadeIn>
@@ -299,14 +316,15 @@ function ListingsSection() {
 /* == NEWSLETTER ======================================================= */
 function NewsletterSection() {
   const t = useTranslations("newsletter");
+  const isDesktop = useIsDesktop();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const orbY1 = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
   const orbY2 = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
   return (
     <section ref={ref} className="py-32 bg-primary relative overflow-hidden">
-      <motion.div style={{ y: orbY1 }} className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-      <motion.div style={{ y: orbY2 }} className="absolute bottom-0 left-0 w-80 h-80 bg-accent/6 rounded-full blur-3xl" />
+      <motion.div style={isDesktop ? { y: orbY1 } : {}} className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+      <motion.div style={isDesktop ? { y: orbY2 } : {}} className="absolute bottom-0 left-0 w-80 h-80 bg-accent/6 rounded-full blur-3xl" />
       <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/4 pointer-events-none" />
       <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">

@@ -2,9 +2,13 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { loadAllContent, saveContent, deleteContent } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const data = await loadAllContent();
-  return NextResponse.json({ data });
+  return NextResponse.json({ data }, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }
 
 export async function POST(req: Request) {
