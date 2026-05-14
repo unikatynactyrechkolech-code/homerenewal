@@ -350,7 +350,6 @@ export default function HomePage() {
     <>
       <HeroSection />
       <SectionsSection />
-      <StatsSection />
       <ProcessSection />
       <ListingsSection />
       <NewsletterSection />

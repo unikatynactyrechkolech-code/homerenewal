@@ -84,10 +84,10 @@ export default function Header() {
               <Image
                 src="/logo.png"
                 alt="Home Renewal"
-                width={160}
-                height={40}
+                width={80}
+                height={20}
                 priority
-                className={`h-8 sm:h-10 w-auto transition-all duration-300 ${
+                className={`h-4 sm:h-5 w-auto transition-all duration-300 ${
                   onLight ? "brightness-0" : "brightness-0 invert"
                 }`}
               />
