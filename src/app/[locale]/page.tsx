@@ -65,24 +65,15 @@ function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[1.05] mb-8 max-w-5xl"
+            className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[1.05] mb-10 max-w-5xl uppercase tracking-tight"
           >
             {t("title")}
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="text-lg sm:text-xl text-white/75 max-w-2xl mb-10 leading-relaxed"
-          >
-            {t("description")}
-          </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
             className="flex gap-3 sm:gap-4"
           >
             <Link
