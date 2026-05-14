@@ -2,11 +2,16 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { listProperties, upsertProperty } from "@/lib/properties";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const all = url.searchParams.get("all") === "1" && (await isAdmin());
+  const admin = await isAdmin();
+  const all = url.searchParams.get("all") === "1" && admin;
   const data = await listProperties({ onlyVisible: !all });
-  return NextResponse.json({ data });
+  return NextResponse.json({ data }, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }
 
 export async function POST(req: Request) {

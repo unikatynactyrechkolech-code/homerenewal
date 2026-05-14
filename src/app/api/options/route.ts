@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { listOptions, upsertOption, deleteOption } from "@/lib/options";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const kind = url.searchParams.get("kind") ?? undefined;
   const data = await listOptions(kind);
-  return NextResponse.json({ data });
+  return NextResponse.json({ data }, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }
 
 export async function POST(req: Request) {

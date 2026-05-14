@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { deleteProperty, getProperty } from "@/lib/properties";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   _req: Request,
   ctx: { params: Promise<{ id: string }> },
