@@ -94,14 +94,16 @@ function applyOverride(el: HTMLElement, o: Override) {
 
 export default function EditorProvider({
   children,
+  initialContent = {},
 }: {
   children: React.ReactNode;
+  initialContent?: Record<string, Override>;
 }) {
   const pathname = usePathname();
   const [isAdmin, setIsAdmin] = useState(false);
   const [dbConfigured, setDbConfigured] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [overrides, setOverrides] = useState<Record<string, Override>>({});
+  const [overrides, setOverrides] = useState<Record<string, Override>>(initialContent);
 
   const [target, setTarget] = useState<{
     key: string;
@@ -123,7 +125,7 @@ export default function EditorProvider({
   const pendingRef = useRef(pending);
   pendingRef.current = pending;
 
-  /* ── Načti session + overrides při startu ────────────── */
+  /* ── Načti session při startu ────────────── */
   useEffect(() => {
     fetch("/api/admin/session", { cache: "no-store" })
       .then((r) => r.json())
@@ -135,27 +137,19 @@ export default function EditorProvider({
         if (adm) setEditMode(true);
       })
       .catch(() => {});
-
-    fetch("/api/content", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => setOverrides(d.data ?? {}))
-      .catch(() => {});
   }, []);
 
   /* ── Aplikuj overrides + pending na DOM po každé změně cesty ──────── */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const t = window.setTimeout(() => {
-      if (!pathname) return;
-      const els = document.querySelectorAll<HTMLElement>(EDITABLE_SELECTORS);
-      els.forEach((el) => {
-        if (!isLeafText(el)) return;
-        const key = buildKey(el, pathname);
-        const o = pending[key] ?? overrides[key];
-        if (o) applyOverride(el, o);
-      });
-    }, 60);
-    return () => window.clearTimeout(t);
+    if (!pathname) return;
+    const els = document.querySelectorAll<HTMLElement>(EDITABLE_SELECTORS);
+    els.forEach((el) => {
+      if (!isLeafText(el)) return;
+      const key = buildKey(el, pathname);
+      const o = pending[key] ?? overrides[key];
+      if (o) applyOverride(el, o);
+    });
   }, [pathname, overrides, pending]);
 
   /* ── Right-click handler v editMode ───────────────────────── */
