@@ -5,14 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export default function LoadingScreen() {
-  const alreadySeen =
-    typeof window !== "undefined" && sessionStorage.getItem("hr_loaded") === "1";
-
-  const [isLoading, setIsLoading] = useState(!alreadySeen);
-  const [shouldRender, setShouldRender] = useState(!alreadySeen);
+  const [isLoading, setIsLoading] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    if (!isLoading) return;
+    if (sessionStorage.getItem("hr_loaded") === "1") return;
+    setShouldRender(true);
+    setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
       sessionStorage.setItem("hr_loaded", "1");
