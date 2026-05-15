@@ -89,10 +89,15 @@ function buildKey(el: Element, pathname: string): string {
   return `${pathname}::${tag}:${idx}`;
 }
 
-function applyOverride(el: HTMLElement, o: Override) {
+function applyOverride(el: HTMLElement, o: Override, safe = true) {
   el.textContent = o.text;
-  // Inline styly (barva, font) záměrně NEAPLIKUJEME — design řídí výhradně CSS/Tailwind.
-  // Aplikace inline stylů by přebila CSS třídy závislé na stavu komponenty (např. bílý vs. průhledný header).
+  // Inline styly aplikujeme pouze mimo header — tam jsou barvy dynamické (scroll stav).
+  if (safe) {
+    if (o.font_family) el.style.fontFamily = o.font_family;
+    if (o.font_size) el.style.fontSize = o.font_size;
+    if (o.font_weight) el.style.fontWeight = o.font_weight;
+    if (o.color) el.style.color = o.color;
+  }
 }
 
 export default function EditorProvider({
@@ -151,7 +156,7 @@ export default function EditorProvider({
       if (!isLeafText(el)) return;
       const key = buildKey(el, pathname);
       const o = pending[key] ?? overrides[key];
-      if (o) applyOverride(el, o);
+      if (o) applyOverride(el, o, !el.closest("header"));
     });
   }, [pathname, overrides, pending]);
 
