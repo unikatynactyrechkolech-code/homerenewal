@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -139,8 +140,8 @@ export default function EditorProvider({
       .catch(() => {});
   }, []);
 
-  /* ── Aplikuj overrides + pending na DOM po každé změně cesty ──────── */
-  useEffect(() => {
+  /* ── Aplikuj overrides + pending na DOM synchronně před paintem ──── */
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
     if (!pathname) return;
     const els = document.querySelectorAll<HTMLElement>(EDITABLE_SELECTORS);
