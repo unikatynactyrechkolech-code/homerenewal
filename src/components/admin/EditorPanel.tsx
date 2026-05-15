@@ -228,7 +228,11 @@ export default function EditorPanel({
                       key={c}
                       type="button"
                       onClick={() => setColor(c)}
-                      className="w-7 h-7 rounded border border-gray-300"
+                      className={`w-7 h-7 rounded border transition-all ${
+                        color.toLowerCase() === c
+                          ? "border-[#c8a97e] ring-2 ring-[#c8a97e] ring-offset-1 scale-110"
+                          : "border-gray-300 hover:scale-110"
+                      }`}
                       style={{ background: c }}
                       aria-label={c}
                     />
