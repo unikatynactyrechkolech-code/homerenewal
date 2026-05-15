@@ -30,9 +30,9 @@ export async function listProperties(opts?: {
       .select(
         "id, title, location, price_czk, size_m2, rooms, type, status, description, cover_image, gallery, featured, sort_order, slug",
       );
-    if (opts?.onlyVisible) {
-      q = q.in("status", ["active", "reserved", "sold"]);
-    }
+    // onlyVisible — dříve filtroval pevně zakódované anglické hodnoty ('active', 'reserved', 'sold')
+    // což způsobovalo, že inzeráty s vlastními statusy se vůbec nezobrazovaly.
+    // Nyní zobrazujeme vše — viditelnost se řídí tím, zda inzerát v DB existuje.
     q = q.order("featured", { ascending: false }).order("sort_order", { ascending: true });
     const { data, error } = await q;
     if (error) throw error;
