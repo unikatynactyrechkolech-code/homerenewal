@@ -32,6 +32,7 @@ import {
   GripVertical,
   Settings2,
   ArrowLeft,
+  Lock,
 } from "lucide-react";
 
 type Property = {
@@ -92,6 +93,15 @@ export default function AdminPage() {
     refresh();
   }, [refresh]);
 
+  /* Označ body pro CSS overrides + cleanup hr-edit-mode na admin route */
+  useEffect(() => {
+    document.body.dataset.route = "admin";
+    document.body.classList.remove("hr-edit-mode");
+    return () => {
+      delete document.body.dataset.route;
+    };
+  }, []);
+
   /* ?new=1 → otevřít editor pro nový inzerát */
   useEffect(() => {
     if (sp.get("new") === "1" && !editing) {
@@ -122,37 +132,29 @@ export default function AdminPage() {
     const next = arrayMove(items, oldIdx, newIdx);
     setItems(next);
     setReordering(true);
-    await fetch("/api/properties/reorder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ids: next.map((i) => i.id) }),
-    });
-    setReordering(false);
+    try {
+      const r = await fetch("/api/properties/reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: next.map((i) => i.id) }),
+      });
+      if (!r.ok) {
+        const j = await r.json().catch(() => ({}));
+        console.error("[reorder] failed:", r.status, j);
+        alert(`Změna pořadí selhala: ${j.error ?? r.status}`);
+      }
+    } catch (err) {
+      console.error("[reorder] error:", err);
+      alert("Síťová chyba při změně pořadí.");
+    } finally {
+      setReordering(false);
+      // Načti pořadí z DB — má přednost nad optimistickým updatem
+      refresh();
+    }
   }
 
   if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-surface flex items-center justify-center px-6">
-        <div className="text-center max-w-md">
-          <div className="w-16 h-16 rounded-full bg-amber-100 mx-auto mb-6 flex items-center justify-center">
-            <Settings2 className="w-7 h-7 text-amber-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-primary mb-3">
-            Přístup pouze pro administrátory
-          </h1>
-          <p className="text-muted mb-6">
-            Klikni na ikonu zámku v pravém dolním rohu webu a přihlaš se.
-          </p>
-          <Link
-            href={`/${locale}`}
-            className="inline-flex items-center gap-2 text-sm text-accent hover:underline"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Zpět na web
-          </Link>
-        </div>
-      </div>
-    );
+    return <AdminLoginScreen locale={locale} />;
   }
 
   return (
@@ -436,6 +438,73 @@ function SortableRow({
           <Trash2 className="w-4 h-4" />
         </button>
       </div>
+    </div>
+  );
+}
+
+function AdminLoginScreen({ locale }: { locale: string }) {
+  const { login } = useEditor();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const r = await login(password);
+    setLoading(false);
+    if (!r.ok) setError(r.error ?? "Špatné heslo.");
+  }
+
+  return (
+    <div className="min-h-screen bg-surface flex items-center justify-center px-6">
+      <form
+        onSubmit={onSubmit}
+        className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-border/40 p-8"
+      >
+        <div className="flex items-center gap-2 mb-6">
+          <Lock className="w-5 h-5 text-[#c8a97e]" />
+          <h1 className="text-xl font-bold text-primary">Administrace</h1>
+        </div>
+        <p className="text-sm text-muted mb-6">
+          Pro vstup do administrace zadej heslo.
+        </p>
+        <label className="block mb-4">
+          <span className="block text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            Heslo
+          </span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoFocus
+            className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#c8a97e] focus:ring-2 focus:ring-[#c8a97e]/20"
+            placeholder="••••••••"
+          />
+        </label>
+        {error && (
+          <div className="mb-4 text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg p-2.5">
+            {error}
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <Link
+            href={`/${locale}`}
+            className="text-xs text-muted hover:text-primary inline-flex items-center gap-1.5"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Zpět na web
+          </Link>
+          <button
+            type="submit"
+            disabled={loading || !password}
+            className="px-5 py-2 text-xs font-semibold uppercase tracking-wider bg-[#c8a97e] hover:bg-[#b89569] disabled:opacity-50 text-white rounded-full transition"
+          >
+            {loading ? "Přihlašuji…" : "Přihlásit"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

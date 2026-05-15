@@ -146,7 +146,7 @@ export default function ChciKoupitPage() {
             {[1, 2, 3, 4].map((n, i) => (
               <FadeIn key={n} delay={i * 0.1}>
                 <div className="relative">
-                  <span className="text-7xl font-black text-navy/25 leading-none">
+                  <span className="text-7xl font-black text-navy/70 leading-none">
                     0{n}
                   </span>
                   <h3 className="text-lg font-bold text-primary mb-3 mt-3">

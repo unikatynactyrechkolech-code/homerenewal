@@ -164,7 +164,11 @@ export default function EditorProvider({
   useEffect(() => {
     if (!isAdmin || !editMode) return;
     // Na /admin route nechceme edit mode — má vlastní UI
-    if (pathname && /\/admin(\/|$)/.test(pathname)) return;
+    if (pathname && /\/admin(\/|$)/.test(pathname)) {
+      // Ujisti se, že tady nezůstane vizu\u00e1ln\u00ed cursor:cell po navigaci z homepage
+      document.body.classList.remove("hr-edit-mode");
+      return;
+    }
 
     function onContextMenu(e: MouseEvent) {
       const path = (e.composedPath?.() ?? []) as Element[];

@@ -125,8 +125,8 @@ export default function PropertyDetail({
 
   return (
     <div className="min-h-screen bg-surface">
-      {/* Back — pt musí přeskočit fixed header (80px) + případný AdminBar (48px) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32">
+      {/* Back — bez fixed headeru sta\u010d\u00ed jen mal\u00fd top padding */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
         <Link
           href={`/${locale}/chci-koupit`}
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition"

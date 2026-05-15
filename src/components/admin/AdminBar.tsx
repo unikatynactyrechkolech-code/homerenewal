@@ -150,17 +150,7 @@ export default function AdminBar() {
         </>
       )}
 
-      {/* LOCK ICON — viditelný jen pro nepřihlášené */}
-      {!isAdmin && !showLogin && (
-        <button
-          type="button"
-          onClick={() => setShowLogin(true)}
-          className="hr-editor-panel fixed bottom-6 right-6 z-[9990] bg-[#1a1a1a]/90 hover:bg-[#1a1a1a] backdrop-blur text-white/80 hover:text-white p-3 rounded-full shadow-2xl border border-white/10 transition opacity-30 hover:opacity-100"
-          title="Admin"
-        >
-          <Lock className="w-4 h-4" />
-        </button>
-      )}
+      {/* Lock icon v rohu byl odstran\u011bn \u2014 p\u0159ihl\u00e1\u0161en\u00ed pouze p\u0159es /admin URL */}
 
       {/* Login modal */}
       {showLogin && !isAdmin && (

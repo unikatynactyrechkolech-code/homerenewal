@@ -5,9 +5,9 @@
   },
   "nav": {
     "home": "Úvod",
-    "sell": "Chci",
+    "sell": "Chci prodat",
     "buy": "Chci koupit",
-    "renovations": "Kompletní rekonstrukce",
+    "renovations": "Rekonstrukce",
     "about": "O nás",
     "contact": "Kontakt"
   },

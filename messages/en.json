@@ -5,10 +5,10 @@
   },
   "nav": {
     "home": "Home",
-    "sell": "I want to sell",
-    "buy": "I want to buy",
-    "renovations": "Full renovation",
-    "about": "About us",
+    "sell": "Sell",
+    "buy": "Buy",
+    "renovations": "Renovations",
+    "about": "About",
     "contact": "Contact"
   },
   "hero": {

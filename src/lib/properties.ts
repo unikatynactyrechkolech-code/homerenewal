@@ -33,7 +33,9 @@ export async function listProperties(opts?: {
     // onlyVisible — dříve filtroval pevně zakódované anglické hodnoty ('active', 'reserved', 'sold')
     // což způsobovalo, že inzeráty s vlastními statusy se vůbec nezobrazovaly.
     // Nyní zobrazujeme vše — viditelnost se řídí tím, zda inzerát v DB existuje.
-    q = q.order("featured", { ascending: false }).order("sort_order", { ascending: true });
+    // Řazení POUZE podle sort_order — featured uži pouze jako badge,
+    // jinak by drag&drop pořadí v adminu nedávalo smysl (featured by skákalo nahoru).
+    q = q.order("sort_order", { ascending: true }).order("title", { ascending: true });
     const { data, error } = await q;
     if (error) throw error;
     return (data ?? []).map((r) => ({

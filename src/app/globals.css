@@ -136,6 +136,21 @@ html.menu-open {
 body.hr-edit-mode {
   cursor: cell;
 }
+/* Bezpečnostní override — na /admin nikdy cursor:cell, i kdyby třída omylem zůstala */
+body[data-route="admin"],
+body[data-route="admin"] * {
+  cursor: auto !important;
+}
+body[data-route="admin"] button,
+body[data-route="admin"] a,
+body[data-route="admin"] [role="button"],
+body[data-route="admin"] summary {
+  cursor: pointer !important;
+}
+body[data-route="admin"] input,
+body[data-route="admin"] textarea {
+  cursor: text !important;
+}
 /* Interaktivní prvky mají vždy normal cursor i v edit mode */
 body.hr-edit-mode button,
 body.hr-edit-mode a,

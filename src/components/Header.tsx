@@ -57,6 +57,10 @@ export default function Header() {
     return () => document.documentElement.classList.remove("menu-open");
   }, [isOpen]);
 
+  // Skryj header na detailu nemovitosti — immersive view
+  const hideHeader = /\/nemovitosti\//.test(pathname || "");
+  if (hideHeader) return null;
+
   const getHref = (link: (typeof navLinks)[0]) =>
     `/${locale}${locale === "cs" ? link.href : link.hrefEn}`;
 
@@ -150,43 +154,46 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ─── MOBILE MENU OVERLAY ─── */}
+      {/* ─── MOBILE MENU OVERLAY (Apple-style fullscreen) ─── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             key="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            // Umíst menu přesně pod header — top = adminBar + headerHeight
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             style={{ top: adminBarHeight + 64 }}
             className="lg:hidden fixed left-0 right-0 bottom-0 z-[199] bg-white overflow-y-auto"
           >
-            <nav className="flex flex-col px-6 pt-6 pb-10 gap-1">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.key}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i, duration: 0.2 }}
-                >
-                  <Link
-                    href={getHref(link)}
-                    onClick={close}
-                    className="block py-4 text-2xl font-bold text-primary hover:text-accent transition-colors border-b border-black/5 last:border-0"
+            <nav className="h-full min-h-full flex flex-col px-8 py-10">
+              {/* Hlavn\u00ed navigace \u2014 rovnom\u011brn\u011b roztaz\u011bn\u00e1 p\u0159es st\u0159ed */}
+              <ul className="flex-1 flex flex-col justify-evenly items-center text-center">
+                {navLinks.map((link, i) => (
+                  <motion.li
+                    key={link.key}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + 0.05 * i, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="w-full"
                   >
-                    {t(link.key)}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={getHref(link)}
+                      onClick={close}
+                      className="block py-3 text-3xl sm:text-4xl font-semibold text-primary hover:text-accent active:text-accent transition-colors tracking-tight"
+                    >
+                      {t(link.key)}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
 
-              {/* Jazykový přepínač v menu */}
+              {/* Spodn\u00ed lajna \u2014 jazyk + kontakt */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.25 }}
-                className="mt-6"
+                transition={{ delay: 0.4, duration: 0.3 }}
+                className="shrink-0 pt-8 border-t border-black/5 flex items-center justify-between"
               >
                 <Link
                   href={switchPath}
@@ -197,6 +204,12 @@ export default function Header() {
                   <Globe className="w-4 h-4" />
                   {switchLocale === "cs" ? "Česky" : "English"}
                 </Link>
+                <a
+                  href="mailto:info@homerenewal.cz"
+                  className="text-sm font-medium text-muted hover:text-primary transition-colors"
+                >
+                  info@homerenewal.cz
+                </a>
               </motion.div>
             </nav>
           </motion.div>
