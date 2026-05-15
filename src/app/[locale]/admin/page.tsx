@@ -75,16 +75,17 @@ export default function AdminPage() {
 
   /* Načti */
   const refresh = useCallback(async () => {
+    const t = Date.now();
     const [p, o] = await Promise.all([
-      fetch("/api/properties?all=1").then((r) => r.json()),
-      fetch("/api/options").then((r) => r.json()),
+      fetch(`/api/properties?all=1&_=${t}`, { cache: "no-store" }).then((r) => r.json()),
+      fetch(`/api/options?_=${t}`, { cache: "no-store" }).then((r) => r.json()),
     ]);
     setItems(p.data ?? []);
     setOptions(o.data ?? []);
   }, []);
 
   const refreshOptions = useCallback(async () => {
-    const o = await fetch("/api/options").then((r) => r.json());
+    const o = await fetch(`/api/options?_=${Date.now()}`, { cache: "no-store" }).then((r) => r.json());
     setOptions(o.data ?? []);
   }, []);
 

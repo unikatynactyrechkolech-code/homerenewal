@@ -47,11 +47,12 @@ export default function PropertyListings({ limit }: { limit?: number }) {
   const [statuses, setStatuses] = useState<Option[]>([]);
 
   useEffect(() => {
-    fetch("/api/properties", { cache: "no-store" })
+    const t = Date.now();
+    fetch(`/api/properties?_=${t}`, { cache: "no-store", headers: { "Pragma": "no-cache" } })
       .then((r) => r.json())
       .then((d) => setItems(d.data ?? []))
       .catch(() => setItems([]));
-    fetch("/api/options?kind=status", { cache: "no-store" })
+    fetch(`/api/options?kind=status&_=${t}`, { cache: "no-store", headers: { "Pragma": "no-cache" } })
       .then((r) => r.json())
       .then((d) => setStatuses(d.data ?? []))
       .catch(() => {});
