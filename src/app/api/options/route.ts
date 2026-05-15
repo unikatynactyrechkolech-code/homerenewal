@@ -9,7 +9,12 @@ export async function GET(req: Request) {
   const kind = url.searchParams.get("kind") ?? undefined;
   const data = await listOptions(kind);
   return NextResponse.json({ data }, {
-    headers: { "Cache-Control": "no-store" },
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Vercel-CDN-Cache-Control": "no-store",
+      "CDN-Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
   });
 }
 

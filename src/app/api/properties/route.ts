@@ -10,7 +10,12 @@ export async function GET(req: Request) {
   const all = url.searchParams.get("all") === "1" && admin;
   const data = await listProperties({ onlyVisible: !all });
   return NextResponse.json({ data }, {
-    headers: { "Cache-Control": "no-store" },
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Vercel-CDN-Cache-Control": "no-store",
+      "CDN-Cache-Control": "no-store",
+      "Pragma": "no-cache",
+    },
   });
 }
 
