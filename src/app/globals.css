@@ -133,9 +133,7 @@ html.menu-open {
 /* ─────────────────────────────────────────────────────────────────
    ADMIN EDIT MODE — vizuální zvýraznění editovatelných elementů
    ───────────────────────────────────────────────────────────────── */
-body.hr-edit-mode {
-  cursor: cell;
-}
+/* body.hr-edit-mode záměrně bez cursor: cell — nechceme plusko na celé stránce */
 /* Bezpečnostní override — na /admin nikdy cursor:cell, i kdyby třída omylem zůstala */
 body[data-route="admin"],
 body[data-route="admin"] * {
