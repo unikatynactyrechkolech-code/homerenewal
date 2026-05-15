@@ -11,6 +11,7 @@ import {
   Star,
 } from "lucide-react";
 import ImageUploader from "./ImageUploader";
+import EditableImage from "./EditableImage";
 import SelectWithAdd from "./SelectWithAdd";
 
 type Property = {
@@ -338,19 +339,19 @@ export default function PropertyEditor({
               </label>
               {p.cover_image ? (
                 <div className="relative group rounded-lg overflow-hidden border border-border/50 mb-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <EditableImage
                     src={p.cover_image}
-                    alt=""
-                    className="w-full max-h-72 object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => update("cover_image", null)}
-                    className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-1 text-xs bg-black/70 hover:bg-black text-white rounded"
+                    className="w-full max-h-72"
+                    onChange={(url) => update("cover_image", url)}
                   >
-                    <Trash2 className="w-3 h-3" /> Odebrat
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => update("cover_image", null)}
+                      className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-1 text-xs bg-black/70 hover:bg-black text-white rounded"
+                    >
+                      <Trash2 className="w-3 h-3" /> Odebrat
+                    </button>
+                  </EditableImage>
                 </div>
               ) : (
                 <ImageUploader
@@ -390,33 +391,41 @@ export default function PropertyEditor({
                       key={i}
                       className="relative group aspect-[4/3] rounded-lg overflow-hidden border border-border/50 bg-gray-100"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={url} alt="" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100">
-                        <button
-                          type="button"
-                          onClick={() => moveGallery(i, -1)}
-                          disabled={i === 0}
-                          className="px-2 py-1 text-xs bg-white/90 rounded disabled:opacity-30"
-                        >
-                          ←
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => moveGallery(i, 1)}
-                          disabled={i === p.gallery.length - 1}
-                          className="px-2 py-1 text-xs bg-white/90 rounded disabled:opacity-30"
-                        >
-                          →
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => removeGallery(i)}
-                          className="p-1.5 bg-red-600 hover:bg-red-700 rounded text-white"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
+                      <EditableImage
+                        src={url}
+                        className="w-full h-full"
+                        onChange={(newUrl) => {
+                          const next = [...p.gallery];
+                          next[i] = newUrl;
+                          update("gallery", next);
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100">
+                          <button
+                            type="button"
+                            onClick={() => moveGallery(i, -1)}
+                            disabled={i === 0}
+                            className="px-2 py-1 text-xs bg-white/90 rounded disabled:opacity-30"
+                          >
+                            ←
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => moveGallery(i, 1)}
+                            disabled={i === p.gallery.length - 1}
+                            className="px-2 py-1 text-xs bg-white/90 rounded disabled:opacity-30"
+                          >
+                            →
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeGallery(i)}
+                            className="p-1.5 bg-red-600 hover:bg-red-700 rounded text-white"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </EditableImage>
                     </div>
                   ))}
                 </div>

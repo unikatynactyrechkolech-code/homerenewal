@@ -12,6 +12,7 @@ type Target = {
   color: string | null;
   rect: DOMRect;
   el: HTMLElement;
+  inHeader: boolean;
 };
 
 type Payload = {
@@ -131,19 +132,25 @@ export default function EditorPanel({
             {target.key}
           </div>
 
-          {/* Text */}
-          <div>
-            <label className="block text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Text
-            </label>
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              rows={Math.max(2, Math.min(10, Math.ceil(text.length / 50)))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#c8a97e] focus:ring-2 focus:ring-[#c8a97e]/20 resize-y"
-              autoFocus
-            />
-          </div>
+          {/* Text — v headeru nelze měnit (rozbilo by to layout/i18n) */}
+          {target.inHeader ? (
+            <div className="text-[11px] bg-amber-50 border border-amber-200 text-amber-900 rounded-lg px-3 py-2">
+              🔒 Text v headeru nelze měnit. Můžeš upravit pouze barvu, font, velikost a těžkošt.
+            </div>
+          ) : (
+            <div>
+              <label className="block text-[11px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+                Text
+              </label>
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                rows={Math.max(2, Math.min(10, Math.ceil(text.length / 50)))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#c8a97e] focus:ring-2 focus:ring-[#c8a97e]/20 resize-y"
+                autoFocus
+              />
+            </div>
+          )}
 
           {/* Font family */}
           <div>

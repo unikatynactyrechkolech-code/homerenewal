@@ -62,9 +62,8 @@ const EDITABLE_SELECTORS = [
 ].join(",");
 
 function isLeafText(el: Element): boolean {
-  // Přeskočit prvky označené jako no-override nebo uvnitř headeru
+  // Přeskočit prvky označené jako no-override
   if (el.hasAttribute("data-no-override")) return false;
-  if (el.closest("header")) return false;
 
   // Editujeme jen elementy, jejichž PŘÍMÝ obsah je text (žádné child elementy
   // s vlastním textem). Tím se vyhneme rodičům, kteří jen obalují další text.
@@ -89,15 +88,15 @@ function buildKey(el: Element, pathname: string): string {
   return `${pathname}::${tag}:${idx}`;
 }
 
-function applyOverride(el: HTMLElement, o: Override, safe = true) {
-  el.textContent = o.text;
-  // Inline styly aplikujeme pouze mimo header — tam jsou barvy dynamické (scroll stav).
-  if (safe) {
-    if (o.font_family) el.style.fontFamily = o.font_family;
-    if (o.font_size) el.style.fontSize = o.font_size;
-    if (o.font_weight) el.style.fontWeight = o.font_weight;
-    if (o.color) el.style.color = o.color;
-  }
+function applyOverride(el: HTMLElement, o: Override) {
+  const inHeader = !!el.closest("header");
+  // V headeru nikdy neměníme text (změna by rozbila layout/lokalizaci),
+  // ale styly aplikujeme — admin si volí barvu/font/váhu.
+  if (!inHeader) el.textContent = o.text;
+  if (o.font_family) el.style.fontFamily = o.font_family;
+  if (o.font_size) el.style.fontSize = o.font_size;
+  if (o.font_weight) el.style.fontWeight = o.font_weight;
+  if (o.color) el.style.setProperty("color", o.color, inHeader ? "important" : "");
 }
 
 export default function EditorProvider({
@@ -122,6 +121,7 @@ export default function EditorProvider({
     color: string | null;
     rect: DOMRect;
     el: HTMLElement;
+    inHeader: boolean;
   } | null>(null);
 
   // Draft — změny aplikované lokálně, ještě nepubliko­vané do DB.
@@ -141,11 +141,22 @@ export default function EditorProvider({
         const adm = !!d.isAdmin;
         setIsAdmin(adm);
         setDbConfigured(!!d.dbConfigured);
-        // Editace VRŽDY zapnutá když jsi admin.
-        if (adm) setEditMode(true);
+        // Editace VRŽDY zapnutá když jsi admin — ale NIKDY na /admin route
+        const onAdminRoute = typeof window !== "undefined" && /\/admin(\/|$)/.test(window.location.pathname);
+        if (adm && !onAdminRoute) setEditMode(true);
       })
       .catch(() => {});
   }, []);
+
+  /* Vypni edit mode automaticky kdy\u017e u\u017eivatel naviguje na /admin, znovu zapni mimo */
+  useEffect(() => {
+    if (!isAdmin || !pathname) return;
+    const onAdminRoute = /\/admin(\/|$)/.test(pathname);
+    setEditMode(!onAdminRoute);
+    if (onAdminRoute) {
+      document.body.classList.remove("hr-edit-mode");
+    }
+  }, [isAdmin, pathname]);
 
   /* ── Aplikuj overrides + pending na DOM synchronně před paintem ──── */
   useLayoutEffect(() => {
@@ -156,7 +167,7 @@ export default function EditorProvider({
       if (!isLeafText(el)) return;
       const key = buildKey(el, pathname);
       const o = pending[key] ?? overrides[key];
-      if (o) applyOverride(el, o, !el.closest("header"));
+      if (o) applyOverride(el, o);
     });
   }, [pathname, overrides, pending]);
 
@@ -198,6 +209,7 @@ export default function EditorProvider({
         color: existing?.color ?? cs.color ?? null,
         rect: chosen.getBoundingClientRect(),
         el: chosen,
+        inHeader: !!chosen.closest("header"),
       });
     }
 
@@ -311,11 +323,15 @@ export default function EditorProvider({
     [isAdmin, editMode, refresh, login, logout, dbConfigured, pending, publishing, publish, discard],
   );
 
-  /* ── Save handler pro panel: aplikuj jen lokálně (draft) ──────── */
+  /* ── Save handler pro panel: aplikuj jen lokálně (draft) ────── */
   function handleSave(payload: Override & { key: string }) {
     if (!target) return;
-    applyOverride(target.el, payload);
-    setPending((p) => ({ ...p, [payload.key]: payload }));
+    // V headeru necháme původní text (panel ho stejně nezobrazuje)
+    const finalPayload = target.inHeader
+      ? { ...payload, text: target.text }
+      : payload;
+    applyOverride(target.el, finalPayload);
+    setPending((p) => ({ ...p, [payload.key]: finalPayload }));
     setTarget(null);
   }
 
