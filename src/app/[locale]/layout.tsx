@@ -59,10 +59,7 @@ export default async function LocaleLayout({
         var key=el.getAttribute('data-edit-key')||(pn+'::'+tag+':'+idx);
         if(data[key]){
           el.textContent=data[key].text;
-          if(data[key].font_family)el.style.fontFamily=data[key].font_family;
-          if(data[key].font_size)el.style.fontSize=data[key].font_size;
-          if(data[key].font_weight)el.style.fontWeight=data[key].font_weight;
-          if(data[key].color)el.style.color=data[key].color;
+          // Inline styly záměrně NEAPLIKUJEME — design řídí CSS/Tailwind.
         }
       });
     }

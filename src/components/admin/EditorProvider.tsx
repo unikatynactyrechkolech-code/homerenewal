@@ -91,10 +91,8 @@ function buildKey(el: Element, pathname: string): string {
 
 function applyOverride(el: HTMLElement, o: Override) {
   el.textContent = o.text;
-  if (o.font_family) el.style.fontFamily = o.font_family;
-  if (o.font_size) el.style.fontSize = o.font_size;
-  if (o.font_weight) el.style.fontWeight = o.font_weight;
-  if (o.color) el.style.color = o.color;
+  // Inline styly (barva, font) záměrně NEAPLIKUJEME — design řídí výhradně CSS/Tailwind.
+  // Aplikace inline stylů by přebila CSS třídy závislé na stavu komponenty (např. bílý vs. průhledný header).
 }
 
 export default function EditorProvider({
