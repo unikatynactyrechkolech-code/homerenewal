@@ -115,6 +115,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <Link
                 href={switchPath}
+                scroll={false}
                 className={`hidden sm:flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${
                   onLight
                     ? "text-primary/60 hover:text-primary"
@@ -189,6 +190,7 @@ export default function Header() {
               >
                 <Link
                   href={switchPath}
+                  scroll={false}
                   onClick={close}
                   className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-primary transition-colors"
                 >

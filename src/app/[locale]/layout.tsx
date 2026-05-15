@@ -74,6 +74,50 @@ export default async function LocaleLayout({
 })();`,
           }}
         />
+        {/* Scroll restoration — zachovej pozici p\u0159i reloadu i p\u0159i client-side nav (zm\u011bna jazyka). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  try{
+    if('scrollRestoration' in history){history.scrollRestoration='manual';}
+    var KEY='hr_scroll:'+location.pathname;
+    var KEY_BASE='hr_scroll_base';
+    function save(){try{sessionStorage.setItem(KEY,String(window.scrollY));}catch(e){}}
+    function restore(){
+      try{
+        // 1) per-path key
+        var v=sessionStorage.getItem(KEY);
+        // 2) fallback z lokal\u011b switche \u2014 pos\u00edl\u00e1 se p\u0159es base key (path bez locale)
+        if(v===null){
+          var base=location.pathname.replace(/^\\/(cs|en)/,'');
+          var bv=sessionStorage.getItem(KEY_BASE+':'+base);
+          if(bv){v=bv;sessionStorage.removeItem(KEY_BASE+':'+base);}
+        }
+        if(v!==null){
+          var y=parseInt(v,10)||0;
+          // Pou\u017eij rAF aby se rozlo\u017een\u00ed stihlo dopo\u010d\u00edtat
+          requestAnimationFrame(function(){window.scrollTo(0,y);
+            requestAnimationFrame(function(){window.scrollTo(0,y);});
+          });
+        }
+      }catch(e){}
+    }
+    // P\u0159ed nav/reload ulo\u017e pozici i pod base key (pro p\u0159e\u017eit\u00ed zm\u011bny locale)
+    function saveBoth(){
+      save();
+      try{
+        var base=location.pathname.replace(/^\\/(cs|en)/,'');
+        sessionStorage.setItem(KEY_BASE+':'+base,String(window.scrollY));
+      }catch(e){}
+    }
+    window.addEventListener('beforeunload',saveBoth);
+    window.addEventListener('pagehide',saveBoth);
+    if(document.readyState==='complete'||document.readyState==='interactive'){restore();}
+    else{document.addEventListener('DOMContentLoaded',restore);}
+  }catch(e){}
+})();`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

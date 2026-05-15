@@ -30,7 +30,6 @@ import {
   Trash2,
   Star,
   GripVertical,
-  Eye,
   Settings2,
   ArrowLeft,
 } from "lucide-react";
@@ -198,14 +197,6 @@ export default function AdminPage() {
               Nový inzerát
             </button>
           </div>
-        </div>
-
-        {/* Tip: editace textů */}
-        <div className="mb-8 bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 flex items-start gap-3">
-          <Eye className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-          <p className="text-sm text-amber-800 leading-relaxed">
-            <strong>Chceš upravit texty na webu?</strong> Klikni na „Zpět na web" — jsi přihlášen/a jako admin, takže můžeš pravým tlačítkem kliknout na libovolný text a upravit ho přímo na stránce.
-          </p>
         </div>
 
         {items === null ? (

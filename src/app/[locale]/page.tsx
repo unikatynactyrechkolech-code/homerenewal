@@ -263,7 +263,7 @@ function ProcessSection() {
           {steps.map((step, i) => (
             <FadeIn key={step.num} delay={i * 0.15}>
               <div>
-                <motion.span className="text-8xl font-black text-navy/12 leading-none block"
+                <motion.span className="text-8xl font-black text-navy/30 leading-none block"
                   initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                   {step.num}

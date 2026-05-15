@@ -114,12 +114,12 @@ export default function PropertyListings({ limit }: { limit?: number }) {
         return (
           <motion.article
             key={p.id}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
             transition={{
-              duration: 0.6,
-              delay: i * 0.1,
+              duration: 0.4,
+              delay: Math.min(i * 0.06, 0.18),
               ease: [0.22, 1, 0.36, 1],
             }}
             className="hr-lift group bg-white border border-border/50 rounded-2xl overflow-hidden"

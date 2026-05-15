@@ -113,7 +113,7 @@ export default function BetonoveSterkyPage() {
             {[1, 2, 3, 4].map((n, i) => (
               <FadeIn key={n} delay={i * 0.1}>
                 <div className="relative bg-surface p-8 rounded-2xl border border-border/50 h-full">
-                  <span className="text-6xl font-black text-accent/20 leading-none block mb-4">
+                  <span className="text-6xl font-black text-navy/25 leading-none block mb-4">
                     0{n}
                   </span>
                   <h3 className="text-lg font-bold text-primary mb-3">

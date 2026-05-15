@@ -48,10 +48,10 @@ export default function ScrollImage({
   return (
     <motion.figure
       ref={ref}
-      initial={{ opacity: 0, y: 40, rotate: tilt }}
+      initial={{ opacity: 0, y: 24, rotate: tilt }}
       whileInView={{ opacity: 1, y: 0, rotate: tilt }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`relative overflow-hidden ${rounded} ${className}`}
     >
       <motion.img
