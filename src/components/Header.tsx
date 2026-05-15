@@ -99,6 +99,7 @@ export default function Header() {
                 <Link
                   key={link.key}
                   href={getHref(link)}
+                  data-no-override
                   className={`text-[13px] font-medium uppercase tracking-widest transition-colors duration-300 ${
                     scrolled
                       ? "text-primary/70 hover:text-primary"

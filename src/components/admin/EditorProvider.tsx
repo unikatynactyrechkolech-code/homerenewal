@@ -62,6 +62,10 @@ const EDITABLE_SELECTORS = [
 ].join(",");
 
 function isLeafText(el: Element): boolean {
+  // Přeskočit prvky označené jako no-override nebo uvnitř headeru
+  if (el.hasAttribute("data-no-override")) return false;
+  if (el.closest("header")) return false;
+
   // Editujeme jen elementy, jejichž PŘÍMÝ obsah je text (žádné child elementy
   // s vlastním textem). Tím se vyhneme rodičům, kteří jen obalují další text.
   const text = (el.textContent ?? "").trim();
