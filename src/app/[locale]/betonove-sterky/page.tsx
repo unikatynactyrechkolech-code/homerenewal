@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import SiteImage from "@/components/SiteImage";
 import { FadeIn } from "@/components/FadeIn";
 import { ArrowRight, Minus, Shield, Palette, Sparkles } from "lucide-react";
 
@@ -51,6 +52,7 @@ export default function BetonoveSterkyPage() {
         title={t("hero.title")}
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80"
+        imageEditKey="betonove-sterky/hero"
       />
 
       {/* Intro */}
@@ -135,34 +137,26 @@ export default function BetonoveSterkyPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn>
               <div className="grid grid-cols-2 gap-4">
-                <div className="aspect-square rounded-2xl overflow-hidden">
-                  <img
-                    src={galleryImages[0]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-square rounded-2xl overflow-hidden mt-8">
-                  <img
-                    src={galleryImages[1]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-square rounded-2xl overflow-hidden">
-                  <img
-                    src={galleryImages[2]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-square rounded-2xl overflow-hidden mt-8">
-                  <img
-                    src={galleryImages[3]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <SiteImage
+                  editKey="betonove-sterky/app-1"
+                  defaultSrc={galleryImages[0]}
+                  className="aspect-square rounded-2xl overflow-hidden"
+                />
+                <SiteImage
+                  editKey="betonove-sterky/app-2"
+                  defaultSrc={galleryImages[1]}
+                  className="aspect-square rounded-2xl overflow-hidden mt-8"
+                />
+                <SiteImage
+                  editKey="betonove-sterky/app-3"
+                  defaultSrc={galleryImages[2]}
+                  className="aspect-square rounded-2xl overflow-hidden"
+                />
+                <SiteImage
+                  editKey="betonove-sterky/app-4"
+                  defaultSrc={galleryImages[3]}
+                  className="aspect-square rounded-2xl overflow-hidden mt-8"
+                />
               </div>
             </FadeIn>
 
@@ -204,13 +198,12 @@ export default function BetonoveSterkyPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {galleryImages.map((src, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden group">
-                  <img
-                    src={src}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
+                <SiteImage
+                  editKey={`betonove-sterky/gallery-${i + 1}`}
+                  defaultSrc={src}
+                  className="aspect-[4/3] rounded-2xl overflow-hidden group block"
+                  imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
               </FadeIn>
             ))}
           </div>

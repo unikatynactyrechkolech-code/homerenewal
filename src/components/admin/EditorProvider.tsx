@@ -33,6 +33,12 @@ type EditorContextValue = {
   publishing: boolean;
   publish: () => Promise<{ ok: boolean; error?: string }>;
   discard: () => void;
+  /** Vrátí override URL pro obrázek (z pending nebo z DB), nebo null. */
+  getImage: (key: string) => string | null;
+  /** Nastaví override URL pro obrázek do draftu (publikuje se přes Publish). */
+  setImage: (key: string, url: string) => void;
+  /** Vymaže override pro obrázek z DB i draftu. */
+  resetImage: (key: string) => Promise<void>;
 };
 
 const Ctx = createContext<EditorContextValue | null>(null);
@@ -41,6 +47,11 @@ export function useEditor() {
   const v = useContext(Ctx);
   if (!v) throw new Error("useEditor must be used within EditorProvider");
   return v;
+}
+
+/** Verze, kter\u00e1 nepad\u00e1 \u2014 vrac\u00ed null kdy\u017e provider chyb\u00ed. */
+export function useEditorOptional() {
+  return useContext(Ctx);
 }
 
 /* ── Selektory editovatelných elementů ─────────────────────────── */
@@ -306,6 +317,39 @@ export default function EditorProvider({
     window.location.reload();
   }, [pending]);
 
+  /* ── Image overrides API ───────────────────────────── */
+  const getImage = useCallback(
+    (key: string): string | null => {
+      const k = `img::${key}`;
+      const o = pending[k] ?? overrides[k];
+      return o?.text || null;
+    },
+    [pending, overrides],
+  );
+
+  const setImage = useCallback((key: string, url: string) => {
+    const k = `img::${key}`;
+    setPending((p) => ({
+      ...p,
+      [k]: { text: url, font_family: null, font_size: null, font_weight: null, color: null },
+    }));
+  }, []);
+
+  const resetImage = useCallback(async (key: string) => {
+    const k = `img::${key}`;
+    await fetch(`/api/content?key=${encodeURIComponent(k)}`, { method: "DELETE" });
+    setOverrides((o) => {
+      const n = { ...o };
+      delete n[k];
+      return n;
+    });
+    setPending((p) => {
+      const n = { ...p };
+      delete n[k];
+      return n;
+    });
+  }, []);
+
   const value = useMemo(
     () => ({
       isAdmin,
@@ -319,8 +363,11 @@ export default function EditorProvider({
       publishing,
       publish,
       discard,
+      getImage,
+      setImage,
+      resetImage,
     }),
-    [isAdmin, editMode, refresh, login, logout, dbConfigured, pending, publishing, publish, discard],
+    [isAdmin, editMode, refresh, login, logout, dbConfigured, pending, publishing, publish, discard, getImage, setImage, resetImage],
   );
 
   /* ── Save handler pro panel: aplikuj jen lokálně (draft) ────── */

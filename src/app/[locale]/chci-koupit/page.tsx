@@ -48,6 +48,7 @@ export default function ChciKoupitPage() {
         title={t("hero.title")}
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=80"
+        imageEditKey="chci-koupit/hero"
       />
 
       {/* Listings */}

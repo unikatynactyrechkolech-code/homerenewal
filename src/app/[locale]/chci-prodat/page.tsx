@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import SiteImage from "@/components/SiteImage";
 import { FadeIn } from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 import { ArrowRight, Check, ChevronDown, Minus, Star } from "lucide-react";
@@ -49,6 +50,7 @@ export default function ChciProdatPage() {
         title={t("hero.title")}
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80"
+        imageEditKey="chci-prodat/hero"
       />
 
       {/* Intro */}
@@ -245,10 +247,12 @@ export default function ChciProdatPage() {
                   </Link>
                 </div>
                 <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[460px]">
-                  <img
-                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
+                  <SiteImage
+                    editKey="chci-prodat/cross-promo"
+                    defaultSrc="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
                     alt=""
-                    className="absolute inset-0 w-full h-full object-cover opacity-90"
+                    className="absolute inset-0"
+                    imgClassName="w-full h-full object-cover opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-transparent to-primary/40 lg:to-primary/10" />
                 </div>

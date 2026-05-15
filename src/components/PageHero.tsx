@@ -2,12 +2,15 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import SiteImage from "./SiteImage";
 
 interface PageHeroProps {
   label: string;
   title: string;
   description: string;
   image?: string;
+  /** Stabiln\u00ed kl\u00ed\u010d pro editaci hero obr\u00e1zku z adminu. */
+  imageEditKey?: string;
 }
 
 export default function PageHero({
@@ -15,6 +18,7 @@ export default function PageHero({
   title,
   description,
   image,
+  imageEditKey,
 }: PageHeroProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -37,7 +41,18 @@ export default function PageHero({
       >
         {image ? (
           <>
-            <img src={image} alt="" className="w-full h-full object-cover" />
+            {imageEditKey ? (
+              <SiteImage
+                editKey={imageEditKey}
+                defaultSrc={image}
+                alt=""
+                className="w-full h-full"
+                imgClassName="w-full h-full object-cover"
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={image} alt="" className="w-full h-full object-cover" />
+            )}
             <div className="absolute inset-0 bg-primary/80" />
           </>
         ) : (

@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import SiteImage from "@/components/SiteImage";
 import { FadeIn } from "@/components/FadeIn";
 import {
   ArrowRight,
@@ -34,6 +35,7 @@ export default function RekonstrukcePage() {
         title={t("hero.title")}
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80"
+        imageEditKey="rekonstrukce/hero"
       />
 
       {/* Intro */}
@@ -102,13 +104,12 @@ export default function RekonstrukcePage() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2}>
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=900&q=80"
-                  alt="Renovation work"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <SiteImage
+                editKey="rekonstrukce/standards"
+                defaultSrc="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=900&q=80"
+                alt="Renovation work"
+                className="aspect-[4/5] rounded-2xl overflow-hidden"
+              />
             </FadeIn>
           </div>
         </div>
@@ -150,10 +151,12 @@ export default function RekonstrukcePage() {
             <div className="relative overflow-hidden rounded-3xl bg-primary">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[460px]">
-                  <img
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80"
+                  <SiteImage
+                    editKey="rekonstrukce/concrete-spotlight"
+                    defaultSrc="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80"
                     alt="Concrete screeds"
-                    className="absolute inset-0 w-full h-full object-cover opacity-90"
+                    className="absolute inset-0"
+                    imgClassName="w-full h-full object-cover opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary/40 lg:to-primary/10" />
                 </div>
