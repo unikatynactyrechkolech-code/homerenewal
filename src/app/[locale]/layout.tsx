@@ -1,5 +1,5 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "@/app/globals.css";
@@ -27,6 +27,9 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Bez middlewaru je potřeba locale nastavit ručně pro server requesty.
+  setRequestLocale(locale);
 
   const messages = await getMessages();
   const initialContent = await loadAllContent();
@@ -130,7 +133,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <EditorProvider initialContent={initialContent}>
             <LoadingScreen />
             <Header />

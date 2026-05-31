@@ -119,11 +119,11 @@ function HeroSection() {
           transition={{ duration: 0.7, delay: 0.7 }}
           className="flex gap-3 sm:gap-4"
         >
-          <Link href={`/${locale}${locale === "cs" ? "/kontakt" : "/contact"}`}
+          <Link href={`/${locale}/kontakt`}
             className="inline-flex items-center justify-center bg-accent hover:bg-accent-dark text-white px-5 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-medium uppercase tracking-wider transition-all duration-300">
             {t("cta")}
           </Link>
-          <Link href={`/${locale}${locale === "cs" ? "/chci-koupit" : "/buy"}`}
+          <Link href={`/${locale}/chci-koupit`}
             className="inline-flex items-center justify-center border border-white/30 hover:border-white text-white px-5 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-medium uppercase tracking-wider transition-all duration-300">
             {t("ctaSecondary")}
           </Link>
@@ -186,9 +186,9 @@ function SectionsSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const blobY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   const sections = [
-    { icon: Tag, titleKey: "sell.title" as const, descKey: "sell.description" as const, ctaKey: "sell.cta" as const, href: locale === "cs" ? "/chci-prodat" : "/sell" },
-    { icon: Search, titleKey: "buy.title" as const, descKey: "buy.description" as const, ctaKey: "buy.cta" as const, href: locale === "cs" ? "/chci-koupit" : "/buy" },
-    { icon: Hammer, titleKey: "renovate.title" as const, descKey: "renovate.description" as const, ctaKey: "renovate.cta" as const, href: locale === "cs" ? "/rekonstrukce" : "/renovations" },
+    { icon: Tag, titleKey: "sell.title" as const, descKey: "sell.description" as const, ctaKey: "sell.cta" as const, href: "/chci-prodat" },
+    { icon: Search, titleKey: "buy.title" as const, descKey: "buy.description" as const, ctaKey: "buy.cta" as const, href: "/chci-koupit" },
+    { icon: Hammer, titleKey: "renovate.title" as const, descKey: "renovate.description" as const, ctaKey: "renovate.cta" as const, href: "/rekonstrukce" },
   ];
   return (
     <section ref={ref} className="py-32 bg-white relative overflow-hidden">
@@ -301,7 +301,7 @@ function ListingsSection() {
               <div className="w-16 h-[2px] bg-accent mt-4" />
               <p className="text-muted text-lg mt-6 max-w-xl">{t("description")}</p>
             </div>
-            <Link href={`/${locale}${locale === "cs" ? "/chci-koupit" : "/buy"}`}
+            <Link href={`/${locale}/chci-koupit`}
               className="group inline-flex items-center gap-2 text-accent text-sm font-medium hover:gap-3 transition-all shrink-0">
               {t("viewAll")} <ArrowUpRight className="w-4 h-4" />
             </Link>

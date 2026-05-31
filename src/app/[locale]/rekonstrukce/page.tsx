@@ -168,7 +168,7 @@ export default function RekonstrukcePage() {
                     {t("concreteScreeds.description")}
                   </p>
                   <Link
-                    href={`/${locale}${locale === "cs" ? "/betonove-sterky" : "/concrete-screeds"}`}
+                    href={`/${locale}/betonove-sterky`}
                     className="group inline-flex items-center gap-3 bg-accent hover:bg-accent-dark text-white px-8 py-4 text-sm font-medium uppercase tracking-wider transition-all duration-300 self-start"
                   >
                     {t("concreteScreeds.cta")}
@@ -192,7 +192,7 @@ export default function RekonstrukcePage() {
               {t("cta.description")}
             </p>
             <Link
-              href={`/${locale}${locale === "cs" ? "/kontakt" : "/contact"}`}
+              href={`/${locale}/kontakt`}
               className="group inline-flex items-center gap-3 bg-accent hover:bg-accent-dark text-white px-10 py-4 text-sm font-medium uppercase tracking-wider transition-all duration-300"
             >
               {t("cta.button")}

@@ -62,7 +62,7 @@ export default function PageTransition({
             className="fixed inset-0 z-[9998] flex items-center justify-center"
           >
             <motion.div
-              className="absolute inset-0 bg-primary"
+              className="absolute inset-0 bg-brand"
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               exit={{ y: "-100%" }}
@@ -76,10 +76,10 @@ export default function PageTransition({
               transition={{ duration: 0.2, delay: 0.1, ease: "easeOut" }}
             >
               <Image
-                src="/logo.png"
+                src="/logo-color.png"
                 alt="Home Renewal"
-                width={160}
-                height={40}
+                width={176}
+                height={44}
                 className="brightness-0 invert h-10 w-auto"
               />
             </motion.div>

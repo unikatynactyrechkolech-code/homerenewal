@@ -9,11 +9,11 @@ import { Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { key: "sell", href: "/chci-prodat", hrefEn: "/sell" },
-  { key: "buy", href: "/chci-koupit", hrefEn: "/buy" },
-  { key: "renovations", href: "/rekonstrukce", hrefEn: "/renovations" },
-  { key: "about", href: "/o-nas", hrefEn: "/about" },
-  { key: "contact", href: "/kontakt", hrefEn: "/contact" },
+  { key: "sell", href: "/chci-prodat" },
+  { key: "buy", href: "/chci-koupit" },
+  { key: "renovations", href: "/rekonstrukce" },
+  { key: "about", href: "/o-nas" },
+  { key: "contact", href: "/kontakt" },
 ];
 
 export default function Header() {
@@ -62,7 +62,7 @@ export default function Header() {
   if (hideHeader) return null;
 
   const getHref = (link: (typeof navLinks)[0]) =>
-    `/${locale}${locale === "cs" ? link.href : link.hrefEn}`;
+    `/${locale}${link.href}`;
 
   const switchLocale = locale === "cs" ? "en" : "cs";
   const switchPath = pathname.replace(`/${locale}`, `/${switchLocale}`);
@@ -84,16 +84,14 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <Link href={`/${locale}`} className="shrink-0" onClick={close}>
-              {/* Tmavé logo na bílém headeru, bílé (invertované) na průhledném */}
+              {/* Tmavě modré logo — viditelné od začátku: na průhledném i bílém headeru. */}
               <Image
-                src="/logo.png"
+                src="/logo-color.png"
                 alt="Home Renewal"
-                width={120}
-                height={30}
+                width={132}
+                height={33}
                 priority
-                className={`h-6 sm:h-7 w-auto transition-all duration-300 ${
-                  onLight ? "brightness-0" : "brightness-0 invert"
-                }`}
+                className="h-6 sm:h-7 w-auto transition-all duration-300"
               />
             </Link>
 

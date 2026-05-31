@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import SiteImage from "@/components/SiteImage";
 import { FadeIn } from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
-import { ArrowRight, Check, ChevronDown, Minus, Star } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Minus, Star, X } from "lucide-react";
 import { useState } from "react";
 
 type Variant = "a" | "b" | "c";
@@ -17,6 +17,7 @@ const ROW_KEYS: RowKey[] = ["money", "renovation", "marketing", "legal"];
 type FaqItem = { question: string; answer: string };
 type CrossPromoBullets = string[];
 type VariantBullets = string[];
+type BenefitRow = { label: string; a: boolean; b: boolean; common: boolean };
 
 export default function ChciProdatPage() {
   const t = useTranslations("sell");
@@ -42,6 +43,7 @@ export default function ChciProdatPage() {
 
   const faqItems: FaqItem[] = t.raw("faq.items");
   const crossPromoBullets: CrossPromoBullets = t.raw("crossPromo.bullets");
+  const benefitRows: BenefitRow[] = t.raw("benefits.rows");
 
   return (
     <>
@@ -123,6 +125,74 @@ export default function ChciProdatPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Benefits — proč my vs. běžný prodej */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-14 max-w-2xl mx-auto">
+              <span className="inline-block text-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
+                {t("benefits.label")}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+                {t("benefits.title")}
+              </h2>
+              <p className="text-muted text-lg leading-relaxed">
+                {t("benefits.description")}
+              </p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <div className="bg-white rounded-3xl border border-border/50 shadow-sm overflow-hidden">
+              {/* Header */}
+              <div className="grid grid-cols-[1.5fr_repeat(3,1fr)] sm:grid-cols-[2fr_repeat(3,1fr)]">
+                <div className="p-4 sm:p-6" />
+                <div className="p-3 sm:p-6 text-center text-[11px] sm:text-sm font-semibold text-primary border-l border-border/40 leading-tight">
+                  {t("benefits.columns.a")}
+                </div>
+                <div className="p-3 sm:p-6 text-center text-[11px] sm:text-sm font-semibold text-primary border-l border-border/40 leading-tight">
+                  {t("benefits.columns.b")}
+                </div>
+                <div className="p-3 sm:p-6 text-center text-[11px] sm:text-sm font-semibold text-muted border-l border-border/40 leading-tight">
+                  {t("benefits.columns.common")}
+                </div>
+              </div>
+              <div className="h-px bg-border/60" />
+
+              {/* Rows */}
+              {benefitRows.map((row, idx) => (
+                <div
+                  key={idx}
+                  className={`grid grid-cols-[1.5fr_repeat(3,1fr)] sm:grid-cols-[2fr_repeat(3,1fr)] items-center ${
+                    idx % 2 === 1 ? "bg-surface/50" : "bg-white"
+                  }`}
+                >
+                  <div className="p-4 sm:p-6 text-[13px] sm:text-sm text-primary leading-snug">
+                    {row.label}
+                  </div>
+                  {(["a", "b", "common"] as const).map((col) => (
+                    <div
+                      key={col}
+                      className="flex items-center justify-center p-4 sm:p-6 border-l border-border/40"
+                    >
+                      {row[col] ? (
+                        <span className="inline-flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-accent/10 text-accent">
+                          <Check className="w-4 h-4 sm:w-[18px] sm:h-[18px]" strokeWidth={3} />
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-red-50 text-red-400">
+                          <X className="w-4 h-4 sm:w-[18px] sm:h-[18px]" strokeWidth={3} />
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -239,7 +309,7 @@ export default function ChciProdatPage() {
                     ))}
                   </ul>
                   <Link
-                    href={`/${locale}${locale === "cs" ? "/chci-koupit" : "/buy"}`}
+                    href={`/${locale}/chci-koupit`}
                     className="group inline-flex items-center gap-3 bg-accent hover:bg-accent-dark text-white px-8 py-4 text-sm font-medium uppercase tracking-wider transition-all duration-300 self-start"
                   >
                     {t("crossPromo.cta")}

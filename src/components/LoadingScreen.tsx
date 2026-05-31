@@ -36,7 +36,7 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-primary"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-brand"
         >
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
@@ -44,10 +44,10 @@ export default function LoadingScreen() {
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
-              src="/logo.png"
+              src="/logo-color.png"
               alt="Home Renewal"
-              width={200}
-              height={50}
+              width={220}
+              height={55}
               priority
               className="brightness-0 invert h-12 w-auto"
             />

@@ -2,18 +2,19 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 const serviceLinks = [
-  { key: "sell", href: "/chci-prodat", hrefEn: "/sell", source: "nav" as const },
-  { key: "buy", href: "/chci-koupit", hrefEn: "/buy", source: "nav" as const },
-  { key: "renovations", href: "/rekonstrukce", hrefEn: "/renovations", source: "nav" as const },
-  { key: "concreteScreeds", href: "/betonove-sterky", hrefEn: "/concrete-screeds", source: "footer" as const },
+  { key: "sell", href: "/chci-prodat", source: "nav" as const },
+  { key: "buy", href: "/chci-koupit", source: "nav" as const },
+  { key: "renovations", href: "/rekonstrukce", source: "nav" as const },
+  { key: "concreteScreeds", href: "/betonove-sterky", source: "footer" as const },
 ];
 
 const companyLinks = [
-  { key: "about", href: "/o-nas", hrefEn: "/about", source: "nav" as const },
-  { key: "contact", href: "/kontakt", hrefEn: "/contact", source: "nav" as const },
+  { key: "about", href: "/o-nas", source: "nav" as const },
+  { key: "contact", href: "/kontakt", source: "nav" as const },
 ];
 
 export default function Footer() {
@@ -21,10 +22,7 @@ export default function Footer() {
   const tNav = useTranslations("nav");
   const locale = useLocale();
 
-  const getHref = (link: { href: string; hrefEn?: string }) => {
-    if (!link.hrefEn) return `/${locale}${link.href}`;
-    return `/${locale}${locale === "cs" ? link.href : link.hrefEn}`;
-  };
+  const getHref = (link: { href: string }) => `/${locale}${link.href}`;
 
   return (
     <footer className="bg-primary text-white">
@@ -34,9 +32,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href={`/${locale}`} className="inline-block mb-6">
-              <span className="text-2xl font-bold tracking-tight">
-                HOME<span className="text-accent font-light">RENEWAL</span>
-              </span>
+              <Image
+                src="/logo-color.png"
+                alt="Home Renewal"
+                width={176}
+                height={44}
+                className="brightness-0 invert h-7 w-auto"
+              />
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               {t("description")}

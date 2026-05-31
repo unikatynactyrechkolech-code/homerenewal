@@ -143,10 +143,24 @@
         "legal": { "label": "Legal & land registry", "a": "Included", "b": "Included", "c": "Included" }
       }
     },
+    "benefits": {
+      "label": "WHY US",
+      "title": "Why sell through Home Renewal",
+      "description": "Compare what you get with us versus a traditional sale through an agency.",
+      "columns": { "a": "Variant A", "b": "Variant B", "common": "Traditional sale" },
+      "rows": [
+        { "label": "You instantly know your selling price", "a": true, "b": true, "common": false },
+        { "label": "No listings or viewings — we handle it all", "a": true, "b": true, "common": false },
+        { "label": "No real-estate agent fees", "a": true, "b": true, "common": false },
+        { "label": "You set your own move-out date", "a": true, "b": false, "common": false },
+        { "label": "Option of early payout of the purchase price", "a": true, "b": false, "common": false },
+        { "label": "We renovate the property at our own cost", "a": false, "b": true, "common": false }
+      ]
+    },
     "process": {
       "title": "How it works",
-      "step1": { "title": "Get in touch", "description": "Fill in the form or call us. We'll go through the basic property parameters." },
-      "step2": { "title": "Non-binding offer", "description": "After viewing the property we'll prepare a non-binding price offer." },
+      "step1": { "title": "Get in touch", "description": "Fill in the form or call us — we'll get back to you within 24 hours and go through the basic property parameters." },
+      "step2": { "title": "Non-binding offer", "description": "After viewing the property we'll prepare a non-binding price offer. You pay nothing and commit to nothing." },
       "step3": { "title": "Choose a variant", "description": "Pick the option that suits you and we sign a contract." },
       "step4": { "title": "Execution", "description": "We handle everything else — paperwork, land registry and handover." }
     },

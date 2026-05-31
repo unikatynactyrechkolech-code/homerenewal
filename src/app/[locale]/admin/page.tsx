@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Link from "next/link";
@@ -61,7 +61,7 @@ type Option = {
   sort_order: number;
 };
 
-export default function AdminPage() {
+function AdminPageInner() {
   const { isAdmin } = useEditor();
   const sp = useSearchParams();
   const router = useRouter();
@@ -506,5 +506,13 @@ function AdminLoginScreen({ locale }: { locale: string }) {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense fallback={null}>
+      <AdminPageInner />
+    </Suspense>
   );
 }
