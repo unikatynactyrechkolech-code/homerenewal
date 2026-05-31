@@ -6,13 +6,10 @@ import PageHero from "@/components/PageHero";
 import SiteImage from "@/components/SiteImage";
 import { FadeIn } from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
-import { ArrowRight, Check, ChevronDown, Minus, Star, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Star, X } from "lucide-react";
 import { useState } from "react";
 
-type Variant = "a" | "b" | "c";
-type RowKey = "money" | "renovation" | "marketing" | "legal";
-
-const ROW_KEYS: RowKey[] = ["money", "renovation", "marketing", "legal"];
+type Variant = "a" | "b";
 
 type FaqItem = { question: string; answer: string };
 type CrossPromoBullets = string[];
@@ -26,20 +23,8 @@ export default function ChciProdatPage() {
 
   const variants: Array<{ key: Variant; highlighted: boolean }> = [
     { key: "a", highlighted: true },
-    { key: "b", highlighted: true },
-    { key: "c", highlighted: false },
+    { key: "b", highlighted: false },
   ];
-
-  const renderValue = (value: string) => {
-    if (value === "—") {
-      return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-muted/10 text-muted/60">
-          <Minus className="w-3.5 h-3.5" />
-        </span>
-      );
-    }
-    return <span className="text-sm text-primary font-medium">{value}</span>;
-  };
 
   const faqItems: FaqItem[] = t.raw("faq.items");
   const crossPromoBullets: CrossPromoBullets = t.raw("crossPromo.bullets");
@@ -53,6 +38,8 @@ export default function ChciProdatPage() {
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80"
         imageEditKey="chci-prodat/hero"
+        ctaLabel={t("hero.cta")}
+        ctaHref={`/${locale}/kontakt`}
       />
 
       {/* Intro */}
@@ -71,10 +58,52 @@ export default function ChciProdatPage() {
         </div>
       </section>
 
+      {/* Process — Jak to funguje (3 kroky) */}
+      <section className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                {t("process.title")}
+              </h2>
+              <div className="w-16 h-[2px] bg-accent mx-auto mt-6" />
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-8">
+            {[1, 2, 3].map((n, i) => (
+              <FadeIn key={n} delay={i * 0.12}>
+                <div className="relative h-full">
+                  <div className="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold mb-6">
+                    {n}
+                  </div>
+                  <h3 className="text-lg font-bold text-primary mb-3 leading-snug">
+                    {t(`process.step${n}.title`)}
+                  </h3>
+                  <p className="text-muted text-sm leading-relaxed">
+                    {t(`process.step${n}.description`)}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Variant cards with bullets */}
       <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-14 max-w-2xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+                {t("variants.heading")}
+              </h2>
+              <p className="text-muted text-lg leading-relaxed">
+                {t("variants.subheading")}
+              </p>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {variants.map((v, i) => {
               const bullets: VariantBullets = t.raw(
                 `variants.${v.key}.bullets`,
@@ -100,7 +129,7 @@ export default function ChciProdatPage() {
                     <p className="text-muted text-sm mb-6">
                       {t(`variants.${v.key}.tagline`)}
                     </p>
-                    <ul className="space-y-3 mb-8 flex-1">
+                    <ul className="space-y-3 flex-1">
                       {bullets.map((b, j) => (
                         <li key={j} className="flex items-start gap-3">
                           <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
@@ -110,16 +139,6 @@ export default function ChciProdatPage() {
                         </li>
                       ))}
                     </ul>
-                    <a
-                      href="#sell-form"
-                      className={`inline-flex w-full items-center justify-center px-6 py-3 text-xs font-medium uppercase tracking-wider transition-all duration-300 ${
-                        v.highlighted
-                          ? "bg-accent hover:bg-accent-dark text-white"
-                          : "border border-primary/20 text-primary hover:bg-primary hover:text-white"
-                      }`}
-                    >
-                      {t(`variants.${v.key}.cta`)}
-                    </a>
                   </div>
                 </FadeIn>
               );
@@ -193,97 +212,6 @@ export default function ChciProdatPage() {
               ))}
             </div>
           </FadeIn>
-        </div>
-      </section>
-
-      {/* Comparison table */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <FadeIn>
-            <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
-                {t("variants.title")}
-              </h2>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.15}>
-            <div className="bg-white rounded-2xl border border-border/50 overflow-hidden">
-              <div className="hidden md:grid grid-cols-4 bg-primary text-white">
-                <div className="p-5 text-xs font-semibold uppercase tracking-wider text-white/60">
-                  {t("variants.featureColumn")}
-                </div>
-                {variants.map((v) => (
-                  <div
-                    key={v.key}
-                    className={`p-5 text-center text-xs font-semibold uppercase tracking-wider ${
-                      v.highlighted ? "bg-accent text-white" : "text-white/80"
-                    }`}
-                  >
-                    {t(`variants.${v.key}.subtitle`)}
-                  </div>
-                ))}
-              </div>
-
-              {ROW_KEYS.map((rowKey, idx) => (
-                <div
-                  key={rowKey}
-                  className={`grid grid-cols-1 md:grid-cols-4 ${
-                    idx % 2 === 1 ? "bg-surface" : "bg-white"
-                  }`}
-                >
-                  <div className="p-5 text-sm font-semibold text-primary border-b md:border-b-0 md:border-r border-border/50">
-                    {t(`variants.rows.${rowKey}.label`)}
-                  </div>
-                  {variants.map((v) => (
-                    <div
-                      key={v.key}
-                      className={`flex items-center justify-between md:justify-center gap-3 p-5 border-b md:border-b-0 md:border-r border-border/50 last:border-r-0 ${
-                        v.highlighted ? "md:bg-accent/5" : ""
-                      }`}
-                    >
-                      <span className="md:hidden text-xs font-medium text-muted uppercase tracking-wider">
-                        {t(`variants.${v.key}.subtitle`)}
-                      </span>
-                      {renderValue(t(`variants.rows.${rowKey}.${v.key}`))}
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-16 text-center">
-              {t("process.title")}
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((n, i) => (
-              <FadeIn key={n} delay={i * 0.1}>
-                <div className="relative">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold">
-                      {n}
-                    </div>
-                    <div className="flex-1 h-[1px] bg-border" />
-                  </div>
-                  <h3 className="text-lg font-bold text-primary mb-3">
-                    {t(`process.step${n}.title`)}
-                  </h3>
-                  <p className="text-muted text-sm leading-relaxed">
-                    {t(`process.step${n}.description`)}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -67,7 +67,10 @@ export default function Header() {
   const switchLocale = locale === "cs" ? "en" : "cs";
   const switchPath = pathname.replace(`/${locale}`, `/${switchLocale}`);
 
-  const onLight = scrolled || isOpen;
+  // Průhledný header (kvůli hero videu) je jen na úvodní stránce.
+  // Všechny ostatní podstránky mají bílý pruh už od začátku.
+  const isHome = /^\/(cs|en)\/?$/.test(pathname || "");
+  const onLight = scrolled || isOpen || !isHome;
 
   return (
     <>
@@ -103,7 +106,7 @@ export default function Header() {
                   href={getHref(link)}
                   data-no-override
                   className={`text-[13px] font-medium uppercase tracking-widest transition-colors duration-300 ${
-                    scrolled
+                    onLight
                       ? "text-primary/70 hover:text-primary"
                       : "text-white/80 hover:text-white"
                   }`}

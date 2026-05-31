@@ -2,6 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import SiteImage from "./SiteImage";
 
 interface PageHeroProps {
@@ -9,8 +11,11 @@ interface PageHeroProps {
   title: string;
   description: string;
   image?: string;
-  /** Stabiln\u00ed kl\u00ed\u010d pro editaci hero obr\u00e1zku z adminu. */
+  /** Stabilní klíč pro editaci hero obrázku z adminu. */
   imageEditKey?: string;
+  /** Volitelné CTA tlačítko v hero sekci. */
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
 export default function PageHero({
@@ -19,6 +24,8 @@ export default function PageHero({
   description,
   image,
   imageEditKey,
+  ctaLabel,
+  ctaHref,
 }: PageHeroProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -92,6 +99,23 @@ export default function PageHero({
         >
           {description}
         </motion.p>
+
+        {ctaLabel && ctaHref && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="mt-10"
+          >
+            <Link
+              href={ctaHref}
+              className="group inline-flex items-center gap-3 bg-accent hover:bg-accent-dark text-white px-8 py-4 text-sm font-medium uppercase tracking-wider transition-all duration-300"
+            >
+              {ctaLabel}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        )}
       </motion.div>
     </section>
   );

@@ -36,7 +36,7 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-brand"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white"
         >
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
@@ -49,7 +49,7 @@ export default function LoadingScreen() {
               width={220}
               height={55}
               priority
-              className="brightness-0 invert h-12 w-auto"
+              className="h-12 w-auto"
             />
           </motion.div>
 

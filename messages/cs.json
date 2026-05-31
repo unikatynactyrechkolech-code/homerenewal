@@ -88,8 +88,9 @@
   "sell": {
     "hero": {
       "label": "CHCI PRODAT",
-      "title": "Chci prodat nemovitost",
-      "description": "Vyberte si variantu, která vám vyhovuje. Hlavní důraz klademe na varianty A a B, kde se postaráme úplně o vše."
+      "title": "Prodat nemovitost nebylo nikdy snazší",
+      "description": "Cenovou nabídku dostanete online, termín prodeje si zvolíte podle sebe. S námi navíc neřešíte žádnou inzerci ani prohlídky.",
+      "cta": "Kontaktujte nás"
     },
     "intro": {
       "title": "Tři varianty prodeje",
@@ -97,6 +98,8 @@
     },
     "variants": {
       "title": "Porovnání variant",
+      "heading": "Můžete si vybrat ze dvou variant prodeje",
+      "subheading": "Obě varianty vás zbaví starostí s inzercí, prohlídkami i administrativou. Liší se jen tím, kdy dostanete peníze a zda nemovitost nejdřív zrekonstruujeme.",
       "description": "",
       "recommended": "Doporučujeme",
       "featureColumn": "Co získáte",
@@ -144,10 +147,10 @@
       }
     },
     "benefits": {
-      "label": "PROČ MY",
+      "label": "POROVNÁNÍ",
       "title": "Proč prodat přes Home Renewal",
-      "description": "Porovnejte, co u nás získáte oproti běžnému prodeji přes realitní kancelář.",
-      "columns": { "a": "Varianta A", "b": "Varianta B", "common": "Běžný prodej" },
+      "description": "Porovnejte odkup nemovitosti (varianta A) a rekonstrukci s prodejem (varianta B) s běžným prodejem přes realitní kancelář.",
+      "columns": { "a": "Odkup nemovitosti", "b": "Rekonstrukce a prodej", "common": "Běžný prodej" },
       "rows": [
         { "label": "Okamžitě víte, za kolik nemovitost prodáte", "a": true, "b": true, "common": false },
         { "label": "Neřešíte žádnou inzerci ani prohlídky, vše řešíme my", "a": true, "b": true, "common": false },
@@ -159,10 +162,9 @@
     },
     "process": {
       "title": "Jak to funguje",
-      "step1": { "title": "Ozvěte se nám", "description": "Vyplňte formulář nebo zavolejte — ozveme se vám do 24 hodin a probereme základní parametry nemovitosti." },
-      "step2": { "title": "Nezávazná nabídka", "description": "Po prohlídce nemovitosti vám připravíme nezávaznou cenovou nabídku. Nic neplatíte a k ničemu se nezavazujete." },
-      "step3": { "title": "Výběr varianty", "description": "Vyberete si variantu, která vám sedí, a podepíšeme smlouvu." },
-      "step4": { "title": "Vyřízení", "description": "Postaráme se o vše ostatní — administrativu, katastr i předání." }
+      "step1": { "title": "Získejte na svou nemovitost okamžitou nabídku", "description": "V několika jednoduchých krocích zadáte parametry vaší nemovitosti a obratem obdržíte nezávaznou nabídku." },
+      "step2": { "title": "Ověříme zadané parametry", "description": "Spojíme se s vámi do 24 hodin, abychom ověřili zadané parametry a nabídku potvrdili." },
+      "step3": { "title": "Plácneme si", "description": "Zvolíte si variantu prodeje a datum, ke kterému chcete prodej realizovat." }
     },
     "crossPromo": {
       "label": "HLEDÁTE ZÁROVEŇ NOVÝ DOMOV?",

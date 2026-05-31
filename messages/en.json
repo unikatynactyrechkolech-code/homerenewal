@@ -88,8 +88,9 @@
   "sell": {
     "hero": {
       "label": "I WANT TO SELL",
-      "title": "I want to sell my property",
-      "description": "Pick the option that suits you best. We focus mainly on variants A and B, where we take care of absolutely everything."
+      "title": "Selling a property has never been easier",
+      "description": "Get your price offer online and choose the sale date yourself. With us you also avoid all the listings and viewings.",
+      "cta": "Contact us"
     },
     "intro": {
       "title": "Three ways to sell",
@@ -97,6 +98,8 @@
     },
     "variants": {
       "title": "Compare the options",
+      "heading": "Choose from two ways to sell",
+      "subheading": "Both options free you from listings, viewings and paperwork. They only differ in when you get the money and whether we renovate the property first.",
       "description": "",
       "recommended": "Recommended",
       "featureColumn": "What you get",
@@ -144,10 +147,10 @@
       }
     },
     "benefits": {
-      "label": "WHY US",
+      "label": "COMPARISON",
       "title": "Why sell through Home Renewal",
-      "description": "Compare what you get with us versus a traditional sale through an agency.",
-      "columns": { "a": "Variant A", "b": "Variant B", "common": "Traditional sale" },
+      "description": "Compare a buy-out (variant A) and renovation with sale (variant B) against a traditional sale through an agency.",
+      "columns": { "a": "Property buy-out", "b": "Renovation & sale", "common": "Traditional sale" },
       "rows": [
         { "label": "You instantly know your selling price", "a": true, "b": true, "common": false },
         { "label": "No listings or viewings — we handle it all", "a": true, "b": true, "common": false },
@@ -159,10 +162,9 @@
     },
     "process": {
       "title": "How it works",
-      "step1": { "title": "Get in touch", "description": "Fill in the form or call us — we'll get back to you within 24 hours and go through the basic property parameters." },
-      "step2": { "title": "Non-binding offer", "description": "After viewing the property we'll prepare a non-binding price offer. You pay nothing and commit to nothing." },
-      "step3": { "title": "Choose a variant", "description": "Pick the option that suits you and we sign a contract." },
-      "step4": { "title": "Execution", "description": "We handle everything else — paperwork, land registry and handover." }
+      "step1": { "title": "Get an instant offer for your property", "description": "In a few simple steps you enter your property parameters and instantly receive a non-binding offer." },
+      "step2": { "title": "We verify the details", "description": "We'll get in touch within 24 hours to verify the entered parameters and confirm the offer." },
+      "step3": { "title": "We shake on it", "description": "You choose your sale variant and the date on which you want the sale to happen." }
     },
     "crossPromo": {
       "label": "ALSO LOOKING FOR A NEW HOME?",
