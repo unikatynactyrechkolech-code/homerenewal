@@ -6,7 +6,8 @@ import PageHero from "@/components/PageHero";
 import { FadeIn } from "@/components/FadeIn";
 import PropertyListings from "@/components/PropertyListings";
 import ScrollImage from "@/components/ScrollImage";
-import { ArrowRight, Check, Sparkles, Hammer, Eye, Handshake } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Hammer, Eye, Handshake, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const beforeAfter = [
   {
@@ -30,14 +31,17 @@ const beforeAfter = [
 ];
 
 type WhyUsItem = { title: string; description: string };
+type FaqItem = { question: string; answer: string };
 
 export default function ChciKoupitPage() {
   const t = useTranslations("buy");
   const locale = useLocale();
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const points: string[] = t.raw("financing.points");
   const stagingServices: string[] = t.raw("beforeAfter.services");
   const whyUsItems: WhyUsItem[] = t.raw("whyUs.items");
+  const faqItems: FaqItem[] = t.raw("faq.items");
 
   const whyUsIcons = [Handshake, Hammer, Eye, Sparkles];
 
@@ -49,10 +53,12 @@ export default function ChciKoupitPage() {
         description={t("hero.description")}
         image="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=80"
         imageEditKey="chci-koupit/hero"
+        ctaLabel={t("hero.cta")}
+        ctaHref="#buy-listings"
       />
 
       {/* Listings */}
-      <section className="py-24 bg-white">
+      <section id="buy-listings" className="py-24 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="mb-14 max-w-2xl">
@@ -237,6 +243,55 @@ export default function ChciKoupitPage() {
                 </Link>
               </div>
             </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-14">
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary">
+                {t("faq.title")}
+              </h2>
+              <div className="w-16 h-[2px] bg-accent mx-auto mt-6" />
+            </div>
+          </FadeIn>
+
+          <div className="space-y-3">
+            {faqItems.map((item, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <FadeIn key={i} delay={i * 0.05}>
+                  <div
+                    className={`bg-white rounded-2xl border overflow-hidden transition-colors ${
+                      isOpen ? "border-accent/40" : "border-border/50"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 p-6 text-left hover:bg-surface/50 transition-colors"
+                    >
+                      <span className="text-base sm:text-lg font-semibold text-primary">
+                        {item.question}
+                      </span>
+                      <ChevronDown
+                        className={`w-5 h-5 text-accent shrink-0 transition-transform duration-300 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <div className="px-6 pb-6 text-muted leading-relaxed">
+                        {item.answer}
+                      </div>
+                    )}
+                  </div>
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>

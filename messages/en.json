@@ -219,8 +219,9 @@
   "buy": {
     "hero": {
       "label": "I WANT TO BUY",
-      "title": "Find your new home",
-      "description": "Current property listings, showcases of our work and full service including financing."
+      "title": "Modern living is now more accessible",
+      "description": "Choose from our offer of renovated apartments. For those in pre-sale, where renovation is still underway, you can adjust the final look to your taste.",
+      "cta": "Current offer"
     },
     "listings": {
       "title": "Current property listings",
@@ -279,6 +280,36 @@
         {
           "title": "Direct, fair dealing",
           "description": "No hidden fees, no unnecessary middlemen. You deal directly with us."
+        }
+      ]
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "When is the property handed over?",
+          "answer": "We usually hand over the property right after filing the registration petition with the land registry. The purchase price is released from escrow and the apartment is handed over. You don't have to wait for the 20-day land registry period — you take over within a few days of signing the purchase contract."
+        },
+        {
+          "question": "Can I adjust the final look of an apartment in pre-sale?",
+          "answer": "Yes. If the apartment is in pre-sale and renovation is still underway, you can choose materials, tiling, floors and layout details and tailor the apartment to your taste before completion."
+        },
+        {
+          "question": "Can I modify an already finished apartment?",
+          "answer": "Minor adjustments to finished apartments are possible by agreement. We always confirm the scope and price in advance so everything is clear."
+        },
+        {
+          "question": "Do you offer a warranty on the apartments?",
+          "answer": "Yes, you can choose a 1 or 2 year warranty. It covers repairs including plumbing, electrical and minor construction work."
+        },
+        {
+          "question": "Will you help me with financing and a mortgage?",
+          "answer": "Yes. We work with vetted mortgage brokers and banks. We'll compare offers, help with pre-approval and handle all the documents — the consultation is free and non-binding."
+        },
+        {
+          "question": "Do you buy and sell properties across the whole country?",
+          "answer": "We focus mainly on Prague and the Central Bohemia region. Other locations by agreement."
         }
       ]
     },

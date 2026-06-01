@@ -219,8 +219,9 @@
   "buy": {
     "hero": {
       "label": "CHCI KOUPIT",
-      "title": "Najděte si nový domov",
-      "description": "Aktuální nabídka nemovitostí, ukázky našich realizací a kompletní servis včetně financování."
+      "title": "Moderní bydlení je nyní dostupnější",
+      "description": "Vyberte si z naší nabídky bytů po rekonstrukci. U těch v předprodeji, kde rekonstrukce stále probíhá, můžete upravit konečnou podobu podle sebe.",
+      "cta": "Aktuální nabídka"
     },
     "listings": {
       "title": "Aktuální nabídka nemovitostí",
@@ -279,6 +280,36 @@
         {
           "title": "Férové jednání bez prostředníků",
           "description": "Žádné skryté poplatky, žádní zbyteční prostředníci. Jednáte přímo s námi."
+        }
+      ]
+    },
+    "faq": {
+      "label": "ČASTÉ DOTAZY",
+      "title": "Často se nás ptáte",
+      "items": [
+        {
+          "question": "Kdy dojde k předání nemovitosti?",
+          "answer": "Při prodeji běžně předáváme nemovitost ihned po podání návrhu na vklad do katastru. Kupní cena se uvolní z úschovy a následně dojde k předání bytu. Nemusíte tak čekat na uplynutí 20denní lhůty na katastru — byt převezmete během pár dnů od podpisu kupní smlouvy."
+        },
+        {
+          "question": "Je možné upravit konečnou podobu bytu v předprodeji?",
+          "answer": "Ano. Pokud je byt v předprodeji a rekonstrukce stále probíhá, můžete si vybrat materiály, obklady, podlahy i dispoziční detaily a přizpůsobit si tak byt podle sebe ještě před dokončením."
+        },
+        {
+          "question": "Je možné upravit byt, který je již dokončený?",
+          "answer": "U již dokončených bytů lze po dohodě provést drobné úpravy. Rozsah a cenu si vždy odsouhlasíme předem, aby bylo vše jasné."
+        },
+        {
+          "question": "Nabízíte na byty záruku?",
+          "answer": "Ano, k bytu si můžete vybrat záruku na 1 nebo 2 roky. V rámci záruky máte nárok na opravy zahrnující instalatérské, elektrikářské i drobné stavební práce."
+        },
+        {
+          "question": "Pomůžete mi s financováním a hypotékou?",
+          "answer": "Ano. Spolupracujeme s ověřenými hypotečními makléři a bankami. Porovnáme pro vás nabídky, pomůžeme s předschválením i s vyřízením všech dokumentů — konzultace je zdarma a nezávazná."
+        },
+        {
+          "question": "Kupujete a prodáváte nemovitosti po celé ČR?",
+          "answer": "Zaměřujeme se především na Prahu a Středočeský kraj. Po dohodě však řešíme i další lokality."
         }
       ]
     },
